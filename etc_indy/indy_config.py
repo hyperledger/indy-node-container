@@ -1,5 +1,5 @@
 # Current network
-NETWORK_NAME = sandbox
+NETWORK_NAME = "sandbox"
 
 # Disable stdout logging
 enableStdOutLogging = False

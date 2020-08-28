@@ -32,9 +32,9 @@ RUN echo "deb https://repo.sovrin.org/sdk/deb xenial master" >> /etc/apt/sources
 RUN apt-get update -y && apt-get install -y indy-node libindy
 RUN pip3 install python3-indy
 #USER indy
-#WORKDIR /home/indy
+WORKDIR /home/indy
 
 
-COPY ./init_and_run.sh ./
+COPY init_and_run.sh ./
 
-ENTRYPOINT ["init_and_run.sh"]
+CMD ["./init_and_run.sh"]
