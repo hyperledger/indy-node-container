@@ -17,4 +17,12 @@ services:
       - "${INDY_NODE_PORT}:${INDY_NODE_PORT}"
       - "${INDY_CLIENT_PORT}:${INDY_CLIENT_PORT}"
     volumes:
-      - ./indy:/etc/indy
+      - ./etc_indy:/etc/indy
+      - ./lib_indy:/var/lib/indy
+    environment:
+      - INDY_NETWORK_NAME=${INDY_NETWORK_NAME}
+      - INDY_NODE_NAME=${INDY_NODE_NAME}
+      - INDY_NODE_IP=${INDY_NODE_IP}
+      - INDY_NODE_PORT=${INDY_NODE_PORT}
+      - INDY_CLIENT_IP=${INDY_CLIENT_IP}
+      - INDY_CLIENT_PORT=${INDY_CLIENT_PORT}
