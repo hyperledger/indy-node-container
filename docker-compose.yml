@@ -1,0 +1,20 @@
+version: "3.8"
+
+# Edit the .env file to set variables BEOFRE building!
+
+services:
+  indy-node:
+    build:
+      context: .
+      args:
+        - INDY_NETWORK_NAME=${INDY_NETWORK_NAME}
+        - INDY_NODE_NAME=${INDY_NODE_NAME}
+        - INDY_NODE_IP=${INDY_NODE_IP}
+        - INDY_NODE_PORT=${INDY_NODE_PORT}
+        - INDY_CLIENT_IP=${INDY_CLIENT_IP}
+        - INDY_CLIENT_PORT=${INDY_CLIENT_PORT}
+    ports:
+      - "${INDY_NODE_PORT}:${INDY_NODE_PORT}"
+      - "${INDY_CLIENT_PORT}:${INDY_CLIENT_PORT}"
+    volumes:
+      - ./indy:/etc/indy
