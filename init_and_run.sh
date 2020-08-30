@@ -2,7 +2,6 @@
 
 # This script provides idempotent initialization and finally runs the indy node inside the docker container
 
-echo -e "[...]\t Indy node init"
 echo "INDY_NETWORK_NAME=${INDY_NETWORK_NAME:=sandbox}"
 echo "INDY_NODE_NAME=${INDY_NODE_NAME:=Alpha}"
 echo "INDY_NODE_IP=${INDY_NODE_IP:=0.0.0.0}"
@@ -16,11 +15,24 @@ awk '{if (index($1, "NETWORK_NAME") != 0) {print("NETWORK_NAME = \"'$INDY_NETWOR
 mv /tmp/indy_config.py /etc/indy/indy_config.py
 
 # Init indy-node
-init_indy_node $INDY_NODE_NAME $INDY_NODE_IP $INDY_NODE_PORT $INDY_CLIENT_IP $INDY_CLIENT_PORT
+if [[ ! -d "/var/lib/indy/$INDY_NETWORK_NAME/keys" ]]
+then
+    echo -e "[...]\t No keys found. Running Indy Node Init..."
+    if init_indy_node $INDY_NODE_NAME $INDY_NODE_IP $INDY_NODE_PORT $INDY_CLIENT_IP $INDY_CLIENT_PORT
+    then
+        echo -e "[OK]\t Init complete"
+    else
+        echo -e "[FAIL]\t Node Init returns $?"
+        exit 1
+    fi
+else
+    echo -e "[OK]\t Keys directory exists, skipping init."
+fi
 
 #USER root
 #CMD ["/bin/bash", "-c", "exec /sbin/init --log-target=journal 3>&1"]
 
+echo -e "[...]\t Starting Indy Node"
 
 start_indy_node "$INDY_NODE_NAME" "$INDY_NODE_IP" "$INDY_NODE_PORT" "$INDY_CLIENT_IP" "$INDY_CLIENT_PORT"
 
