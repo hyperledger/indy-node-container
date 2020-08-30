@@ -1,5 +1,5 @@
 # Current network
-NETWORK_NAME = "sandbox"
+NETWORK_NAME = "ssi4de"
 
 # Disable stdout logging
 enableStdOutLogging = False
@@ -25,4 +25,4 @@ PLUGINS_DIR = '/var/lib/indy/plugins'
 # Directory to store node info.
 NODE_INFO_DIR = '/var/lib/indy'
 
-logLevel=0
+logLevel = 0
