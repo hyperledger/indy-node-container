@@ -2,7 +2,7 @@
 NETWORK_NAME = "ssi4de"
 
 # Disable stdout logging
-enableStdOutLogging = False
+enableStdOutLogging = True
 
 # Directory to store ledger.
 LEDGER_DIR = '/var/lib/indy'
