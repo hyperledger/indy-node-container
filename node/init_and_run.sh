@@ -2,6 +2,8 @@
 
 # This script provides idempotent initialization and finally runs the indy node inside the docker container
 
+date -Iseconds
+
 echo "INDY_NETWORK_NAME=${INDY_NETWORK_NAME:=sandbox}"
 echo "INDY_NODE_NAME=${INDY_NODE_NAME:=Alpha}"
 echo "INDY_NODE_IP=${INDY_NODE_IP:=0.0.0.0}"
@@ -34,6 +36,9 @@ fi
 
 echo -e "[...]\t Starting Indy Node"
 
-start_indy_node "$INDY_NODE_NAME" "$INDY_NODE_IP" "$INDY_NODE_PORT" "$INDY_CLIENT_IP" "$INDY_CLIENT_PORT"
+echo
+
+start_indy_node "$INDY_NODE_NAME" "$INDY_NODE_IP" "$INDY_NODE_PORT" "$INDY_CLIENT_IP" "$INDY_CLIENT_PORT" &
 
 
+exec tail -f /var/log/indy/"$INDY_NETWORK_NAME"/"$INDY_NODE_NAME".log

@@ -1,24 +1,26 @@
 version: "3.8"
 
+networks:
+  internal:
+
 # Edit the .env file to set variables BEOFRE building!
 
 services:
   indy-node:
     build:
-      context: .
-      args:
-        - INDY_NETWORK_NAME=${INDY_NETWORK_NAME}
-        - INDY_NODE_NAME=${INDY_NODE_NAME}
-        - INDY_NODE_IP=${INDY_NODE_IP}
-        - INDY_NODE_PORT=${INDY_NODE_PORT}
-        - INDY_CLIENT_IP=${INDY_CLIENT_IP}
-        - INDY_CLIENT_PORT=${INDY_CLIENT_PORT}
+      context: node
     ports:
       - "${INDY_NODE_PORT}:${INDY_NODE_PORT}"
+      # TODO: open cli port to external world?
       - "${INDY_CLIENT_PORT}:${INDY_CLIENT_PORT}"
+    networks:
+      - internal
     volumes:
       - ./etc_indy:/etc/indy
       - ./lib_indy:/var/lib/indy
+    env_file:
+      - .env
+      - .node.env
     environment:
       - INDY_NETWORK_NAME=${INDY_NETWORK_NAME}
       - INDY_NODE_NAME=${INDY_NODE_NAME}
@@ -26,3 +28,22 @@ services:
       - INDY_NODE_PORT=${INDY_NODE_PORT}
       - INDY_CLIENT_IP=${INDY_CLIENT_IP}
       - INDY_CLIENT_PORT=${INDY_CLIENT_PORT}
+      - INDY_NODE_SEED=${INDY_NODE_SEED}
+    restart: always
+
+  indy-cli:
+    build:
+      context: cli
+    networks:
+      - internal
+    env_file:
+      - .env
+      - .cli.env
+    environment:
+      - INDY_NETWORK_NAME=${INDY_NETWORK_NAME}
+      - INDY_NODE_NAME=${INDY_NODE_NAME}
+      - INDY_NODE_IP=${INDY_NODE_IP}
+      - INDY_NODE_PORT=${INDY_NODE_PORT}
+      - INDY_CLIENT_IP=${INDY_CLIENT_IP}
+      - INDY_CLIENT_PORT=${INDY_CLIENT_PORT}
+      - INDY_STEWARD_SEED=${INDY_STEWARD_SEED}
