@@ -11,6 +11,7 @@ echo "INDY_NODE_PORT=${INDY_NODE_PORT:=9701}"
 echo "INDY_CLIENT_IP=${INDY_CLIENT_IP:=0.0.0.0}"
 echo "INDY_CLIENT_PORT=${INDY_CLIENT_PORT:=9702}"
 
+echo "INDY_NODE_SEED=[$(echo -n $INDY_NODE_SEED|wc -c) characters]"
 
 # Set NETWORK_NAME in indy_config.py
 awk '{if (index($1, "NETWORK_NAME") != 0) {print("NETWORK_NAME = \"'$INDY_NETWORK_NAME'\"")} else print($0)}' /etc/indy/indy_config.py> /tmp/indy_config.py
@@ -20,7 +21,7 @@ mv /tmp/indy_config.py /etc/indy/indy_config.py
 if [[ ! -d "/var/lib/indy/$INDY_NETWORK_NAME/keys" ]]
 then
     echo -e "[...]\t No keys found. Running Indy Node Init..."
-    if init_indy_node $INDY_NODE_NAME $INDY_NODE_IP $INDY_NODE_PORT $INDY_CLIENT_IP $INDY_CLIENT_PORT
+    if init_indy_node "$INDY_NODE_NAME" "$INDY_NODE_IP" "$INDY_NODE_PORT" "$INDY_CLIENT_IP" "$INDY_CLIENT_PORT" "$INDY_NODE_SEED"
     then
         echo -e "[OK]\t Init complete"
     else
@@ -38,7 +39,4 @@ echo -e "[...]\t Starting Indy Node"
 
 echo
 
-start_indy_node "$INDY_NODE_NAME" "$INDY_NODE_IP" "$INDY_NODE_PORT" "$INDY_CLIENT_IP" "$INDY_CLIENT_PORT" &
-
-
-exec tail -f /var/log/indy/"$INDY_NETWORK_NAME"/"$INDY_NODE_NAME".log
+exec start_indy_node "$INDY_NODE_NAME" "$INDY_NODE_IP" "$INDY_NODE_PORT" "$INDY_CLIENT_IP" "$INDY_CLIENT_PORT"
