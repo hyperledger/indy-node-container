@@ -11,8 +11,9 @@ services:
       context: node
     ports:
       - "${INDY_NODE_PORT}:${INDY_NODE_PORT}"
-      # TODO: open cli port to external world?
+# TODO: open cli port to external world?
       - "${INDY_CLIENT_PORT}:${INDY_CLIENT_PORT}"
+      
     networks:
       - internal
     volumes:
@@ -21,14 +22,6 @@ services:
     env_file:
       - .env
       - .node.env
-    environment:
-      - INDY_NETWORK_NAME=${INDY_NETWORK_NAME}
-      - INDY_NODE_NAME=${INDY_NODE_NAME}
-      - INDY_NODE_IP=${INDY_NODE_IP}
-      - INDY_NODE_PORT=${INDY_NODE_PORT}
-      - INDY_CLIENT_IP=${INDY_CLIENT_IP}
-      - INDY_CLIENT_PORT=${INDY_CLIENT_PORT}
-      - INDY_NODE_SEED=${INDY_NODE_SEED}
     restart: always
 
   indy-cli:
@@ -36,14 +29,11 @@ services:
       context: cli
     networks:
       - internal
+    volumes:
+      - ./cli_cfg:/home/indy/cfg
     env_file:
       - .env
       - .cli.env
-    environment:
-      - INDY_NETWORK_NAME=${INDY_NETWORK_NAME}
-      - INDY_NODE_NAME=${INDY_NODE_NAME}
-      - INDY_NODE_IP=${INDY_NODE_IP}
-      - INDY_NODE_PORT=${INDY_NODE_PORT}
-      - INDY_CLIENT_IP=${INDY_CLIENT_IP}
-      - INDY_CLIENT_PORT=${INDY_CLIENT_PORT}
-      - INDY_STEWARD_SEED=${INDY_STEWARD_SEED}
+    ports:
+      - "8080:8080"
+    restart: always
