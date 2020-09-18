@@ -24,16 +24,16 @@ services:
       - .node.env
     restart: always
 
-  indy-cli:
-    build:
-      context: cli
-    networks:
-      - internal
-    volumes:
-      - ./cli_cfg:/home/indy/cfg
-    env_file:
-      - .env
-      - .cli.env
-    ports:
-      - "8080:8080"
-    restart: always
+#  indy-cli:
+#    build:
+#      context: cli
+#    networks:
+#      - internal
+#    volumes:
+#      - ./cli_cfg:/home/indy/cfg
+#    env_file:
+#      - .env
+#      - .cli.env
+#    ports:
+#      - "8080:8080"
+#    restart: always
