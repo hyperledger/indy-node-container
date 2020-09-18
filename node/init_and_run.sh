@@ -32,8 +32,11 @@ else
     echo -e "[OK]\t Keys directory exists, skipping init."
 fi
 
-#USER root
-#CMD ["/bin/bash", "-c", "exec /sbin/init --log-target=journal 3>&1"]
+echo -e "[...]\t Starting Indy Node Controller"
+
+echo
+
+nohup python3 -O /usr/local/bin/start_node_control_tool --hold-ext &
 
 echo -e "[...]\t Starting Indy Node"
 
