@@ -3,15 +3,12 @@ version: "3.8"
 networks:
   internal:
 
-# Edit the .env file to set variables BEOFRE building!
-
 services:
   indy-node:
     build:
-      context: node
+      context: ./
     ports:
       - "${INDY_NODE_PORT}:${INDY_NODE_PORT}"
-# TODO: open cli port to external world?
       - "${INDY_CLIENT_PORT}:${INDY_CLIENT_PORT}"
       
     networks:
@@ -23,17 +20,3 @@ services:
       - .env
       - .node.env
     restart: always
-
-#  indy-cli:
-#    build:
-#      context: cli
-#    networks:
-#      - internal
-#    volumes:
-#      - ./cli_cfg:/home/indy/cfg
-#    env_file:
-#      - .env
-#      - .cli.env
-#    ports:
-#      - "8080:8080"
-#    restart: always
