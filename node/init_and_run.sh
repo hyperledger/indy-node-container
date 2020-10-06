@@ -36,7 +36,7 @@ echo -e "[...]\t Starting Indy Node Controller"
 
 echo
 
-nohup python3 -O /usr/local/bin/start_node_control_tool --hold-ext &
+nohup start_node_control_tool &
 
 echo -e "[...]\t Starting Indy Node"
 
