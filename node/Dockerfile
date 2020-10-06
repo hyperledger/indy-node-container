@@ -3,7 +3,7 @@
 FROM solita/ubuntu-systemd:16.04
 
 # Install environment
-RUN apt-get update -y && apt-get dist-upgrade -y && apt-get install -y \
+RUN apt-get update -y && apt-get upgrade -y && apt-get install -y \
     git \
     wget \
     python3.5 \
@@ -11,7 +11,8 @@ RUN apt-get update -y && apt-get dist-upgrade -y && apt-get install -y \
     python-setuptools \
     python3-nacl \
     apt-transport-https \
-    ca-certificates 
+    ca-certificates \
+    && apt-get autoremove -y
 RUN pip3 install -U \ 
     'pip<10.0.0' \
     setuptools
