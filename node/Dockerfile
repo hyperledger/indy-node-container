@@ -1,6 +1,6 @@
 # this docker file is assembled from the files in https://github.com/hyperledger/indy-node/tree/master/environment/docker/pool
 
-FROM solita/ubuntu-systemd:16.04
+FROM ubuntu:16.04
 
 # Install environment
 RUN apt-get update -y && apt-get upgrade -y && apt-get install -y \
