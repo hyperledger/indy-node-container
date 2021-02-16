@@ -1,15 +1,13 @@
 #!/bin/bash
 
-set -x
-
 
 # skip existing rules to avoid duplicates
 add_new_rule()
 {
     RULE="$@"
 
-    if ! sudo iptables -C $RULE 2>/dev/null 1>&2; then
-	sudo iptables -I $RULE
+    if ! iptables -C $RULE 2>/dev/null 1>&2; then
+	iptables -I $RULE
     fi
 }
 
