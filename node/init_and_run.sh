@@ -32,11 +32,11 @@ else
     echo -e "[OK]\t Keys directory exists, skipping init."
 fi
 
-echo -e "[...]\t Starting Indy Node Controller"
+echo -e "[...]\t NOT Starting Indy Node Controller. This tool currently needs systemctl."
 
 echo
 
-nohup start_node_control_tool &
+#nohup start_node_control_tool &
 
 echo -e "[...]\t Starting Indy Node"
 
