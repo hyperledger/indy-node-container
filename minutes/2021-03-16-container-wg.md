@@ -40,6 +40,7 @@ Ziele der AG
 Arbeitsweise
 ------------
 - Zuerst IDunion GitHub, später ggF Umzug zu Hyperledger Indy GitHub?
+- Alle AG Mitglieder haben vollen Zugriff auf das repo. We are all consenting adults.
 - Vertretung in Indy Contributors Calls?
 - Doku nah am Code in Markdown, English, Github
 - Alles außer Meeting Minutes in englisch dokumentieren
@@ -47,7 +48,6 @@ Arbeitsweise
   - Deutsch (bis auf weiteres) 
   - Diskussion: in Nextcloud?
   - BEVORZUGT: Alle an einer Stelle -> https://github.com/IDunion/docker-container-wg
-
 - **Start des APs ab Mitte April**
 - Nächster Termin in größerer Runde mit Fokus auf Fachlichkeit
 - Turnus wird dann definiert (Alle 2 Wochen / Alle 4 Wochen / Fokussierte Sprints VS ?)
