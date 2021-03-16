@@ -10,26 +10,15 @@ Vorstellungsrunde
 - Wer will/kann was, welche Container setups laufen aktuell, kurzer Erfahrungsaustausch
 Bereits bei drei Teilnehmern Indy Node in Container (GS1, DB, Spherity)
 
-
-
-Teilnehmer
------------
-
-- Sebastian (EECC->GS1): Container
+- Robin (DB): Betreibt Indy node im Docker Container auf open shift
+- Sebastian (EECC->GS1): Betreibt Indy Node im Docker Container
   - https://github.com/Echsecutor/docker-indy-node 
-
-- Robin (DB): Container auf open shift
-
 - Niclas (Spherity): Container abgeleitet von Sovrin / IfIS
   - https://github.com/spherity/sovrin-container/tree/ssi4de
   - von  https://github.com/internet-sicherheit/sovrin-container
-
 - Martin
-
 - Frank (Bosch): VM
-
 - Marquart (Siemens): VM
-
 
 
 Ziele der AG
