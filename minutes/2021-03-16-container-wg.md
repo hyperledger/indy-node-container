@@ -7,7 +7,7 @@ Indy Docker Container WG
 
 Vorstellungsrunde
 ------------------
-- Wer will/kann was, welche Container setups laufen aktuell, kurzer Erfahrungsaustausch
+Wer will/kann was, welche Container setups laufen aktuell, kurzer Erfahrungsaustausch
 Bereits bei drei Teilnehmern Indy Node in Container (GS1, DB, Spherity)
 
 - Robin (DB): Betreibt Indy node im Docker Container auf open shift
@@ -24,12 +24,10 @@ Bereits bei drei Teilnehmern Indy Node in Container (GS1, DB, Spherity)
 Ziele der AG
 -------------
 
-- Python slim container
-- Möglichst wenig dependencies
+- Container build mit möglichst wenig dependencies
 - Contribution -> Hyperledger
   - Upstream First
   - Keine ID Union Speziallösung
-
 - GitHub Actions, die das Docker Image baut und pusht (CI/CD)
 - Ein all-in-one Image vs. Mehrere Images entsprechend der Dependencies?
 - Long term ggf: Indy Node Service (systemd) -> Anpassung am Source Code
