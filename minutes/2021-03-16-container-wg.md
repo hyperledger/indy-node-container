@@ -58,5 +58,5 @@ Next Steps
 - Docker Project in IDunion anlegen ✔️
 - Minutes dort speichern ✔️
 - **Nächstes Treffen 16. April 11:15 – 12:15 Uhr**
-- Slack Channel über GitHub Projekt und Notes informieren
+- Slack Channel über GitHub Projekt und Notes informieren ✔️
 
