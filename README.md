@@ -5,7 +5,7 @@ A simple container setup to run a node in an Hyperledger Indy network.
 ## How To
 
 - `./generate_random_seeds.sh` and then securely backup `.node.env` which holds the seed for generating the private keys
-- put `pool_transactions_genesis` and `domain_transactions_genesis` for your network into the `lib_indy` folder
+- put `pool_transactions_genesis` and `domain_transactions_genesis` for your network into the `lib_indy` folder. The sub folder name has to match the `INDY_NETWORK_NAME` set in `.env` in the next step.
 - set the variables (Networkname, ips, ports) in the `.env` file
 - build and run the container in deamon mode `docker-compose up -d`
 - check `docker logs docker-indy-node_indy-node_1` and `docker exec -it docker-indy-node_indy-node_1 validator-info` to check the state of your node
@@ -22,7 +22,7 @@ The relevant directories are mounted as
       - ./lib_indy:/var/lib/indy
 ```
 
-giving direct access to the relevant config files from the host machine, if needed.
+giving direct access to the relevant config files from the host machine, if needed. Note that the `NETWORK_NAME` is overriden at startup with the value from `INDY_NETWORK_NAME` from `.env`.
 
 
 ## License
