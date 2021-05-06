@@ -2,15 +2,39 @@
 # author: Sebastian Schmittner <sebastian.schmittner@eecc.de>
 # version: 0.1+2021-04-29
 
+FROM rust:buster AS ursa_builder
+
+ARG URSA_VERSION=bbs-v0.4.0
+
+# build Ursa
+RUN git clone https://github.com/hyperledger/ursa.git &&\
+    cd ursa && \
+    git checkout tags/$URSA_VERSION && \
+    cargo build --release
+
+# package Ursa
+RUN cargo install cargo-deb
+RUN cd ursa && \
+    cargo deb -p ursa
+
+RUN mv /ursa/target/debian/ursa*.deb /root/ursa.deb
+
+
+
 FROM python:3.6-buster
 
-ARG INDY_NODE_VERSION=1.12.4
+ARG INDY_NODE_VERSION=v1.12.4
 
 RUN apt-get update && apt-get upgrade -y && apt-get autoremove -y && \
     apt-get install -y libsodium-dev libsecp256k1-dev libssl-dev openssl dpkg liblzma-dev \
             cmake autoconf libtool pkg-config curl libsnappy-dev liblz4-dev librocksdb-dev
 
-RUN pip install indy-node==$INDY_NODE_VERSION
+COPY --from=ursa_builder /root/ursa.deb .
+RUN dpkg -i ursa.deb
+
+RUN apt-get install -y libsnappy-dev liblz4-dev
+
+RUN pip install indy-node==1.12.4
 
 
 COPY init_and_run.sh ./
