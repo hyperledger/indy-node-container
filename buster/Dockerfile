@@ -47,25 +47,32 @@ FROM python:3.6-buster
 
 ARG INDY_NODE_VERSION=v1.12.4
 
+RUN apt-get update && apt-get upgrade -y && apt-get autoremove -y && \
+    apt-get install -y libsodium-dev libsecp256k1-dev libssl-dev openssl dpkg liblzma-dev\
+            cmake autoconf libtool pkg-config curl
+
+ARG rocksdb_lib_ver=5.13.fb
+
+# Build and install rocksdb library
+RUN mkdir rocksdb && \
+    curl -o rocksdb/rocksdb.tar.gz "https://codeload.github.com/facebook/rocksdb/tar.gz/${rocksdb_lib_ver}" && \
+    cd rocksdb && \
+    tar xzf rocksdb.tar.gz && \
+    cd ./* && \
+    CXXFLAGS="-flto -Os -s" PORTABLE=1 make install-shared
+
+#    cd $HOME && \
+#    cp -a /usr/local/lib/librocksdb.so* "$HOME/.local/lib" && \
+#    rm -rf rocksdb
+
 COPY --from=ursa_builder /root/ursa.deb .
 RUN dpkg -i ursa.deb
 
-# for packaging: install fpm
-#RUN apt-get install -y ruby ruby-dev rubygems build-essential && \
-#    gem install fpm
+RUN apt-get install -y libsnappy-dev liblz4-dev
 
-# python install indy-node
-RUN git clone https://github.com/hyperledger/indy-node.git
-RUN cd indy-node && \
-    git checkout tags/$INDY_NODE_VERSION && \
-    pip install -e .[tests]
+RUN pip install indy-node==1.12.4
 
 
-#WORKDIR /usr/src/app
-#
-#COPY requirements.txt ./
-#RUN pip install --no-cache-dir -r requirements.txt
-#
-#COPY . .
-#
-#CMD [ "python", "./your-daemon-or-script.py" ]
+COPY init_and_run.sh ./
+
+CMD ["./init_and_run.sh"]
