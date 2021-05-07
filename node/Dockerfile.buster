@@ -33,9 +33,9 @@ Run \
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68DB5E88 && \
     add-apt-repository "deb https://repo.sovrin.org/sdk/deb xenial stable" && \
     apt-get update && \
-    apt-get install -y libssl1.0.0 libindy-crypto
+    apt-get install -y libssl1.0.0 libindy-crypto=0.4.5 python3-indy-crypto=0.4.5
 
-RUN pip install indy-node==$INDY_NODE_VERSION
+RUN pip install python3-indy indy-node==$INDY_NODE_VERSION
 
 COPY init_and_run.sh ./
 
