@@ -12,6 +12,7 @@ RUN apt-get update -y && apt-get upgrade -y && apt-get install -y \
     python3-nacl \
     apt-transport-https \
     ca-certificates \
+    software-properties-common \
     && apt-get autoremove -y
 RUN pip3 install -U \
     'pip<10.0.0' \
