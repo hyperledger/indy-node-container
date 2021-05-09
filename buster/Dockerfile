@@ -9,12 +9,13 @@ FROM $BASE
 
 ARG INDY_NODE_VERSION=1.12.4
 
+# ubuntu 18 libindy package
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CE7709D068DB5E88 && \
     add-apt-repository "deb https://repo.sovrin.org/sdk/deb bionic stable" && \
     apt-get update && \
     apt-get install -y libindy
 
-# install deprecated dependencies
+# deprecated dependencies based on libssl1.0 / libiny-crypto
 Run \
     # for old libssl needed for libindy-crypto
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32 && \
