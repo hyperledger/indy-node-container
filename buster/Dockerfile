@@ -1,23 +1,13 @@
-# This is an indy-node build container created in the indy-node docker working group of the ID Union project.
+# This container is to run indy-node.
+# It has been created in the indy-node docker working group of the ID Union project.
 # author: Sebastian Schmittner <sebastian.schmittner@eecc.de>
-# version: 0.1+2021-04-29
+# version: 1.0+2021-05-09
 
-FROM python:3.6-buster
+ARG BASE=indy_node_base_container
+
+FROM $BASE
 
 ARG INDY_NODE_VERSION=1.12.4
-
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get autoremove -y && \
-    apt-get install -y \
-            libsodium-dev \
-            libsecp256k1-dev \
-            libssl-dev \
-            liblzma-dev \
-            libsnappy-dev \
-            liblz4-dev \
-            librocksdb-dev \
-            software-properties-common
 
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CE7709D068DB5E88 && \
     add-apt-repository "deb https://repo.sovrin.org/sdk/deb bionic stable" && \

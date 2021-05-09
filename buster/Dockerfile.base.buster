@@ -1,0 +1,15 @@
+FROM python:3.6-buster
+
+
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get autoremove -y && \
+    apt-get install -y \
+            libsodium-dev \
+            libsecp256k1-dev \
+            libssl-dev \
+            liblzma-dev \
+            libsnappy-dev \
+            liblz4-dev \
+            librocksdb-dev \
+            software-properties-common
