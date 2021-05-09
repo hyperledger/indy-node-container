@@ -5,8 +5,7 @@ networks:
 
 services:
   indy-node:
-    build:
-      context: ./node/
+    image: docker.pkg.github.com/idunion/docker-container-wg/indy_node:buster
     ports:
       - "${INDY_NODE_PORT}:${INDY_NODE_PORT}"
       - "${INDY_CLIENT_PORT}:${INDY_CLIENT_PORT}"

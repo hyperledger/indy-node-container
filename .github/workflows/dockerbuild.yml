@@ -42,6 +42,6 @@ jobs:
           path: node
           registry: docker.pkg.github.com
           repository: idunion/docker-container-wg/indy_node
-          tags: indy_node_container
-          build_args: BASE=idunion/docker-container-wg/base:buster
+          tags: buster
+          build_args: BASE=docker.pkg.github.com/idunion/docker-container-wg/base:buster
           tag_with_ref: true
