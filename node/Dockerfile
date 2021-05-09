@@ -24,7 +24,7 @@ Run \
     apt-get update && \
     apt-get install -y libssl1.0.0 libindy-crypto=0.4.5 python3-indy-crypto=0.4.5
 
-RUN pip install python3-indy indy-node==1.12.4 indy-plenum=1.12.4 
+RUN pip install python3-indy indy-node==1.12.4 indy-plenum==1.12.4 
 
 
 COPY init_and_run.sh ./
