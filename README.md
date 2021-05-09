@@ -1,3 +1,5 @@
+[![Buster Build](https://github.com/IDunion/docker-container-wg/actions/workflows/build-buster.yml/badge.svg)](https://github.com/IDunion/docker-container-wg/actions/workflows/build-buster.yml)
+[![Ubuntu 16 Build](https://github.com/IDunion/docker-container-wg/actions/workflows/build-ubuntu16.yml/badge.svg)](https://github.com/IDunion/docker-container-wg/actions/workflows/build-ubuntu16.yml)
 
 # Indy Node Docker Container Working Group
 
