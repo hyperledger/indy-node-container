@@ -1,0 +1,18 @@
+# this docker file is assembled from the files in https://github.com/hyperledger/indy-node/tree/master/environment/docker/pool
+
+FROM ubuntu:16.04
+
+# Install environment
+RUN apt-get update -y && apt-get upgrade -y && apt-get install -y \
+    git \
+    wget \
+    python3.5 \
+    python3-pip \
+    python-setuptools \
+    python3-nacl \
+    apt-transport-https \
+    ca-certificates \
+    && apt-get autoremove -y
+RUN pip3 install -U \
+    'pip<10.0.0' \
+    setuptools
