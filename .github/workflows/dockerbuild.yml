@@ -1,0 +1,46 @@
+name: Docker Build
+
+on: [push]
+
+jobs:
+  push_to_registry:
+    name: Push Docker image to GitHub Packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+
+      - name: build and push buster base
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          dockerfile: node/Dockerfile.base.buster
+          path: node
+          registry: docker.pkg.github.com
+          repository: IDunion/docker-container-wg
+          tags: indy_node-base-buster, indy_node-base
+
+      - name: build and push ubuntu16 base
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          dockerfile: node/Dockerfile.base.ubuntu16
+          path: node
+          registry: docker.pkg.github.com
+          repository: IDunion/docker-container-wg
+          tags: indy_node_base_ubuntu16
+
+      - name: build and push indy node based on buster
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          dockerfile: node/Dockerfile
+          path: node
+          registry: docker.pkg.github.com
+          repository: IDunion/docker-container-wg
+          tags: indy_node_container
+          build_args: BASE=indy_node_base_buster
+          tag_with_ref: true
