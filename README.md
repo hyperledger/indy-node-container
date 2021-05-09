@@ -1,4 +1,3 @@
-[![Docker Build](https://github.com/IDunion/docker-container-wg/actions/workflows/dockerbuild.yml/badge.svg)](https://github.com/IDunion/docker-container-wg/actions/workflows/dockerbuild.yml)
 
 # Indy Node Docker Container Working Group
 
