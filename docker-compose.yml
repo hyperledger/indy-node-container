@@ -1,0 +1,23 @@
+version: "3.8"
+
+networks:
+  internal:
+
+services:
+  indy-node:
+    build:
+      context: ./node/
+      dockerfile: Dockerfile.buster
+    ports:
+      - "${INDY_NODE_PORT}:${INDY_NODE_PORT}"
+      - "${INDY_CLIENT_PORT}:${INDY_CLIENT_PORT}"
+      
+    networks:
+      - internal
+    volumes:
+      - ./etc_indy:/etc/indy
+      - ./lib_indy:/var/lib/indy
+    env_file:
+      - .env
+      - .node.env
+    restart: always
