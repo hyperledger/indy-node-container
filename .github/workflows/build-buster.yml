@@ -1,4 +1,4 @@
-name: Docker Build
+name: Buster Build
 
 on: [push]
 
@@ -20,18 +20,6 @@ jobs:
           registry: docker.pkg.github.com
           repository: idunion/docker-container-wg/base
           tags: buster
-          tag_with_ref: true
-
-      - name: build and push ubuntu16 base
-        uses: docker/build-push-action@v1
-        with:
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          dockerfile: node/Dockerfile.base.ubuntu16
-          path: node
-          registry: docker.pkg.github.com
-          repository: idunion/docker-container-wg/base
-          tags: ubuntu16
 
       - name: build and push indy node based on buster
         uses: docker/build-push-action@v1
@@ -44,4 +32,3 @@ jobs:
           repository: idunion/docker-container-wg/indy_node
           tags: buster
           build_args: BASE=docker.pkg.github.com/idunion/docker-container-wg/base:buster
-          tag_with_ref: true
