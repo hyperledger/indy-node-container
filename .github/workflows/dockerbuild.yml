@@ -18,7 +18,7 @@ jobs:
           dockerfile: node/Dockerfile.base.buster
           path: node
           registry: docker.pkg.github.com
-          repository: IDunion/docker-container-wg
+          repository: idunion/docker-container-wg
           tags: indy_node-base-buster, indy_node-base
 
       - name: build and push ubuntu16 base
@@ -29,7 +29,7 @@ jobs:
           dockerfile: node/Dockerfile.base.ubuntu16
           path: node
           registry: docker.pkg.github.com
-          repository: IDunion/docker-container-wg
+          repository: idunion/docker-container-wg
           tags: indy_node_base_ubuntu16
 
       - name: build and push indy node based on buster
@@ -40,7 +40,7 @@ jobs:
           dockerfile: node/Dockerfile
           path: node
           registry: docker.pkg.github.com
-          repository: IDunion/docker-container-wg
+          repository: idunion/docker-container-wg
           tags: indy_node_container
           build_args: BASE=indy_node_base_buster
           tag_with_ref: true
