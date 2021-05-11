@@ -3,28 +3,13 @@
 
 # Indy Node Docker Container Working Group
 
-This is the work bench of the Docker Container Working Group of the ID Union project. The primary goal of this working group is to develop an Hyperledger Indy Node Docker Image with minimal dependencies.
-## How To
+This is the work bench of the Docker Container Working Group of the [ID Union project](https://github.com/IDunion). The primary goal of this working group is to develop an [Hyperledger Indy Node](https://github.com/hyperledger/indy-node) Docker Image with minimal dependencies.
 
-- `./generate_random_seeds.sh` and then securely backup `.node.env` which holds the seed for generating the private keys
-- put `pool_transactions_genesis` and `domain_transactions_genesis` for your network into the `lib_indy` folder. The sub folder name has to match the `INDY_NETWORK_NAME` set in `.env` in the next step.
-- set the variables (Networkname, ips, ports) in the `.env` file
-- build and run the container in deamon mode `docker-compose up -d`
-- check `docker logs docker-indy-node_indy-node_1` and `docker exec -it docker-indy-node_indy-node_1 validator-info` to check the state of your node
-- you need to run indy_cli (no longer included here) to actually interact with the ledger
+The primary artifact are the container images at https://github.com/IDunion/docker-container-wg/packages/780050 which are build from the files in [the build folder](build/).
 
+We also provide a few [utility scripts, including a docker-compose file](run/) to help setting up a runtime environment for the containers.
+See here for instructions how to setup and run the indy node images from this repository.
 
-## Config
-
-The relevant directories are mounted as
-
-```
- volumes:
-      - ./etc_indy:/etc/indy
-      - ./lib_indy:/var/lib/indy
-```
-
-giving direct access to the relevant config files from the host machine, if needed. Note that the `NETWORK_NAME` is overriden at startup with the value from `INDY_NETWORK_NAME` from `.env`.
 
 
 ## License
