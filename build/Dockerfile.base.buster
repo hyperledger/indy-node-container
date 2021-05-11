@@ -13,3 +13,11 @@ RUN apt-get update && \
             liblz4-dev \
             librocksdb-dev \
             software-properties-common
+
+
+# ubuntu 18 libindy package
+# Do we actually need this?
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CE7709D068DB5E88 && \
+    add-apt-repository "deb https://repo.sovrin.org/sdk/deb bionic stable" && \
+    apt-get update && \
+    apt-get install -y libindy

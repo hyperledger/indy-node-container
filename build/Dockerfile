@@ -7,12 +7,6 @@ ARG BASE=indy_node_base_container
 
 FROM $BASE
 
-# ubuntu 18 libindy package
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CE7709D068DB5E88 && \
-    add-apt-repository "deb https://repo.sovrin.org/sdk/deb bionic stable" && \
-    apt-get update && \
-    apt-get install -y libindy
-
 # deprecated dependencies based on libssl1.0 / libiny-crypto
 Run \
     # for old libssl needed for libindy-crypto
@@ -24,7 +18,7 @@ Run \
     apt-get update && \
     apt-get install -y libssl1.0.0 libindy-crypto=0.4.5 python3-indy-crypto=0.4.5
 
-RUN pip install python3-indy indy-node==1.12.4 indy-plenum==1.12.4 
+RUN pip install python3-indy indy-node==1.12.4 indy-plenum==1.12.4
 
 
 COPY init_and_run.sh ./
