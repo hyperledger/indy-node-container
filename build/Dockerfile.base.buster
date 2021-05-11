@@ -10,6 +10,8 @@ RUN apt-get update && \
             liblzma-dev \
             libsnappy-dev \
             liblz4-dev \
+            libbz2-dev \
+            zlib1g-dev \
             librocksdb-dev \
             software-properties-common \
             gnupg2 \
