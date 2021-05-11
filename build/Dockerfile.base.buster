@@ -1,9 +1,8 @@
-FROM python:3.6-buster
+FROM python:3.6-slim-buster
 
 
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get autoremove -y && \
     apt-get install -y \
             libsodium-dev \
             libsecp256k1-dev \
@@ -12,7 +11,9 @@ RUN apt-get update && \
             libsnappy-dev \
             liblz4-dev \
             librocksdb-dev \
-            software-properties-common
+            software-properties-common \
+            gnupg2 \
+ && apt-get autoremove -y
 
 
 # ubuntu 18 libindy package
