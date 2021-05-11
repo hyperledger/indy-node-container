@@ -18,6 +18,8 @@ RUN apt-get update -y && apt-get upgrade -y && apt-get install -y \
     liblzma-dev \
     libsnappy-dev \
     liblz4-dev \
+    libbz2-dev \
+    zlib1g-dev \
     librocksdb-dev \
     software-properties-common \
     && apt-get autoremove -y
