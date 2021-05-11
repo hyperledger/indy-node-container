@@ -1,17 +1,13 @@
 version: "3.8"
 
-networks:
-  internal:
-
 services:
   indy-node:
     image: docker.pkg.github.com/idunion/docker-container-wg/indy_node:buster
+    container_name: indy_node
     ports:
       - "${INDY_NODE_PORT}:${INDY_NODE_PORT}"
       - "${INDY_CLIENT_PORT}:${INDY_CLIENT_PORT}"
 
-    networks:
-      - internal
     volumes:
       - ./etc_indy:/etc/indy
       - ./lib_indy:/var/lib/indy
