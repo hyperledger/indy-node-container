@@ -5,7 +5,7 @@
 
 This is the work bench of the Docker Container Working Group of the [ID Union project](https://github.com/IDunion). The primary goal of this working group is to develop an [Hyperledger Indy Node](https://github.com/hyperledger/indy-node) Docker Image with minimal dependencies.
 
-The primary artifact are the container images at https://github.com/IDunion/indy-node-container/packages/780050 which are build from the files in [the build folder](build/).
+The primary artifact are the container images at https://github.com/orgs/IDunion/packages/container/package/indy-node-container%2Findy_node which are build from the files in [the build folder](build/).
 
 We also provide a few [utility scripts, including a docker-compose file](run/) to help setting up a runtime environment for the containers.
 See here for instructions how to setup and run the indy node images from this repository.
