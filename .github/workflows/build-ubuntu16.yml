@@ -15,8 +15,8 @@ jobs:
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-          dockerfile: node/Dockerfile.base.ubuntu16
-          path: node
+          dockerfile: build/Dockerfile.base.ubuntu16
+          path: build
           registry: docker.pkg.github.com
           repository: idunion/docker-container-wg/base
           tags: ubuntu16
@@ -26,8 +26,8 @@ jobs:
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-          dockerfile: node/Dockerfile
-          path: node
+          dockerfile: build/Dockerfile
+          path: build
           registry: docker.pkg.github.com
           repository: idunion/docker-container-wg/indy_node
           tags: ubuntu16
