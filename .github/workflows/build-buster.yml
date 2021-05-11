@@ -15,8 +15,8 @@ jobs:
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-          dockerfile: node/Dockerfile.base.buster
-          path: node
+          dockerfile: build/Dockerfile.base.buster
+          path: build
           registry: docker.pkg.github.com
           repository: idunion/docker-container-wg/base
           tags: buster
@@ -26,9 +26,9 @@ jobs:
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-          dockerfile: node/Dockerfile
-          path: node
+          dockerfile: build/Dockerfile
+          path: build
           registry: docker.pkg.github.com
           repository: idunion/docker-container-wg/indy_node
-          tags: buster
+          tags: buster, latest
           build_args: BASE=docker.pkg.github.com/idunion/docker-container-wg/base:buster
