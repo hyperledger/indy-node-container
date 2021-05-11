@@ -18,10 +18,10 @@ jobs:
           dockerfile: build/Dockerfile.base.ubuntu18
           path: build
           registry: ghcr.io
-          repository: idunion/docker-container-wg/base
+          repository: idunion/indy-node-container/base
           tags: ubuntu18
 
-      - name: build and push indy node based on ubuntu16
+      - name: build and push indy node based on ubuntu18
         uses: docker/build-push-action@v1
         with:
           username: ${{ github.actor }}
@@ -29,6 +29,6 @@ jobs:
           dockerfile: build/Dockerfile
           path: build
           registry: ghcr.io
-          repository: idunion/docker-container-wg/indy_node
+          repository: idunion/indy-node-container/indy_node
           tags: ubuntu18
-          build_args: BASE=ghcr.io/idunion/docker-container-wg/base:ubuntu18
+          build_args: BASE=ghcr.io/idunion/indy-node-container/base:ubuntu18
