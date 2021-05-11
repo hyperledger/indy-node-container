@@ -17,7 +17,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           dockerfile: build/Dockerfile.base.ubuntu18
           path: build
-          registry: docker.pkg.github.com
+          registry: ghcr.io
           repository: idunion/docker-container-wg/base
           tags: ubuntu18
 
@@ -28,7 +28,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           dockerfile: build/Dockerfile
           path: build
-          registry: docker.pkg.github.com
+          registry: ghcr.io
           repository: idunion/docker-container-wg/indy_node
           tags: ubuntu18
-          build_args: BASE=docker.pkg.github.com/idunion/docker-container-wg/base:ubuntu18
+          build_args: BASE=ghcr.io/idunion/docker-container-wg/base:ubuntu18
