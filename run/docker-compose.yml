@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   indy-node:
-    image: docker.pkg.github.com/idunion/docker-container-wg/indy_node:buster
+    image: ghcr.io/idunion/docker-container-wg/indy_node:buster
     container_name: indy_node
     ports:
       - "${INDY_NODE_PORT}:${INDY_NODE_PORT}"
