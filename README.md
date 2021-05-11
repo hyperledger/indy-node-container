@@ -1,11 +1,11 @@
-[![Buster Build](https://github.com/IDunion/docker-container-wg/actions/workflows/build-buster.yml/badge.svg)](https://github.com/IDunion/docker-container-wg/actions/workflows/build-buster.yml)
-[![Ubuntu 18 Build](https://github.com/IDunion/docker-container-wg/actions/workflows/build-ubuntu18.yml/badge.svg)](https://github.com/IDunion/docker-container-wg/actions/workflows/build-ubuntu18.yml)
+[![Buster Build](https://github.com/IDunion/indy-node-container/actions/workflows/build-buster.yml/badge.svg)](https://github.com/IDunion/indy-node-container/actions/workflows/build-buster.yml)
+[![Ubuntu 18 Build](https://github.com/IDunion/indy-node-container/actions/workflows/build-ubuntu18.yml/badge.svg)](https://github.com/IDunion/indy-node-container/actions/workflows/build-ubuntu18.yml)
 
 # Indy Node Docker Container Working Group
 
 This is the work bench of the Docker Container Working Group of the [ID Union project](https://github.com/IDunion). The primary goal of this working group is to develop an [Hyperledger Indy Node](https://github.com/hyperledger/indy-node) Docker Image with minimal dependencies.
 
-The primary artifact are the container images at https://github.com/IDunion/docker-container-wg/packages/780050 which are build from the files in [the build folder](build/).
+The primary artifact are the container images at https://github.com/IDunion/indy-node-container/packages/780050 which are build from the files in [the build folder](build/).
 
 We also provide a few [utility scripts, including a docker-compose file](run/) to help setting up a runtime environment for the containers.
 See here for instructions how to setup and run the indy node images from this repository.
