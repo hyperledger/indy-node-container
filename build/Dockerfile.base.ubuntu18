@@ -1,17 +1,24 @@
 # this docker file is assembled from the files in https://github.com/hyperledger/indy-node/tree/master/environment/docker/pool
 
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 # Install environment
 RUN apt-get update -y && apt-get upgrade -y && apt-get install -y \
     git \
     wget \
-    python3.5 \
+    python3.6 \
     python3-pip \
-    python-setuptools \
     python3-nacl \
     apt-transport-https \
     ca-certificates \
+    software-properties-common \
+    libsodium-dev \
+    libsecp256k1-dev \
+    libssl-dev \
+    liblzma-dev \
+    libsnappy-dev \
+    liblz4-dev \
+    librocksdb-dev \
     software-properties-common \
     && apt-get autoremove -y
 RUN pip3 install -U \
