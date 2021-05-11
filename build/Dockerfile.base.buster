@@ -13,6 +13,7 @@ RUN apt-get update && \
             librocksdb-dev \
             software-properties-common \
             gnupg2 \
+            build-essential \
  && apt-get autoremove -y
 
 
