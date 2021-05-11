@@ -18,7 +18,7 @@ jobs:
           dockerfile: build/Dockerfile.base.buster
           path: build
           registry: ghcr.io
-          repository: idunion/docker-container-wg/base
+          repository: idunion/indy-node-container/base
           tags: buster
 
       - name: build and push indy node based on buster
@@ -29,6 +29,6 @@ jobs:
           dockerfile: build/Dockerfile
           path: build
           registry: ghcr.io
-          repository: idunion/docker-container-wg/indy_node
+          repository: idunion/indy-node-container/indy_node
           tags: buster, latest
-          build_args: BASE=ghcr.io/idunion/docker-container-wg/base:buster
+          build_args: BASE=ghcr.io/idunion/indy-node-container/base:buster
