@@ -1,0 +1,2555 @@
+{
+    "image": "ghcr.io/idunion/indy-node-container/indy_node:latest",
+    "unapproved": [
+        "CVE-2013-7445",
+        "CVE-2021-23133",
+        "CVE-2021-29154",
+        "CVE-2021-3493",
+        "CVE-2021-28972",
+        "CVE-2020-29374",
+        "CVE-2019-19814",
+        "CVE-2019-25013"
+    ],
+    "vulnerabilities": [
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2019-19814",
+            "namespace": "debian:10",
+            "description": "In the Linux kernel 5.0.21, mounting a crafted f2fs filesystem image can cause __remove_dirty_segment slab-out-of-bounds write access because an array is bounded by the number of dirty types (8) but the array index can exceed this.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-19814",
+            "severity": "Critical",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2013-7445",
+            "namespace": "debian:10",
+            "description": "The Direct Rendering Manager (DRM) subsystem in the Linux kernel through 4.x mishandles requests for Graphics Execution Manager (GEM) objects, which allows context-dependent attackers to cause a denial of service (memory consumption) via an application that processes graphics data, as demonstrated by JavaScript code that creates many CANVAS elements for rendering by Chrome or Firefox.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2013-7445",
+            "severity": "High",
+            "fixedby": ""
+        },
+        {
+            "featurename": "glibc",
+            "featureversion": "2.28-10",
+            "vulnerability": "CVE-2019-25013",
+            "namespace": "debian:10",
+            "description": "The iconv feature in the GNU C Library (aka glibc or libc6) through 2.32, when processing invalid multi-byte input sequences in the EUC-KR encoding, may have a buffer over-read.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-25013",
+            "severity": "High",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2021-3493",
+            "namespace": "debian:10",
+            "description": "The overlayfs implementation in the linux kernel did not properly validate with respect to user namespaces the setting of file capabilities on files in an underlying file system. Due to the combination of unprivileged user namespaces along with a patch carried in the Ubuntu kernel to allow unprivileged overlay mounts, an attacker could use this to gain elevated privileges.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-3493",
+            "severity": "High",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2021-23133",
+            "namespace": "debian:10",
+            "description": "A race condition in Linux kernel SCTP sockets (net/sctp/socket.c) before 5.12-rc8 can lead to kernel privilege escalation from the context of a network service or an unprivileged process. If sctp_destroy_sock is called without sock_net(sk)-\u003esctp.addr_wq_lock then an element is removed from the auto_asconf_splist list without any proper locking. This can be exploited by an attacker with network service privileges to escalate to root or from the context of an unprivileged user directly if a BPF_CGROUP_INET_SOCK_CREATE is attached which denies creation of some SCTP socket.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-23133",
+            "severity": "High",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2021-28972",
+            "namespace": "debian:10",
+            "description": "In drivers/pci/hotplug/rpadlpar_sysfs.c in the Linux kernel through 5.11.8, the RPA PCI Hotplug driver has a user-tolerable buffer overflow when writing a new device name to the driver from userspace, allowing userspace to write data to the kernel stack frame directly. This occurs because add_slot_store and remove_slot_store mishandle drc_name '\\0' termination, aka CID-cc7a0bb058b8.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-28972",
+            "severity": "High",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2021-29154",
+            "namespace": "debian:10",
+            "description": "BPF JIT compilers in the Linux kernel through 5.11.12 have incorrect computation of branch displacements, allowing them to execute arbitrary code within the kernel context. This affects arch/x86/net/bpf_jit_comp.c and arch/x86/net/bpf_jit_comp32.c.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-29154",
+            "severity": "High",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2020-29374",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in the Linux kernel before 5.7.3, related to mm/gup.c and mm/huge_memory.c. The get_user_pages (aka gup) implementation, when used for a copy-on-write page, does not properly consider the semantics of read operations and therefore can grant unintended write access, aka CID-17839856fd58.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-29374",
+            "severity": "High",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2020-15802",
+            "namespace": "debian:10",
+            "description": "Devices supporting Bluetooth before 5.1 may allow man-in-the-middle attacks, aka BLURtooth. Cross Transport Key Derivation in Bluetooth Core Specification v4.2 and v5.0 may permit an unauthenticated user to establish a bonding with one transport, either LE or BR/EDR, and replace a bonding already established on the opposing transport, BR/EDR or LE, potentially overwriting an authenticated key with an unauthenticated key, or a key with greater entropy with one with less.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-15802",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "nettle",
+            "featureversion": "3.4.1-1",
+            "vulnerability": "CVE-2021-20305",
+            "namespace": "debian:10",
+            "description": "A flaw was found in Nettle in versions before 3.7.2, where several Nettle signature verification functions (GOST DSA, EDDSA \u0026 ECDSA) result in the Elliptic Curve Cryptography point (ECC) multiply function being called with out-of-range scalers, possibly resulting in incorrect results. This flaw allows an attacker to force an invalid signature, causing an assertion failure or possible validation. The highest threat to this vulnerability is to confidentiality, integrity, as well as system availability.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-20305",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "libxml2",
+            "featureversion": "2.9.4+dfsg1-7+deb10u1",
+            "vulnerability": "CVE-2016-9318",
+            "namespace": "debian:10",
+            "description": "libxml2 2.9.4 and earlier, as used in XMLSec 1.2.23 and earlier and other products, does not offer a flag directly indicating that the current document may be read but other files may not be opened, which makes it easier for remote attackers to conduct XML External Entity (XXE) attacks via a crafted document.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2016-9318",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "libxml2",
+            "featureversion": "2.9.4+dfsg1-7+deb10u1",
+            "vulnerability": "CVE-2017-16932",
+            "namespace": "debian:10",
+            "description": "parser.c in libxml2 before 2.9.5 does not prevent infinite recursion in parameter entities.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2017-16932",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "systemd",
+            "featureversion": "241-7~deb10u7",
+            "vulnerability": "CVE-2019-3843",
+            "namespace": "debian:10",
+            "description": "It was discovered that a systemd service that uses DynamicUser property can create a SUID/SGID binary that would be allowed to run as the transient service UID/GID even after the service is terminated. A local attacker may use this flaw to access resources that will be owned by a potentially different service in the future, when the UID/GID will be recycled.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-3843",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "systemd",
+            "featureversion": "241-7~deb10u7",
+            "vulnerability": "CVE-2019-3844",
+            "namespace": "debian:10",
+            "description": "It was discovered that a systemd service that uses DynamicUser property can get new privileges through the execution of SUID binaries, which would allow to create binaries owned by the service transient group with the setgid bit set. A local attacker may use this flaw to access resources that will be owned by a potentially different service in the future, when the GID will be recycled.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-3844",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "pcre3",
+            "featureversion": "2:8.39-12",
+            "vulnerability": "CVE-2020-14155",
+            "namespace": "debian:10",
+            "description": "libpcre in PCRE before 8.44 allows an integer overflow via a large number after a (?C substring.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-14155",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "glib2.0",
+            "featureversion": "2.58.3-2+deb10u2",
+            "vulnerability": "CVE-2021-27218",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in GNOME GLib before 2.66.7 and 2.67.x before 2.67.4. If g_byte_array_new_take() was called with a buffer of 4GB or more on a 64-bit platform, the length would be truncated modulo 2**32, causing unintended length truncation.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-27218",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "libssh2",
+            "featureversion": "1.8.0-2.1",
+            "vulnerability": "CVE-2019-13115",
+            "namespace": "debian:10",
+            "description": "In libssh2 before 1.9.0, kex_method_diffie_hellman_group_exchange_sha256_key_exchange in kex.c has an integer overflow that could lead to an out-of-bounds read in the way packets are read from the server. A remote attacker who compromises a SSH server may be able to disclose sensitive information or cause a denial of service condition on the client system when a user connects to the server. This is related to an _libssh2_check_length mistake, and is different from the various issues fixed in 1.8.1, such as CVE-2019-3855.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-13115",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "glibc",
+            "featureversion": "2.28-10",
+            "vulnerability": "CVE-2021-3326",
+            "namespace": "debian:10",
+            "description": "The iconv function in the GNU C Library (aka glibc or libc6) 2.32 and earlier, when processing invalid input sequences in the ISO-2022-JP-3 encoding, fails an assertion in the code path and aborts the program, potentially resulting in a denial of service.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-3326",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2020-16119",
+            "namespace": "debian:10",
+            "description": "Use-after-free vulnerability in the Linux kernel exploitable by a local attacker due to reuse of a DCCP socket with an attached dccps_hc_tx_ccid object as a listener after being released. Fixed in Ubuntu Linux kernel 5.4.0-51.56, 5.3.0-68.63, 4.15.0-121.123, 4.4.0-193.224, 3.13.0.182.191 and 3.2.0-149.196.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-16119",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2019-19378",
+            "namespace": "debian:10",
+            "description": "In the Linux kernel 5.0.21, mounting a crafted btrfs filesystem image can lead to slab-out-of-bounds write access in index_rbio_pages in fs/btrfs/raid56.c.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-19378",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2020-12362",
+            "namespace": "debian:10",
+            "description": "Integer overflow in the firmware for some Intel(R) Graphics Drivers for Windows * before version 26.20.100.7212 and before Linux kernel version 5.5 may allow a privileged user to potentially enable an escalation of privilege via local access.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-12362",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "glibc",
+            "featureversion": "2.28-10",
+            "vulnerability": "CVE-2020-1751",
+            "namespace": "debian:10",
+            "description": "An out-of-bounds write vulnerability was found in glibc before 2.31 when handling signal trampolines on PowerPC. Specifically, the backtrace function did not properly check the array bounds when storing the frame address, resulting in a denial of service or potential code execution. The highest threat from this vulnerability is to system availability.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-1751",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2020-36322",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in the FUSE filesystem implementation in the Linux kernel before 5.10.6, aka CID-5d069dbe8aaf. fuse_do_getattr() calls make_bad_inode() in inappropriate situations, causing a system crash. NOTE: the original fix for this vulnerability was incomplete, and its incompleteness is tracked as CVE-2021-28950.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-36322",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2019-19449",
+            "namespace": "debian:10",
+            "description": "In the Linux kernel 5.0.21, mounting a crafted f2fs filesystem image can lead to slab-out-of-bounds read access in f2fs_build_segment_manager in fs/f2fs/segment.c, related to init_min_max_mtime in fs/f2fs/segment.c (because the second argument to get_seg_entry is not validated).",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-19449",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2019-20794",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in the Linux kernel 4.18 through 5.6.11 when unprivileged user namespaces are allowed. A user can create their own PID namespace, and mount a FUSE filesystem. Upon interaction with this FUSE filesystem, if the userspace component is terminated via a kill of the PID namespace's pid 1, it will result in a hung task, and resources being permanently locked up until system reboot. This can result in resource exhaustion.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-20794",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2020-27835",
+            "namespace": "debian:10",
+            "description": "A use after free in the Linux kernel infiniband hfi1 driver in versions prior to 5.10-rc6 was found in the way user calls Ioctl after open dev file and fork. A local user could use this flaw to crash the system.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-27835",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "glib2.0",
+            "featureversion": "2.58.3-2+deb10u2",
+            "vulnerability": "CVE-2021-27219",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in GNOME GLib before 2.66.6 and 2.67.x before 2.67.3. The function g_bytes_new has an integer overflow on 64-bit platforms due to an implicit cast from 64 bits to 32 bits. The overflow could potentially lead to memory corruption.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-27219",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2021-29650",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in the Linux kernel before 5.11.11. The netfilter subsystem allows attackers to cause a denial of service (panic) because net/netfilter/x_tables.c and include/linux/netfilter/x_tables.h lack a full memory barrier upon the assignment of a new table value, aka CID-175e476b8cdf.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-29650",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2020-36313",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in the Linux kernel before 5.7. The KVM subsystem allows out-of-range access to memslots after a deletion, aka CID-0774a964ef56. This affects arch/s390/kvm/kvm-s390.c, include/linux/kvm_host.h, and virt/kvm/kvm_main.c.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-36313",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "glib2.0",
+            "featureversion": "2.58.3-2+deb10u2",
+            "vulnerability": "CVE-2021-28153",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in GNOME GLib before 2.66.8. When g_file_replace() is used with G_FILE_CREATE_REPLACE_DESTINATION to replace a path that is a dangling symlink, it incorrectly also creates the target of the symlink as an empty file, which could conceivably have security relevance if the symlink is attacker-controlled. (If the path is a symlink to a file that already exists, then the contents of that file correctly remain unchanged.)",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-28153",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "python3.7",
+            "featureversion": "3.7.3-2+deb10u3",
+            "vulnerability": "CVE-2021-23336",
+            "namespace": "debian:10",
+            "description": "The package python/cpython from 0 and before 3.6.13, from 3.7.0 and before 3.7.10, from 3.8.0 and before 3.8.8, from 3.9.0 and before 3.9.2 are vulnerable to Web Cache Poisoning via urllib.parse.parse_qsl and urllib.parse.parse_qs by using a vector called parameter cloaking. When the attacker can separate query parameters using a semicolon (;), they can cause a difference in the interpretation of the request between the proxy (running with default configuration) and the server. This can result in malicious requests being cached as completely safe ones, as the proxy would usually not see the semicolon as a separator, and therefore would not include it in a cache key of an unkeyed parameter.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-23336",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "zeromq3",
+            "featureversion": "4.3.1-4+deb10u2",
+            "vulnerability": "CVE-2021-20234",
+            "namespace": "debian:10",
+            "description": "An uncontrolled resource consumption (memory leak) flaw was found in the ZeroMQ client in versions before 4.3.3 in src/pipe.cpp. This issue causes a client that connects to multiple malicious or compromised servers to crash. The highest threat from this vulnerability is to system availability.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-20234",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "zeromq3",
+            "featureversion": "4.3.1-4+deb10u2",
+            "vulnerability": "CVE-2021-20235",
+            "namespace": "debian:10",
+            "description": "There's a flaw in the zeromq server in versions before 4.3.3 in src/decoder_allocators.hpp. The decoder static allocator could have its sized changed, but the buffer would remain the same as it is a static buffer. A remote, unauthenticated attacker who sends a crafted request to the zeromq server could trigger a buffer overflow WRITE of arbitrary data if CURVE/ZAP authentication is not enabled. The greatest impact of this flaw is to application availability, data integrity, and confidentiality.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-20235",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2021-28971",
+            "namespace": "debian:10",
+            "description": "In intel_pmu_drain_pebs_nhm in arch/x86/events/intel/ds.c in the Linux kernel through 5.11.8 on some Haswell CPUs, userspace applications (such as perf-fuzzer) can cause a system crash because the PEBS status in a PEBS record is mishandled, aka CID-d88d05a9e0b6.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-28971",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "gcc-8",
+            "featureversion": "8.3.0-6",
+            "vulnerability": "CVE-2018-12886",
+            "namespace": "debian:10",
+            "description": "stack_protect_prologue in cfgexpand.c and stack_protect_epilogue in function.c in GNU Compiler Collection (GCC) 4.1 through 8 (under certain circumstances) generate instruction sequences when targeting ARM targets that spill the address of the stack protector guard, which allows an attacker to bypass the protection of -fstack-protector, -fstack-protector-all, -fstack-protector-strong, and -fstack-protector-explicit against stack overflow by controlling what the stack canary is compared against.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-12886",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "libidn2",
+            "featureversion": "2.0.5-1+deb10u1",
+            "vulnerability": "CVE-2019-12290",
+            "namespace": "debian:10",
+            "description": "GNU libidn2 before 2.2.0 fails to perform the roundtrip checks specified in RFC3490 Section 4.2 when converting A-labels to U-labels. This makes it possible in some circumstances for one domain to impersonate another. By creating a malicious domain that matches a target domain except for the inclusion of certain punycoded Unicode characters (that would be discarded when converted first to a Unicode label and then back to an ASCII label), arbitrary domains can be impersonated.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-12290",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2021-29264",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in the Linux kernel through 5.11.10. drivers/net/ethernet/freescale/gianfar.c in the Freescale Gianfar Ethernet driver allows attackers to cause a system crash because a negative fragment size is calculated in situations involving an rx queue overrun when jumbo packets are used and NAPI is enabled, aka CID-d8861bab48b6.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-29264",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2021-3506",
+            "namespace": "debian:10",
+            "description": "An out-of-bounds (OOB) memory access flaw was found in fs/f2fs/node.c in the f2fs module in the Linux kernel in versions before 5.12.0-rc4. A bounds check failure allows a local attacker to gain access to out-of-bounds memory leading to a system crash or a leak of internal kernel information. The highest threat from this vulnerability is to system availability.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-3506",
+            "severity": "Medium",
+            "fixedby": ""
+        },
+        {
+            "featurename": "glibc",
+            "featureversion": "2.28-10",
+            "vulnerability": "CVE-2016-10228",
+            "namespace": "debian:10",
+            "description": "The iconv program in the GNU C Library (aka glibc or libc6) 2.31 and earlier, when invoked with multiple suffixes in the destination encoding (TRANSLATE or IGNORE) along with the -c option, enters an infinite loop when processing invalid multi-byte input sequences, leading to a denial of service.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2016-10228",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "packagekit",
+            "featureversion": "1.1.12-5",
+            "vulnerability": "CVE-2020-16122",
+            "namespace": "debian:10",
+            "description": "PackageKit's apt backend mistakenly treated all local debs as trusted. The apt security model is based on repository trust and not on the contents of individual files. On sites with configured PolicyKit rules this may allow users to install malicious packages.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-16122",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "software-properties",
+            "featureversion": "0.96.20.2-2",
+            "vulnerability": "CVE-2020-15709",
+            "namespace": "debian:10",
+            "description": "Versions of add-apt-repository before 0.98.9.2, 0.96.24.32.14, 0.96.20.10, and 0.92.37.8ubuntu0.1~esm1, printed a PPA (personal package archive) description to the terminal as-is, which allowed PPA owners to provide ANSI terminal escapes to modify terminal contents in unexpected ways.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-15709",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2020-24504",
+            "namespace": "debian:10",
+            "description": "Uncontrolled resource consumption in some Intel(R) Ethernet E810 Adapter drivers for Linux before version 1.0.4 may allow an authenticated user to potentially enable denial of service via local access.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-24504",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2020-36310",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in the Linux kernel before 5.8. arch/x86/kvm/svm/svm.c allows a set_memory_region_test infinite loop for certain nested page faults, aka CID-e72436bc3a52.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-36310",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "lz4",
+            "featureversion": "1.8.3-1",
+            "vulnerability": "CVE-2019-17543",
+            "namespace": "debian:10",
+            "description": "LZ4 before 1.9.2 has a heap-based buffer overflow in LZ4_write32 (related to LZ4_compress_destSize), affecting applications that call LZ4_compress_fast with a large input. (This issue can also lead to data corruption.) NOTE: the vendor states \"only a few specific / uncommon usages of the API are at risk.\"",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-17543",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2021-28950",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in fs/fuse/fuse_i.h in the Linux kernel before 5.11.8. A \"stall on CPU\" can occur because a retry loop continually finds the same bad inode, aka CID-775c5033a0d1.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-28950",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2020-12364",
+            "namespace": "debian:10",
+            "description": "Null pointer reference in some Intel(R) Graphics Drivers for Windows* before version 26.20.100.7212 and before version Linux kernel version 5.5 may allow a privileged user to potentially enable a denial of service via local access.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-12364",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2021-28688",
+            "namespace": "debian:10",
+            "description": "The fix for XSA-365 includes initialization of pointers such that subsequent cleanup code wouldn't use uninitialized or stale values. This initialization went too far and may under certain conditions also overwrite pointers which are in need of cleaning up. The lack of cleanup would result in leaking persistent grants. The leak in turn would prevent fully cleaning up after a respective guest has died, leaving around zombie domains. All Linux versions having the fix for XSA-365 applied are vulnerable. XSA-365 was classified to affect versions back to at least 3.11.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-28688",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "glibc",
+            "featureversion": "2.28-10",
+            "vulnerability": "CVE-2020-6096",
+            "namespace": "debian:10",
+            "description": "An exploitable signed comparison vulnerability exists in the ARMv7 memcpy() implementation of GNU glibc 2.30.9000. Calling memcpy() (on ARMv7 targets that utilize the GNU glibc implementation) with a negative value for the 'num' parameter results in a signed comparison vulnerability. If an attacker underflows the 'num' parameter to memcpy(), this vulnerability could lead to undefined behavior such as writing to out-of-bounds memory and potentially remote code execution. Furthermore, this memcpy() implementation allows for program execution to continue in scenarios where a segmentation fault or crash should have occurred. The dangers occur in that subsequent execution and iterations of this code will be executed with this corrupted data.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-6096",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "glibc",
+            "featureversion": "2.28-10",
+            "vulnerability": "CVE-2020-10029",
+            "namespace": "debian:10",
+            "description": "The GNU C Library (aka glibc or libc6) before 2.32 could overflow an on-stack buffer during range reduction if an input to an 80-bit long double function contains a non-canonical bit pattern, a seen when passing a 0x5d414141414141410000 value to sinl on x86 targets. This is related to sysdeps/ieee754/ldbl-96/e_rem_pio2l.c.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-10029",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2021-29647",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in the Linux kernel before 5.11.11. qrtr_recvmsg in net/qrtr/qrtr.c allows attackers to obtain sensitive information from kernel memory because of a partially uninitialized data structure, aka CID-50535249f624.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-29647",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "glibc",
+            "featureversion": "2.28-10",
+            "vulnerability": "CVE-2020-1752",
+            "namespace": "debian:10",
+            "description": "A use-after-free vulnerability introduced in glibc upstream version 2.14 was found in the way the tilde expansion was carried out. Directory paths containing an initial tilde followed by a valid username were affected by this issue. A local attacker could exploit this flaw by creating a specially crafted path that, when processed by the glob function, would potentially lead to arbitrary code execution. This was fixed in version 2.32.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-1752",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2020-36311",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in the Linux kernel before 5.9. arch/x86/kvm/svm/sev.c allows attackers to cause a denial of service (soft lockup) by triggering destruction of a large SEV VM (which requires unregistering many encrypted regions), aka CID-7be74942f184.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-36311",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "glibc",
+            "featureversion": "2.28-10",
+            "vulnerability": "CVE-2020-27618",
+            "namespace": "debian:10",
+            "description": "The iconv function in the GNU C Library (aka glibc or libc6) 2.32 and earlier, when processing invalid multi-byte input sequences in IBM1364, IBM1371, IBM1388, IBM1390, and IBM1399 encodings, fails to advance the input state, which could lead to an infinite loop in applications, resulting in a denial of service, a different vulnerability from CVE-2016-10228.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-27618",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2020-14304",
+            "namespace": "debian:10",
+            "description": "A memory disclosure flaw was found in the Linux kernel's ethernet drivers, in the way it read data from the EEPROM of the device. This flaw allows a local user to read uninitialized values from the kernel memory. The highest threat from this vulnerability is to confidentiality.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-14304",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2021-28964",
+            "namespace": "debian:10",
+            "description": "A race condition was discovered in get_old_root in fs/btrfs/ctree.c in the Linux kernel through 5.11.8. It allows attackers to cause a denial of service (BUG) because of a lack of locking on an extent buffer before a cloning operation, aka CID-dbcc7d57bffc.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-28964",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "glibc",
+            "featureversion": "2.28-10",
+            "vulnerability": "CVE-2019-19126",
+            "namespace": "debian:10",
+            "description": "On the x86-64 architecture, the GNU C Library (aka glibc) before 2.31 fails to ignore the LD_PREFER_MAP_32BIT_EXEC environment variable during program execution after a security transition, allowing local attackers to restrict the possible mapping addresses for loaded libraries and thus bypass ASLR for a setuid program.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-19126",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2020-12363",
+            "namespace": "debian:10",
+            "description": "Improper input validation in some Intel(R) Graphics Drivers for Windows* before version 26.20.100.7212 and before Linux kernel version 5.5 may allow a privileged user to potentially enable a denial of service via local access.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-12363",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "glibc",
+            "featureversion": "2.28-10",
+            "vulnerability": "CVE-2021-27645",
+            "namespace": "debian:10",
+            "description": "The nameserver caching daemon (nscd) in the GNU C Library (aka glibc or libc6) 2.29 through 2.33, when processing a request for netgroup lookup, may crash due to a double-free, potentially resulting in degraded service or Denial of Service on the local system. This is related to netgroupcache.c.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-27645",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "gcc-8",
+            "featureversion": "8.3.0-6",
+            "vulnerability": "CVE-2019-15847",
+            "namespace": "debian:10",
+            "description": "The POWER9 backend in GNU Compiler Collection (GCC) before version 10 could optimize multiple calls of the __builtin_darn intrinsic into a single call, thus reducing the entropy of the random number generator. This occurred because a volatile operation was not specified. For example, within a single execution of a program, the output of every __builtin_darn() call may be the same.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-15847",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "policykit-1",
+            "featureversion": "0.105-25",
+            "vulnerability": "CVE-2016-2568",
+            "namespace": "debian:10",
+            "description": "pkexec, when used with --user nonpriv, allows local users to escape to the parent session via a crafted TIOCSTI ioctl call, which pushes characters to the terminal's input buffer.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2016-2568",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "shadow",
+            "featureversion": "1:4.5-1.1",
+            "vulnerability": "CVE-2018-7169",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in shadow 4.5. newgidmap (in shadow-utils) is setuid and allows an unprivileged user to be placed in a user namespace where setgroups(2) is permitted. This allows an attacker to remove themselves from a supplementary group, which may allow access to certain filesystem paths if the administrator has used \"group blacklisting\" (e.g., chmod g-rwx) to restrict access to paths. This flaw effectively reverts a security feature in the kernel (in particular, the /proc/self/setgroups knob) to prevent this sort of privilege escalation.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-7169",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "libssh2",
+            "featureversion": "1.8.0-2.1",
+            "vulnerability": "CVE-2019-17498",
+            "namespace": "debian:10",
+            "description": "In libssh2 v1.9.0 and earlier versions, the SSH_MSG_DISCONNECT logic in packet.c has an integer overflow in a bounds check, enabling an attacker to specify an arbitrary (out-of-bounds) offset for a subsequent memory read. A crafted SSH server may be able to disclose sensitive information or cause a denial of service condition on the client system when a user connects to the server.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-17498",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "gnupg2",
+            "featureversion": "2.2.12-1+deb10u1",
+            "vulnerability": "CVE-2019-14855",
+            "namespace": "debian:10",
+            "description": "A flaw was found in the way certificate signatures could be forged using collisions found in the SHA-1 algorithm. An attacker could use this weakness to create forged certificate signatures. This issue affects GnuPG versions before 2.2.18.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-14855",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "coreutils",
+            "featureversion": "8.30-3",
+            "vulnerability": "CVE-2016-2781",
+            "namespace": "debian:10",
+            "description": "chroot in GNU coreutils, when used with --userspec, allows local users to escape to the parent session via a crafted TIOCSTI ioctl call, which pushes characters to the terminal's input buffer.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2016-2781",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "apparmor",
+            "featureversion": "2.13.2-10",
+            "vulnerability": "CVE-2016-1585",
+            "namespace": "debian:10",
+            "description": "In all versions of AppArmor mount rules are accidentally widened when compiled.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2016-1585",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2021-29155",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in the Linux kernel through 5.11.x. kernel/bpf/verifier.c performs undesirable out-of-bounds speculation on pointer arithmetic, leading to side-channel attacks that defeat Spectre mitigations and obtain sensitive information from kernel memory. Specifically, for sequences of pointer arithmetic operations, the pointer modification performed by the first operation is not correctly accounted for when restricting subsequent operations.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-29155",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "libgcrypt20",
+            "featureversion": "1.8.4-5",
+            "vulnerability": "CVE-2019-13627",
+            "namespace": "debian:10",
+            "description": "It was discovered that there was a ECDSA timing attack in the libgcrypt20 cryptographic library. Version affected: 1.8.4-5, 1.7.6-2+deb9u3, and 1.6.3-2+deb8u4. Versions fixed: 1.8.5-2 and 1.6.3-2+deb8u7.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-13627",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2018-12928",
+            "namespace": "debian:10",
+            "description": "In the Linux kernel 4.15.0, a NULL pointer dereference was discovered in hfs_ext_read_extent in hfs.ko. This can occur during a mount of a crafted hfs filesystem.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-12928",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "packagekit",
+            "featureversion": "1.1.12-5",
+            "vulnerability": "CVE-2020-16121",
+            "namespace": "debian:10",
+            "description": "PackageKit provided detailed error messages to unprivileged callers that exposed information about file presence and mimetype of files that the user would be unable to determine on its own.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-16121",
+            "severity": "Low",
+            "fixedby": ""
+        },
+        {
+            "featurename": "expat",
+            "featureversion": "2.2.6-2+deb10u1",
+            "vulnerability": "CVE-2013-0340",
+            "namespace": "debian:10",
+            "description": "expat 2.1.0 and earlier does not properly handle entities expansion unless an application developer uses the XML_SetEntityDeclHandler function, which allows remote attackers to cause a denial of service (resource consumption), send HTTP requests to intranet servers, or read arbitrary files via a crafted XML document, aka an XML External Entity (XXE) issue.  NOTE: it could be argued that because expat already provides the ability to disable external entity expansion, the responsibility for resolving this issue lies with application developers; according to this argument, this entry should be REJECTed, and each affected application would need its own CVE.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2013-0340",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "gnutls28",
+            "featureversion": "3.6.7-4+deb10u6",
+            "vulnerability": "CVE-2021-20231",
+            "namespace": "debian:10",
+            "description": "A flaw was found in gnutls. A use after free issue in client sending key_share extension may lead to memory corruption and other consequences.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-20231",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2007-3719",
+            "namespace": "debian:10",
+            "description": "The process scheduler in the Linux kernel 2.6.16 gives preference to \"interactive\" processes that perform voluntary sleeps, which allows local users to cause a denial of service (CPU consumption), as described in \"Secretly Monopolizing the CPU Without Superuser Privileges.\"",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2007-3719",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2016-10723",
+            "namespace": "debian:10",
+            "description": "** DISPUTED ** An issue was discovered in the Linux kernel through 4.17.2. Since the page allocator does not yield CPU resources to the owner of the oom_lock mutex, a local unprivileged user can trivially lock up the system forever by wasting CPU resources from the page allocator (e.g., via concurrent page fault events) when the global OOM killer is invoked. NOTE: the software maintainer has not accepted certain proposed patches, in part because of a viewpoint that \"the underlying problem is non-trivial to handle.\"",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2016-10723",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "gnutls28",
+            "featureversion": "3.6.7-4+deb10u6",
+            "vulnerability": "CVE-2021-20232",
+            "namespace": "debian:10",
+            "description": "A flaw was found in gnutls. A use after free issue in client_send_params in lib/ext/pre_shared_key.c may lead to memory corruption and other potential consequences.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-20232",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2019-16233",
+            "namespace": "debian:10",
+            "description": "drivers/scsi/qla2xxx/qla_os.c in the Linux kernel 5.2.14 does not check the alloc_workqueue return value, leading to a NULL pointer dereference.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-16233",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2019-12382",
+            "namespace": "debian:10",
+            "description": "** DISPUTED ** An issue was discovered in drm_load_edid_firmware in drivers/gpu/drm/drm_edid_load.c in the Linux kernel through 5.1.5. There is an unchecked kstrdup of fwstr, which might allow an attacker to cause a denial of service (NULL pointer dereference and system crash). NOTE: The vendor disputes this issues as not being a vulnerability because kstrdup() returning NULL is handled sufficiently and there is no chance for a NULL pointer dereference.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-12382",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2019-16234",
+            "namespace": "debian:10",
+            "description": "drivers/net/wireless/intel/iwlwifi/pcie/trans.c in the Linux kernel 5.2.14 does not check the alloc_workqueue return value, leading to a NULL pointer dereference.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-16234",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2019-12378",
+            "namespace": "debian:10",
+            "description": "** DISPUTED ** An issue was discovered in ip6_ra_control in net/ipv6/ipv6_sockglue.c in the Linux kernel through 5.1.5. There is an unchecked kmalloc of new_ra, which might allow an attacker to cause a denial of service (NULL pointer dereference and system crash). NOTE: This has been disputed as not an issue.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-12378",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2019-16089",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in the Linux kernel through 5.2.13. nbd_genl_status in drivers/block/nbd.c does not check the nla_nest_start_noflag return value.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-16089",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2018-1121",
+            "namespace": "debian:10",
+            "description": "procps-ng, procps is vulnerable to a process hiding through race condition. Since the kernel's proc_pid_readdir() returns PID entries in ascending numeric order, a process occupying a high PID can use inotify events to determine when the process list is being scanned, and fork/exec to obtain a lower PID, thus avoiding enumeration. An unprivileged attacker can hide a process from procps-ng's utilities by exploiting a race condition in reading /proc/PID entries. This vulnerability affects procps and procps-ng up to version 3.3.15, newer versions might be affected also.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-1121",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2019-11191",
+            "namespace": "debian:10",
+            "description": "** DISPUTED ** The Linux kernel through 5.0.7, when CONFIG_IA32_AOUT is enabled and ia32_aout is loaded, allows local users to bypass ASLR on setuid a.out programs (if any exist) because install_exec_creds() is called too late in load_aout_binary() in fs/binfmt_aout.c, and thus the ptrace_may_access() check has a race condition when reading /proc/pid/stat. NOTE: the software maintainer disputes that this is a vulnerability because ASLR for a.out format executables has never been supported.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-11191",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2019-15794",
+            "namespace": "debian:10",
+            "description": "Overlayfs in the Linux kernel and shiftfs, a non-upstream patch to the Linux kernel included in the Ubuntu 5.0 and 5.3 kernel series, both replace vma-\u003evm_file in their mmap handlers. On error the original value is not restored, and the reference is put for the file to which vm_file points. On upstream kernels this is not an issue, as no callers dereference vm_file following after call_mmap() returns an error. However, the aufs patchs change mmap_region() to replace the fput() using a local variable with vma_fput(), which will fput() vm_file, leading to a refcount underflow.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-15794",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2008-2544",
+            "namespace": "debian:10",
+            "description": "",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2008-2544",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2017-0630",
+            "namespace": "debian:10",
+            "description": "An information disclosure vulnerability in the kernel trace subsystem could enable a local malicious application to access data outside of its permission levels. This issue is rated as Moderate because it first requires compromising a privileged process. Product: Android. Versions: Kernel-3.10, Kernel-3.18. Android ID: A-34277115.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2017-0630",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2010-5321",
+            "namespace": "debian:10",
+            "description": "Memory leak in drivers/media/video/videobuf-core.c in the videobuf subsystem in the Linux kernel 2.6.x through 4.x allows local users to cause a denial of service (memory consumption) by leveraging /dev/video access for a series of mmap calls that require new allocations, a different vulnerability than CVE-2007-6761.  NOTE: as of 2016-06-18, this affects only 11 drivers that have not been updated to use videobuf2 instead of videobuf.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2010-5321",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2005-3660",
+            "namespace": "debian:10",
+            "description": "Linux kernel 2.4 and 2.6 allows attackers to cause a denial of service (memory exhaustion and panic) by creating a large number of connected file descriptors or socketpairs and setting a large data transfer buffer, then preventing Linux from being able to finish the transfer by causing the process to become a zombie, or closing the file descriptor without closing an associated reference.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2005-3660",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2004-0230",
+            "namespace": "debian:10",
+            "description": "TCP, when using a large Window Size, makes it easier for remote attackers to guess sequence numbers and cause a denial of service (connection loss) to persistent TCP connections by repeatedly injecting a TCP RST packet, especially in protocols that use long-lived connections, such as BGP.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2004-0230",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2019-16229",
+            "namespace": "debian:10",
+            "description": "** DISPUTED ** drivers/gpu/drm/amd/amdkfd/kfd_interrupt.c in the Linux kernel 5.2.14 does not check the alloc_workqueue return value, leading to a NULL pointer dereference. NOTE: The security community disputes this issues as not being serious enough to be deserving a CVE id.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-16229",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2017-13694",
+            "namespace": "debian:10",
+            "description": "The acpi_ps_complete_final_op() function in drivers/acpi/acpica/psobject.c in the Linux kernel through 4.12.9 does not flush the node and node_ext caches and causes a kernel stack dump, which allows local users to obtain sensitive information from kernel memory and bypass the KASLR protection mechanism (in the kernel through 4.9) via a crafted ACPI table.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2017-13694",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2019-12456",
+            "namespace": "debian:10",
+            "description": "** DISPUTED ** An issue was discovered in the MPT3COMMAND case in _ctl_ioctl_main in drivers/scsi/mpt3sas/mpt3sas_ctl.c in the Linux kernel through 5.1.5. It allows local users to cause a denial of service or possibly have unspecified other impact by changing the value of ioc_number between two kernel reads of that value, aka a \"double fetch\" vulnerability. NOTE: a third party reports that this is unexploitable because the doubly fetched value is not used.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-12456",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2020-11725",
+            "namespace": "debian:10",
+            "description": "** DISPUTED ** snd_ctl_elem_add in sound/core/control.c in the Linux kernel through 5.6.3 has a count=info-\u003eowner line, which later affects a private_size*count multiplication for unspecified \"interesting side effects.\" NOTE: kernel engineers dispute this finding, because it could be relevant only if new callers were added that were unfamiliar with the misuse of the info-\u003eowner field to represent data unrelated to the \"owner\" concept. The existing callers, SNDRV_CTL_IOCTL_ELEM_ADD and SNDRV_CTL_IOCTL_ELEM_REPLACE, have been designed to misuse the info-\u003eowner field in a safe way.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-11725",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2019-12381",
+            "namespace": "debian:10",
+            "description": "** DISPUTED ** An issue was discovered in ip_ra_control in net/ipv4/ip_sockglue.c in the Linux kernel through 5.1.5. There is an unchecked kmalloc of new_ra, which might allow an attacker to cause a denial of service (NULL pointer dereference and system crash). NOTE: this is disputed because new_ra is never used if it is NULL.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-12381",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2016-8660",
+            "namespace": "debian:10",
+            "description": "The XFS subsystem in the Linux kernel through 4.8.2 allows local users to cause a denial of service (fdatasync failure and system hang) by using the vfs syscall group in the trinity program, related to a \"page lock order bug in the XFS seek hole/data implementation.\"",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2016-8660",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "systemd",
+            "featureversion": "241-7~deb10u7",
+            "vulnerability": "CVE-2013-4392",
+            "namespace": "debian:10",
+            "description": "systemd, when updating file permissions, allows local users to change the permissions and SELinux security contexts for arbitrary files via a symlink attack on unspecified files.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2013-4392",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2011-4917",
+            "namespace": "debian:10",
+            "description": "",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2011-4917",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2019-15213",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in the Linux kernel before 5.2.3. There is a use-after-free caused by a malicious USB device in the drivers/media/usb/dvb-usb/dvb-usb-init.c driver.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-15213",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2015-2877",
+            "namespace": "debian:10",
+            "description": "** DISPUTED ** Kernel Samepage Merging (KSM) in the Linux kernel 2.6.32 through 4.x does not prevent use of a write-timing side channel, which allows guest OS users to defeat the ASLR protection mechanism on other guest OS instances via a Cross-VM ASL INtrospection (CAIN) attack.  NOTE: the vendor states \"Basically if you care about this attack vector, disable deduplication.\" Share-until-written approaches for memory conservation among mutually untrusting tenants are inherently detectable for information disclosure, and can be classified as potentially misunderstood behaviors rather than vulnerabilities.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2015-2877",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2019-19083",
+            "namespace": "debian:10",
+            "description": "Memory leaks in *clock_source_create() functions under drivers/gpu/drm/amd/display/dc in the Linux kernel before 5.3.8 allow attackers to cause a denial of service (memory consumption). This affects the dce112_clock_source_create() function in drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c, the dce100_clock_source_create() function in drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c, the dcn10_clock_source_create() function in drivers/gpu/drm/amd/display/dc/dcn10/dcn10_resource.c, the dcn20_clock_source_create() function in drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c, the dce120_clock_source_create() function in drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c, the dce110_clock_source_create() function in drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c, and the dce80_clock_source_create() function in drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c, aka CID-055e547478a1.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-19083",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2018-17977",
+            "namespace": "debian:10",
+            "description": "The Linux kernel 4.14.67 mishandles certain interaction among XFRM Netlink messages, IPPROTO_AH packets, and IPPROTO_IP packets, which allows local users to cause a denial of service (memory consumption and system hang) by leveraging root access to execute crafted applications, as demonstrated on CentOS 7.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-17977",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2019-12455",
+            "namespace": "debian:10",
+            "description": "** DISPUTED ** An issue was discovered in sunxi_divs_clk_setup in drivers/clk/sunxi/clk-sunxi.c in the Linux kernel through 5.1.5. There is an unchecked kstrndup of derived_name, which might allow an attacker to cause a denial of service (NULL pointer dereference and system crash). NOTE: This id is disputed as not being an issue because “The memory allocation that was not checked is part of a code that only runs at boot time, before user processes are started. Therefore, there is no possibility for an unprivileged user to control it, and no denial of service.”.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-12455",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2021-3444",
+            "namespace": "debian:10",
+            "description": "The bpf verifier in the Linux kernel did not properly handle mod32 destination register truncation when the source register was known to be 0. A local attacker with the ability to load bpf programs could use this gain out-of-bounds reads in kernel memory leading to information disclosure (kernel memory), and possibly out-of-bounds writes that could potentially lead to code execution. This issue was addressed in the upstream kernel in commit 9b00f1b78809 (\"bpf: Fix truncation handling for mod32 dst reg wrt zero\") and in Linux stable kernels 5.11.2, 5.10.19, and 5.4.101.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-3444",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2010-4563",
+            "namespace": "debian:10",
+            "description": "The Linux kernel, when using IPv6, allows remote attackers to determine whether a host is sniffing the network by sending an ICMPv6 Echo Request to a multicast address and determining whether an Echo Reply is sent, as demonstrated by thcping.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2010-4563",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2019-16230",
+            "namespace": "debian:10",
+            "description": "** DISPUTED ** drivers/gpu/drm/radeon/radeon_display.c in the Linux kernel 5.2.14 does not check the alloc_workqueue return value, leading to a NULL pointer dereference. NOTE: A third-party software maintainer states that the work queue allocation is happening during device initialization, which for a graphics card occurs during boot. It is not attacker controllable and OOM at that time is highly unlikely.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-16230",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "gnutls28",
+            "featureversion": "3.6.7-4+deb10u6",
+            "vulnerability": "CVE-2020-24659",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in GnuTLS before 3.6.15. A server can trigger a NULL pointer dereference in a TLS 1.3 client if a no_renegotiation alert is sent with unexpected timing, and then an invalid second handshake occurs. The crash happens in the application's error handling path, where the gnutls_deinit function is called after detecting a handshake failure.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-24659",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2014-9892",
+            "namespace": "debian:10",
+            "description": "The snd_compr_tstamp function in sound/core/compress_offload.c in the Linux kernel through 4.7, as used in Android before 2016-08-05 on Nexus 5 and 7 (2013) devices, does not properly initialize a timestamp data structure, which allows attackers to obtain sensitive information via a crafted application, aka Android internal bug 28770164 and Qualcomm internal bug CR568717.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2014-9892",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "sqlite3",
+            "featureversion": "3.27.2-3+deb10u1",
+            "vulnerability": "CVE-2019-19645",
+            "namespace": "debian:10",
+            "description": "alter.c in SQLite through 3.30.1 allows attackers to trigger infinite recursion via certain types of self-referential views in conjunction with ALTER TABLE statements.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-19645",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "sqlite3",
+            "featureversion": "3.27.2-3+deb10u1",
+            "vulnerability": "CVE-2019-19603",
+            "namespace": "debian:10",
+            "description": "SQLite 3.30.1 mishandles certain SELECT statements with a nonexistent VIEW, leading to an application crash.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-19603",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "sqlite3",
+            "featureversion": "3.27.2-3+deb10u1",
+            "vulnerability": "CVE-2019-19924",
+            "namespace": "debian:10",
+            "description": "SQLite 3.30.1 mishandles certain parser-tree rewriting, related to expr.c, vdbeaux.c, and window.c. This is caused by incorrect sqlite3WindowRewrite() error handling.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-19924",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "sqlite3",
+            "featureversion": "3.27.2-3+deb10u1",
+            "vulnerability": "CVE-2020-13631",
+            "namespace": "debian:10",
+            "description": "SQLite before 3.32.0 allows a virtual table to be renamed to the name of one of its shadow tables, related to alter.c and build.c.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-13631",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "sqlite3",
+            "featureversion": "3.27.2-3+deb10u1",
+            "vulnerability": "CVE-2019-19244",
+            "namespace": "debian:10",
+            "description": "sqlite3Select in select.c in SQLite 3.30.1 allows a crash if a sub-select uses both DISTINCT and window functions, and also has certain ORDER BY usage.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-19244",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "sqlite3",
+            "featureversion": "3.27.2-3+deb10u1",
+            "vulnerability": "CVE-2020-11656",
+            "namespace": "debian:10",
+            "description": "In SQLite through 3.31.1, the ALTER TABLE implementation has a use-after-free, as demonstrated by an ORDER BY clause that belongs to a compound SELECT statement.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-11656",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "tar",
+            "featureversion": "1.30+dfsg-6",
+            "vulnerability": "CVE-2021-20193",
+            "namespace": "debian:10",
+            "description": "A flaw was found in the src/list.c of tar 1.33 and earlier. This flaw allows an attacker who can submit a crafted input file to tar to cause uncontrolled consumption of memory. The highest threat from this vulnerability is to system availability.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-20193",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "tar",
+            "featureversion": "1.30+dfsg-6",
+            "vulnerability": "CVE-2019-9923",
+            "namespace": "debian:10",
+            "description": "pax_decode_header in sparse.c in GNU Tar before 1.32 had a NULL pointer dereference when parsing certain archives that have malformed extended headers.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-9923",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "tar",
+            "featureversion": "1.30+dfsg-6",
+            "vulnerability": "CVE-2005-2541",
+            "namespace": "debian:10",
+            "description": "Tar 1.15.1 does not properly warn the user when extracting setuid or setgid files, which may allow local users or remote attackers to gain privileges.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2005-2541",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "krb5",
+            "featureversion": "1.17-3+deb10u1",
+            "vulnerability": "CVE-2004-0971",
+            "namespace": "debian:10",
+            "description": "The krb5-send-pr script in the kerberos5 (krb5) package in Trustix Secure Linux 1.5 through 2.1, and possibly other operating systems, allows local users to overwrite files via a symlink attack on temporary files.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2004-0971",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "krb5",
+            "featureversion": "1.17-3+deb10u1",
+            "vulnerability": "CVE-2018-5709",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in MIT Kerberos 5 (aka krb5) through 1.16. There is a variable \"dbentry-\u003en_key_data\" in kadmin/dbutil/dump.c that can store 16-bit data but unknowingly the developer has assigned a \"u4\" variable to it, which is for 32-bit data. An attacker can use this vulnerability to affect other artifacts of the database as we know that a Kerberos database dump file contains trusted data.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-5709",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2011-4915",
+            "namespace": "debian:10",
+            "description": "fs/proc/base.c in the Linux kernel through 3.1 allows local users to obtain sensitive keystroke information via access to /proc/interrupts.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2011-4915",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "systemd",
+            "featureversion": "241-7~deb10u7",
+            "vulnerability": "CVE-2020-13776",
+            "namespace": "debian:10",
+            "description": "systemd through v245 mishandles numerical usernames such as ones composed of decimal digits or 0x followed by hex digits, as demonstrated by use of root privileges when privileges of the 0x0 user account were intended. NOTE: this issue exists because of an incomplete fix for CVE-2017-1000082.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-13776",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2020-16120",
+            "namespace": "debian:10",
+            "description": "Overlayfs did not properly perform permission checking when copying up files in an overlayfs and could be exploited from within a user namespace, if, for example, unprivileged user namespaces were allowed. It was possible to have a file not readable by an unprivileged user to be copied to a mountpoint controlled by the user, like a removable device. This was introduced in kernel version 4.19 by commit d1d04ef (\"ovl: stack file ops\"). This was fixed in kernel version 5.8 by commits 56230d9 (\"ovl: verify permissions in ovl_path_open()\"), 48bd024 (\"ovl: switch to mounter creds in readdir\") and 05acefb (\"ovl: check permission to open real file\"). Additionally, commits 130fdbc (\"ovl: pass correct flags for opening real directory\") and 292f902 (\"ovl: call secutiry hook in ovl_real_ioctl()\") in kernel 5.8 might also be desired or necessary. These additional commits introduced a regression in overlay mounts within user namespaces which prevented access to files with ownership outside of the user namespace. This regression was mitigated by subsequent commit b6650da (\"ovl: do not fail because of O_NOATIMEi\") in kernel 5.11.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-16120",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "systemd",
+            "featureversion": "241-7~deb10u7",
+            "vulnerability": "CVE-2019-20386",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in button_open in login/logind-button.c in systemd before 243. When executing the udevadm trigger command, a memory leak may occur.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-20386",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "gnutls28",
+            "featureversion": "3.6.7-4+deb10u6",
+            "vulnerability": "CVE-2011-3389",
+            "namespace": "debian:10",
+            "description": "The SSL protocol, as used in certain configurations in Microsoft Windows and Microsoft Internet Explorer, Mozilla Firefox, Google Chrome, Opera, and other products, encrypts data by using CBC mode with chained initialization vectors, which allows man-in-the-middle attackers to obtain plaintext HTTP headers via a blockwise chosen-boundary attack (BCBA) on an HTTPS session, in conjunction with JavaScript code that uses (1) the HTML5 WebSocket API, (2) the Java URLConnection API, or (3) the Silverlight WebClient API, aka a \"BEAST\" attack.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2011-3389",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "libseccomp",
+            "featureversion": "2.3.3-4",
+            "vulnerability": "CVE-2019-9893",
+            "namespace": "debian:10",
+            "description": "libseccomp before 2.4.0 did not correctly generate 64-bit syscall argument comparisons using the arithmetic operators (LT, GT, LE, GE), which might able to lead to bypassing seccomp filters and potential privilege escalations.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-9893",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2019-16232",
+            "namespace": "debian:10",
+            "description": "drivers/net/wireless/marvell/libertas/if_sdio.c in the Linux kernel 5.2.14 does not check the alloc_workqueue return value, leading to a NULL pointer dereference.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-16232",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "python3.7",
+            "featureversion": "3.7.3-2+deb10u3",
+            "vulnerability": "CVE-2020-27619",
+            "namespace": "debian:10",
+            "description": "In Python 3 through 3.9.0, the Lib/test/multibytecodec_support.py CJK codec tests call eval() on content retrieved via HTTP.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-27619",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "python3.7",
+            "featureversion": "3.7.3-2+deb10u3",
+            "vulnerability": "CVE-2019-18348",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in urllib2 in Python 2.x through 2.7.17 and urllib in Python 3.x through 3.8.0. CRLF injection is possible if the attacker controls a url parameter, as demonstrated by the first argument to urllib.request.urlopen with \\r\\n (specifically in the host component of a URL) followed by an HTTP header. This is similar to the CVE-2019-9740 query string issue and the CVE-2019-9947 path string issue. (This is not exploitable when glibc has CVE-2016-10739 fixed.). This is fixed in: v2.7.18, v2.7.18rc1; v3.5.10, v3.5.10rc1; v3.6.11, v3.6.11rc1, v3.6.12; v3.7.8, v3.7.8rc1, v3.7.9; v3.8.3, v3.8.3rc1, v3.8.4, v3.8.4rc1, v3.8.5, v3.8.6, v3.8.6rc1.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-18348",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "python3.7",
+            "featureversion": "3.7.3-2+deb10u3",
+            "vulnerability": "CVE-2019-9674",
+            "namespace": "debian:10",
+            "description": "Lib/zipfile.py in Python through 3.7.2 allows remote attackers to cause a denial of service (resource consumption) via a ZIP bomb.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-9674",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2019-12615",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in get_vdev_port_node_info in arch/sparc/kernel/mdesc.c in the Linux kernel through 5.1.6. There is an unchecked kstrdup_const of node_info-\u003evdev_port.name, which might allow an attacker to cause a denial of service (NULL pointer dereference and system crash).",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-12615",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "coreutils",
+            "featureversion": "8.30-3",
+            "vulnerability": "CVE-2017-18018",
+            "namespace": "debian:10",
+            "description": "In GNU Coreutils through 8.29, chown-core.c in chown and chgrp does not prevent replacement of a plain file with a symlink during use of the POSIX \"-R -L\" options, which allows local users to modify the ownership of arbitrary files by leveraging a race condition.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2017-18018",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "python3.7",
+            "featureversion": "3.7.3-2+deb10u3",
+            "vulnerability": "CVE-2021-3426",
+            "namespace": "debian:10",
+            "description": "",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-3426",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2008-4609",
+            "namespace": "debian:10",
+            "description": "The TCP implementation in (1) Linux, (2) platforms based on BSD Unix, (3) Microsoft Windows, (4) Cisco products, and probably other operating systems allows remote attackers to cause a denial of service (connection queue exhaustion) via multiple vectors that manipulate information in the TCP state table, as demonstrated by sockstress.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2008-4609",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2012-4542",
+            "namespace": "debian:10",
+            "description": "block/scsi_ioctl.c in the Linux kernel through 3.8 does not properly consider the SCSI device class during authorization of SCSI commands, which allows local users to bypass intended access restrictions via an SG_IO ioctl call that leverages overlapping opcodes.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2012-4542",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2020-26541",
+            "namespace": "debian:10",
+            "description": "The Linux kernel through 5.8.13 does not properly enforce the Secure Boot Forbidden Signature Database (aka dbx) protection mechanism. This affects certs/blacklist.c and certs/system_keyring.c.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-26541",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "glibc",
+            "featureversion": "2.28-10",
+            "vulnerability": "CVE-2010-4051",
+            "namespace": "debian:10",
+            "description": "The regcomp implementation in the GNU C Library (aka glibc or libc6) through 2.11.3, and 2.12.x through 2.12.2, allows context-dependent attackers to cause a denial of service (application crash) via a regular expression containing adjacent bounded repetitions that bypass the intended RE_DUP_MAX limitation, as demonstrated by a {10,}{10,}{10,}{10,}{10,} sequence in the proftpd.gnu.c exploit for ProFTPD, related to a \"RE_DUP_MAX overflow.\"",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2010-4051",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2019-16231",
+            "namespace": "debian:10",
+            "description": "drivers/net/fjes/fjes_main.c in the Linux kernel 5.2.14 does not check the alloc_workqueue return value, leading to a NULL pointer dereference.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-16231",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2017-13693",
+            "namespace": "debian:10",
+            "description": "The acpi_ds_create_operands() function in drivers/acpi/acpica/dsutils.c in the Linux kernel through 4.12.9 does not flush the operand cache and causes a kernel stack dump, which allows local users to obtain sensitive information from kernel memory and bypass the KASLR protection mechanism (in the kernel through 4.9) via a crafted ACPI table.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2017-13693",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "glibc",
+            "featureversion": "2.28-10",
+            "vulnerability": "CVE-2019-1010024",
+            "namespace": "debian:10",
+            "description": "** DISPUTED ** GNU Libc current is affected by: Mitigation bypass. The impact is: Attacker may bypass ASLR using cache of thread stack and heap. The component is: glibc. NOTE: Upstream comments indicate \"this is being treated as a non-security bug and no real threat.\"",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-1010024",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "glibc",
+            "featureversion": "2.28-10",
+            "vulnerability": "CVE-2010-4756",
+            "namespace": "debian:10",
+            "description": "The glob implementation in the GNU C Library (aka glibc or libc6) allows remote authenticated users to cause a denial of service (CPU and memory consumption) via crafted glob expressions that do not match any pathnames, as demonstrated by glob expressions in STAT commands to an FTP daemon, a different vulnerability than CVE-2010-2632.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2010-4756",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2019-19064",
+            "namespace": "debian:10",
+            "description": "** DISPUTED ** A memory leak in the fsl_lpspi_probe() function in drivers/spi/spi-fsl-lpspi.c in the Linux kernel through 5.3.11 allows attackers to cause a denial of service (memory consumption) by triggering pm_runtime_get_sync() failures, aka CID-057b8945f78f. NOTE: third parties dispute the relevance of this because an attacker cannot realistically control these failures at probe time.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-19064",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2014-9900",
+            "namespace": "debian:10",
+            "description": "The ethtool_get_wol function in net/core/ethtool.c in the Linux kernel through 4.7, as used in Android before 2016-08-05 on Nexus 5 and 7 (2013) devices, does not initialize a certain data structure, which allows local users to obtain sensitive information via a crafted application, aka Android internal bug 28803952 and Qualcomm internal bug CR570754.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2014-9900",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "glibc",
+            "featureversion": "2.28-10",
+            "vulnerability": "CVE-2010-4052",
+            "namespace": "debian:10",
+            "description": "Stack consumption vulnerability in the regcomp implementation in the GNU C Library (aka glibc or libc6) through 2.11.3, and 2.12.x through 2.12.2, allows context-dependent attackers to cause a denial of service (resource exhaustion) via a regular expression containing adjacent repetition operators, as demonstrated by a {10,}{10,}{10,}{10,} sequence in the proftpd.gnu.c exploit for ProFTPD.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2010-4052",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2020-27820",
+            "namespace": "debian:10",
+            "description": "",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-27820",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "glibc",
+            "featureversion": "2.28-10",
+            "vulnerability": "CVE-2019-1010022",
+            "namespace": "debian:10",
+            "description": "** DISPUTED ** GNU Libc current is affected by: Mitigation bypass. The impact is: Attacker may bypass stack guard protection. The component is: nptl. The attack vector is: Exploit stack buffer overflow vulnerability and use this bypass vulnerability to bypass stack guard. NOTE: Upstream comments indicate \"this is being treated as a non-security bug and no real threat.\"",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-1010022",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "glibc",
+            "featureversion": "2.28-10",
+            "vulnerability": "CVE-2019-9192",
+            "namespace": "debian:10",
+            "description": "** DISPUTED ** In the GNU C Library (aka glibc or libc6) through 2.29, check_dst_limits_calc_pos_1 in posix/regexec.c has Uncontrolled Recursion, as demonstrated by '(|)(\\\\1\\\\1)*' in grep, a different issue than CVE-2018-20796. NOTE: the software maintainer disputes that this is a vulnerability because the behavior occurs only with a crafted pattern.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-9192",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "glibc",
+            "featureversion": "2.28-10",
+            "vulnerability": "CVE-2019-1010025",
+            "namespace": "debian:10",
+            "description": "** DISPUTED ** GNU Libc current is affected by: Mitigation bypass. The impact is: Attacker may guess the heap addresses of pthread_created thread. The component is: glibc. NOTE: the vendor's position is \"ASLR bypass itself is not a vulnerability.\"",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-1010025",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2021-26934",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in the Linux kernel 4.18 through 5.10.16, as used by Xen. The backend allocation (aka be-alloc) mode of the drm_xen_front drivers was not meant to be a supported configuration, but this wasn't stated accordingly in its support status entry.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-26934",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "glibc",
+            "featureversion": "2.28-10",
+            "vulnerability": "CVE-2018-20796",
+            "namespace": "debian:10",
+            "description": "In the GNU C Library (aka glibc or libc6) through 2.29, check_dst_limits_calc_pos_1 in posix/regexec.c has Uncontrolled Recursion, as demonstrated by '(\\227|)(\\\\1\\\\1|t1|\\\\\\2537)+' in grep.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-20796",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2019-12380",
+            "namespace": "debian:10",
+            "description": "**DISPUTED** An issue was discovered in the efi subsystem in the Linux kernel through 5.1.5. phys_efi_set_virtual_address_map in arch/x86/platform/efi/efi.c and efi_call_phys_prolog in arch/x86/platform/efi/efi_64.c mishandle memory allocation failures. NOTE: This id is disputed as not being an issue because “All the code touched by the referenced commit runs only at boot, before any user processes are started. Therefore, there is no possibility for an unprivileged user to control it.”.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-12380",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2019-12379",
+            "namespace": "debian:10",
+            "description": "** DISPUTED ** An issue was discovered in con_insert_unipair in drivers/tty/vt/consolemap.c in the Linux kernel through 5.1.5. There is a memory leak in a certain case of an ENOMEM outcome of kmalloc. NOTE: This id is disputed as not being an issue.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-12379",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "glibc",
+            "featureversion": "2.28-10",
+            "vulnerability": "CVE-2019-1010023",
+            "namespace": "debian:10",
+            "description": "** DISPUTED ** GNU Libc current is affected by: Re-mapping current loaded library with malicious ELF file. The impact is: In worst case attacker may evaluate privileges. The component is: libld. The attack vector is: Attacker sends 2 ELF files to victim and asks to run ldd on it. ldd execute code. NOTE: Upstream comments indicate \"this is being treated as a non-security bug and no real threat.\"",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-1010023",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2019-19070",
+            "namespace": "debian:10",
+            "description": "** DISPUTED ** A memory leak in the spi_gpio_probe() function in drivers/spi/spi-gpio.c in the Linux kernel through 5.3.11 allows attackers to cause a denial of service (memory consumption) by triggering devm_add_action_or_reset() failures, aka CID-d3b0ffa1d75d. NOTE: third parties dispute the relevance of this because the system must have already been out of memory before the probe began.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-19070",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "apt",
+            "featureversion": "1.8.2.3",
+            "vulnerability": "CVE-2011-3374",
+            "namespace": "debian:10",
+            "description": "It was found that apt-key in apt, all versions, do not correctly validate gpg keys with the master keyring, leading to a potential man-in-the-middle attack.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2011-3374",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "libtasn1-6",
+            "featureversion": "4.13-3",
+            "vulnerability": "CVE-2018-1000654",
+            "namespace": "debian:10",
+            "description": "GNU Libtasn1-4.13 libtasn1-4.13 version libtasn1-4.13, libtasn1-4.12 contains a DoS, specifically CPU usage will reach 100% when running asn1Paser against the POC due to an issue in _asn1_expand_object_id(p_tree), after a long time, the program will be killed. This attack appears to be exploitable via parsing a crafted file.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-1000654",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "pcre3",
+            "featureversion": "2:8.39-12",
+            "vulnerability": "CVE-2017-7245",
+            "namespace": "debian:10",
+            "description": "Stack-based buffer overflow in the pcre32_copy_substring function in pcre_get.c in libpcre1 in PCRE 8.40 allows remote attackers to cause a denial of service (WRITE of size 4) or possibly have unspecified other impact via a crafted file.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2017-7245",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "pcre3",
+            "featureversion": "2:8.39-12",
+            "vulnerability": "CVE-2019-20838",
+            "namespace": "debian:10",
+            "description": "libpcre in PCRE before 8.43 allows a subject buffer over-read in JIT when UTF is disabled, and \\X or \\R has more than one fixed quantifier, a related issue to CVE-2019-20454.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-20838",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "pcre3",
+            "featureversion": "2:8.39-12",
+            "vulnerability": "CVE-2017-11164",
+            "namespace": "debian:10",
+            "description": "In PCRE 8.41, the OP_KETRMAX feature in the match function in pcre_exec.c allows stack exhaustion (uncontrolled recursion) when processing a crafted regular expression.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2017-11164",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "pcre3",
+            "featureversion": "2:8.39-12",
+            "vulnerability": "CVE-2017-16231",
+            "namespace": "debian:10",
+            "description": "** DISPUTED ** In PCRE 8.41, after compiling, a pcretest load test PoC produces a crash overflow in the function match() in pcre_exec.c because of a self-recursive call. NOTE: third parties dispute the relevance of this report, noting that there are options that can be used to limit the amount of stack that is used.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2017-16231",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "pcre3",
+            "featureversion": "2:8.39-12",
+            "vulnerability": "CVE-2017-7246",
+            "namespace": "debian:10",
+            "description": "Stack-based buffer overflow in the pcre32_copy_substring function in pcre_get.c in libpcre1 in PCRE 8.40 allows remote attackers to cause a denial of service (WRITE of size 268) or possibly have unspecified other impact via a crafted file.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2017-7246",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "shadow",
+            "featureversion": "1:4.5-1.1",
+            "vulnerability": "CVE-2019-19882",
+            "namespace": "debian:10",
+            "description": "shadow 4.8, in certain circumstances affecting at least Gentoo, Arch Linux, and Void Linux, allows local users to obtain root access because setuid programs are misconfigured. Specifically, this affects shadow 4.8 when compiled using --with-libpam but without explicitly passing --disable-account-tools-setuid, and without a PAM configuration suitable for use with setuid account management tools. This combination leads to account management tools (groupadd, groupdel, groupmod, useradd, userdel, usermod) that can easily be used by unprivileged local users to escalate privileges to root in multiple ways. This issue became much more relevant in approximately December 2019 when an unrelated bug was fixed (i.e., the chmod calls to suidusbins were fixed in the upstream Makefile which is now included in the release version 4.8).",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-19882",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "shadow",
+            "featureversion": "1:4.5-1.1",
+            "vulnerability": "CVE-2007-5686",
+            "namespace": "debian:10",
+            "description": "initscripts in rPath Linux 1 sets insecure permissions for the /var/log/btmp file, which allows local users to obtain sensitive information regarding authentication attempts.  NOTE: because sshd detects the insecure permissions and does not log certain events, this also prevents sshd from logging failed authentication attempts by remote attackers.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2007-5686",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "shadow",
+            "featureversion": "1:4.5-1.1",
+            "vulnerability": "CVE-2013-4235",
+            "namespace": "debian:10",
+            "description": "shadow: TOCTOU (time-of-check time-of-use) race condition when copying and removing directory trees",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2013-4235",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "patch",
+            "featureversion": "2.7.6-3+deb10u1",
+            "vulnerability": "CVE-2018-6951",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in GNU patch through 2.7.6. There is a segmentation fault, associated with a NULL pointer dereference, leading to a denial of service in the intuit_diff_type function in pch.c, aka a \"mangled rename\" issue.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-6951",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "libxml2",
+            "featureversion": "2.9.4+dfsg1-7+deb10u1",
+            "vulnerability": "CVE-2020-24977",
+            "namespace": "debian:10",
+            "description": "GNOME project libxml2 v2.9.10 has a global buffer over-read vulnerability in xmlEncodeEntitiesInternal at libxml2/entities.c. The issue has been fixed in commit 50f06b3e.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-24977",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "patch",
+            "featureversion": "2.7.6-3+deb10u1",
+            "vulnerability": "CVE-2010-4651",
+            "namespace": "debian:10",
+            "description": "Directory traversal vulnerability in util.c in GNU patch 2.6.1 and earlier allows user-assisted remote attackers to create or overwrite arbitrary files via a filename that is specified with a .. (dot dot) or full pathname, a related issue to CVE-2010-1679.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2010-4651",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "patch",
+            "featureversion": "2.7.6-3+deb10u1",
+            "vulnerability": "CVE-2018-6952",
+            "namespace": "debian:10",
+            "description": "A double free exists in the another_hunk function in pch.c in GNU patch through 2.7.6.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-6952",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "openldap",
+            "featureversion": "2.4.47+dfsg-3+deb10u6",
+            "vulnerability": "CVE-2020-15719",
+            "namespace": "debian:10",
+            "description": "libldap in certain third-party OpenLDAP packages has a certificate-validation flaw when the third-party package is asserting RFC6125 support. It considers CN even when there is a non-matching subjectAltName (SAN). This is fixed in, for example, openldap-2.4.46-10.el8 in Red Hat Enterprise Linux.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-15719",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "openldap",
+            "featureversion": "2.4.47+dfsg-3+deb10u6",
+            "vulnerability": "CVE-2017-17740",
+            "namespace": "debian:10",
+            "description": "contrib/slapd-modules/nops/nops.c in OpenLDAP through 2.4.45, when both the nops module and the memberof overlay are enabled, attempts to free a buffer that was allocated on the stack, which allows remote attackers to cause a denial of service (slapd crash) via a member MODDN operation.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2017-17740",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "openldap",
+            "featureversion": "2.4.47+dfsg-3+deb10u6",
+            "vulnerability": "CVE-2015-3276",
+            "namespace": "debian:10",
+            "description": "The nss_parse_ciphers function in libraries/libldap/tls_m.c in OpenLDAP does not properly parse OpenSSL-style multi-keyword mode cipher strings, which might cause a weaker than intended cipher to be used and allow remote attackers to have unspecified impact via unknown vectors.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2015-3276",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2020-35507",
+            "namespace": "debian:10",
+            "description": "There's a flaw in bfd_pef_parse_function_stubs of bfd/pef.c in binutils in versions prior to 2.34 which could allow an attacker who is able to submit a crafted file to be processed by objdump to cause a NULL pointer dereference. The greatest threat of this flaw is to application availability.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-35507",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2019-14250",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in GNU libiberty, as distributed in GNU Binutils 2.32. simple_object_elf_match in simple-object-elf.c does not check for a zero shstrndx value, leading to an integer overflow and resultant heap-based buffer overflow.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-14250",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2018-12698",
+            "namespace": "debian:10",
+            "description": "demangle_template in cplus-dem.c in GNU libiberty, as distributed in GNU Binutils 2.30, allows attackers to trigger excessive memory consumption (aka OOM) during the \"Create an array for saving the template argument values\" XNEWVEC call. This can occur during execution of objdump.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-12698",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2018-17985",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in cp-demangle.c in GNU libiberty, as distributed in GNU Binutils 2.31. There is a stack consumption problem caused by the cplus_demangle_type function making recursive calls to itself in certain scenarios involving many 'P' characters.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-17985",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2018-18701",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in cp-demangle.c in GNU libiberty, as distributed in GNU Binutils 2.31. There is a stack consumption vulnerability resulting from infinite recursion in the functions next_is_type_qual() and cplus_demangle_type() in cp-demangle.c. Remote attackers could leverage this vulnerability to cause a denial-of-service via an ELF file, as demonstrated by nm.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-18701",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2020-16590",
+            "namespace": "debian:10",
+            "description": "A double free vulnerability exists in the Binary File Descriptor (BFD) (aka libbrd) in GNU Binutils 2.35 in the process_symbol_table, as demonstrated in readelf, via a crafted file.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-16590",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2018-18700",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in cp-demangle.c in GNU libiberty, as distributed in GNU Binutils 2.31. There is a stack consumption vulnerability resulting from infinite recursion in the functions d_name(), d_encoding(), and d_local_name() in cp-demangle.c. Remote attackers could leverage this vulnerability to cause a denial-of-service via an ELF file, as demonstrated by nm.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-18700",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2018-17360",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in the Binary File Descriptor (BFD) library (aka libbfd), as distributed in GNU Binutils 2.31. a heap-based buffer over-read in bfd_getl32 in libbfd.c allows an attacker to cause a denial of service through a crafted PE file. This vulnerability can be triggered by the executable objdump.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-17360",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2019-1010204",
+            "namespace": "debian:10",
+            "description": "GNU binutils gold gold v1.11-v1.16 (GNU binutils v2.21-v2.31.1) is affected by: Improper Input Validation, Signed/Unsigned Comparison, Out-of-bounds Read. The impact is: Denial of service. The component is: gold/fileread.cc:497, elfcpp/elfcpp_file.h:644. The attack vector is: An ELF file with an invalid e_shoff header field must be opened.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-1010204",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2018-18605",
+            "namespace": "debian:10",
+            "description": "A heap-based buffer over-read issue was discovered in the function sec_merge_hash_lookup in merge.c in the Binary File Descriptor (BFD) library (aka libbfd), as distributed in GNU Binutils 2.31, because _bfd_add_merge_section mishandles section merges when size is not a multiple of entsize. A specially crafted ELF allows remote attackers to cause a denial of service, as demonstrated by ld.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-18605",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2018-17358",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in the Binary File Descriptor (BFD) library (aka libbfd), as distributed in GNU Binutils 2.31. An invalid memory access exists in _bfd_stab_section_find_nearest_line in syms.c. Attackers could leverage this vulnerability to cause a denial of service (application crash) via a crafted ELF file.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-17358",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2021-3487",
+            "namespace": "debian:10",
+            "description": "There's a flaw in the BFD library of binutils in versions before 2.36. An attacker who supplies a crafted file to an application linked with BFD, and using the DWARF functionality, could cause an impact to system availability by way of excessive memory consumption.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-3487",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2020-35494",
+            "namespace": "debian:10",
+            "description": "There's a flaw in binutils /opcodes/tic4x-dis.c. An attacker who is able to submit a crafted input file to be processed by binutils could cause usage of uninitialized memory. The highest threat is to application availability with a lower threat to data confidentiality. This flaw affects binutils versions prior to 2.34.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-35494",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2019-9073",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in the Binary File Descriptor (BFD) library (aka libbfd), as distributed in GNU Binutils 2.32. It is an attempted excessive memory allocation in _bfd_elf_slurp_version_tables in elf.c.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-9073",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2018-18309",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in the Binary File Descriptor (BFD) library (aka libbfd), as distributed in GNU Binutils 2.31. An invalid memory address dereference was discovered in read_reloc in reloc.c. The vulnerability causes a segmentation fault and application crash, which leads to denial of service, as demonstrated by objdump, because of missing _bfd_clear_contents bounds checking.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-18309",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2018-19931",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in the Binary File Descriptor (BFD) library (aka libbfd), as distributed in GNU Binutils through 2.31. There is a heap-based buffer overflow in bfd_elf32_swap_phdr_in in elfcode.h because the number of program headers is not restricted.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-19931",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2018-12699",
+            "namespace": "debian:10",
+            "description": "finish_stab in stabs.c in GNU Binutils 2.30 allows attackers to cause a denial of service (heap-based buffer overflow) or possibly have unspecified other impact, as demonstrated by an out-of-bounds write of 8 bytes. This can occur during execution of objdump.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-12699",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2019-12972",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in the Binary File Descriptor (BFD) library (aka libbfd), as distributed in GNU Binutils 2.32. There is a heap-based buffer over-read in _bfd_doprnt in bfd.c because elf_object_p in elfcode.h mishandles an e_shstrndx section of type SHT_GROUP by omitting a trailing '\\0' character.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-12972",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2018-20673",
+            "namespace": "debian:10",
+            "description": "The demangle_template function in cplus-dem.c in GNU libiberty, as distributed in GNU Binutils 2.31.1, contains an integer overflow vulnerability (for \"Create an array for saving the template argument values\") that can trigger a heap-based buffer overflow, as demonstrated by nm.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-20673",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2021-20284",
+            "namespace": "debian:10",
+            "description": "A flaw was found in GNU Binutils 2.35.1, where there is a heap-based buffer overflow in _bfd_elf_slurp_secondary_reloc_section in elf.c due to the number of symbols not calculated correctly. The highest threat from this vulnerability is to system availability.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-20284",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2020-16599",
+            "namespace": "debian:10",
+            "description": "A Null Pointer Dereference vulnerability exists in the Binary File Descriptor (BFD) library (aka libbfd), as distributed in GNU Binutils 2.35, in _bfd_elf_get_symbol_version_string, as demonstrated in nm-new, that can cause a denial of service via a crafted file.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-16599",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2018-18484",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in cp-demangle.c in GNU libiberty, as distributed in GNU Binutils 2.31. Stack Exhaustion occurs in the C++ demangling functions provided by libiberty, and there is a stack consumption problem caused by recursive stack frames: cplus_demangle_type, d_bare_function_type, d_function_type.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-18484",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2019-9071",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in GNU libiberty, as distributed in GNU Binutils 2.32. It is a stack consumption issue in d_count_templates_scopes in cp-demangle.c after many recursive calls.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-9071",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2018-18607",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in elf_link_input_bfd in elflink.c in the Binary File Descriptor (BFD) library (aka libbfd), as distributed in GNU Binutils 2.31. There is a NULL pointer dereference in elf_link_input_bfd when used for finding STT_TLS symbols without any TLS section. A specially crafted ELF allows remote attackers to cause a denial of service, as demonstrated by ld.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-18607",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2019-9077",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in GNU Binutils 2.32. It is a heap-based buffer overflow in process_mips_specific in readelf.c via a malformed MIPS option section.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-9077",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2019-17451",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in the Binary File Descriptor (BFD) library (aka libbfd), as distributed in GNU Binutils 2.32. It is an integer overflow leading to a SEGV in _bfd_dwarf2_find_nearest_line in dwarf2.c, as demonstrated by nm.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-17451",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2019-1010180",
+            "namespace": "debian:10",
+            "description": "GNU gdb All versions is affected by: Buffer Overflow - Out of bound memory access. The impact is: Deny of Service, Memory Disclosure, and Possible Code Execution. The component is: The main gdb module. The attack vector is: Open an ELF for debugging. The fixed version is: Not fixed yet.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-1010180",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2018-20712",
+            "namespace": "debian:10",
+            "description": "A heap-based buffer over-read exists in the function d_expression_1 in cp-demangle.c in GNU libiberty, as distributed in GNU Binutils 2.31.1. A crafted input can cause segmentation faults, leading to denial-of-service, as demonstrated by c++filt.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-20712",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2018-17794",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in cplus-dem.c in GNU libiberty, as distributed in GNU Binutils 2.31. There is a NULL pointer dereference in work_stuff_copy_to_from when called from iterate_demangle_function.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-17794",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2018-9996",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in cplus-dem.c in GNU libiberty, as distributed in GNU Binutils 2.30. Stack Exhaustion occurs in the C++ demangling functions provided by libiberty, and there are recursive stack frames: demangle_template_value_parm, demangle_integral_value, and demangle_expression.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-9996",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2021-20197",
+            "namespace": "debian:10",
+            "description": "There is an open race window when writing output in the following utilities in GNU binutils version 2.35 and earlier:ar, objcopy, strip, ranlib. When these utilities are run as a privileged user (presumably as part of a script updating binaries across different users), an unprivileged user can trick these utilities into getting ownership of arbitrary files through a symlink.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-20197",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2018-12700",
+            "namespace": "debian:10",
+            "description": "A Stack Exhaustion issue was discovered in debug_write_type in debug.c in GNU Binutils 2.30 because of DEBUG_KIND_INDIRECT infinite recursion.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-12700",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2020-35448",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in the Binary File Descriptor (BFD) library (aka libbfd), as distributed in GNU Binutils 2.35.1. A heap-based buffer over-read can occur in bfd_getl_signed_32 in libbfd.c because sh_entsize is not validated in _bfd_elf_slurp_secondary_reloc_section in elf.c.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-35448",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2020-16591",
+            "namespace": "debian:10",
+            "description": "A Denial of Service vulnerability exists in the Binary File Descriptor (BFD) in GNU Binutils 2.35 due to an invalid read in process_symbol_table, as demonstrated in readeif.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-16591",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2019-9074",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in the Binary File Descriptor (BFD) library (aka libbfd), as distributed in GNU Binutils 2.32. It is an out-of-bounds read leading to a SEGV in bfd_getl32 in libbfd.c, when called from pex64_get_runtime_function in pei-x86_64.c.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-9074",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2020-35496",
+            "namespace": "debian:10",
+            "description": "There's a flaw in bfd_pef_scan_start_address() of bfd/pef.c in binutils which could allow an attacker who is able to submit a crafted file to be processed by objdump to cause a NULL pointer dereference. The greatest threat of this flaw is to application availability. This flaw affects binutils versions prior to 2.34.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-35496",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2018-20671",
+            "namespace": "debian:10",
+            "description": "load_specific_debug_section in objdump.c in GNU Binutils through 2.31.1 contains an integer overflow vulnerability that can trigger a heap-based buffer overflow via a crafted section size.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-20671",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2018-20651",
+            "namespace": "debian:10",
+            "description": "A NULL pointer dereference was discovered in elf_link_add_object_symbols in elflink.c in the Binary File Descriptor (BFD) library (aka libbfd), as distributed in GNU Binutils 2.31.1. This occurs for a crafted ET_DYN with no program headers. A specially crafted ELF file allows remote attackers to cause a denial of service, as demonstrated by ld.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-20651",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2018-12697",
+            "namespace": "debian:10",
+            "description": "A NULL pointer dereference (aka SEGV on unknown address 0x000000000000) was discovered in work_stuff_copy_to_from in cplus-dem.c in GNU libiberty, as distributed in GNU Binutils 2.30. This can occur during execution of objdump.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-12697",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2020-35493",
+            "namespace": "debian:10",
+            "description": "A flaw exists in binutils in bfd/pef.c. An attacker who is able to submit a crafted PEF file to be parsed by objdump could cause a heap buffer overflow -\u003e out-of-bounds read that could lead to an impact to application availability. This flaw affects binutils versions prior to 2.34.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-35493",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2019-9070",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in GNU libiberty, as distributed in GNU Binutils 2.32. It is a heap-based buffer over-read in d_expression_1 in cp-demangle.c after many recursive calls.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-9070",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2018-18606",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in the merge_strings function in merge.c in the Binary File Descriptor (BFD) library (aka libbfd), as distributed in GNU Binutils 2.31. There is a NULL pointer dereference in _bfd_add_merge_section when attempting to merge sections with large alignments. A specially crafted ELF allows remote attackers to cause a denial of service, as demonstrated by ld.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-18606",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2019-9075",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in the Binary File Descriptor (BFD) library (aka libbfd), as distributed in GNU Binutils 2.32. It is a heap-based buffer overflow in _bfd_archive_64_bit_slurp_armap in archive64.c.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-9075",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2018-20623",
+            "namespace": "debian:10",
+            "description": "In GNU Binutils 2.31.1, there is a use-after-free in the error function in elfcomm.c when called from the process_archive function in readelf.c via a crafted ELF file.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-20623",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2018-19932",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in the Binary File Descriptor (BFD) library (aka libbfd), as distributed in GNU Binutils through 2.31. There is an integer overflow and infinite loop caused by the IS_CONTAINED_BY_LMA macro in elf.c.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-19932",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2017-13716",
+            "namespace": "debian:10",
+            "description": "The C++ symbol demangler routine in cplus-dem.c in libiberty, as distributed in GNU Binutils 2.29, allows remote attackers to cause a denial of service (excessive memory allocation and application crash) via a crafted file, as demonstrated by a call from the Binary File Descriptor (BFD) library (aka libbfd).",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2017-13716",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2020-35495",
+            "namespace": "debian:10",
+            "description": "There's a flaw in binutils /bfd/pef.c. An attacker who is able to submit a crafted input file to be processed by the objdump program could cause a null pointer dereference. The greatest threat from this flaw is to application availability. This flaw affects binutils versions prior to 2.34.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-35495",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2019-17450",
+            "namespace": "debian:10",
+            "description": "find_abstract_instance in dwarf2.c in the Binary File Descriptor (BFD) library (aka libbfd), as distributed in GNU Binutils 2.32, allows remote attackers to cause a denial of service (infinite recursion and application crash) via a crafted ELF file.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-17450",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2019-14444",
+            "namespace": "debian:10",
+            "description": "apply_relocations in readelf.c in GNU Binutils 2.32 contains an integer overflow that allows attackers to trigger a write access violation (in byte_put_little_endian function in elfcomm.c) via an ELF file, as demonstrated by readelf.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-14444",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2018-12934",
+            "namespace": "debian:10",
+            "description": "remember_Ktype in cplus-dem.c in GNU libiberty, as distributed in GNU Binutils 2.30, allows attackers to trigger excessive memory consumption (aka OOM). This can occur during execution of cxxfilt.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-12934",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2018-1000876",
+            "namespace": "debian:10",
+            "description": "binutils version 2.32 and earlier contains a Integer Overflow vulnerability in objdump, bfd_get_dynamic_reloc_upper_bound,bfd_canonicalize_dynamic_reloc that can result in Integer overflow trigger heap overflow. Successful exploitation allows execution of arbitrary code.. This attack appear to be exploitable via Local. This vulnerability appears to have been fixed in after commit 3a551c7a1b80fca579461774860574eabfd7f18f.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-1000876",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2018-17359",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in the Binary File Descriptor (BFD) library (aka libbfd), as distributed in GNU Binutils 2.31. An invalid memory access exists in bfd_zalloc in opncls.c. Attackers could leverage this vulnerability to cause a denial of service (application crash) via a crafted ELF file.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-17359",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2018-18483",
+            "namespace": "debian:10",
+            "description": "The get_count function in cplus-dem.c in GNU libiberty, as distributed in GNU Binutils 2.31, allows remote attackers to cause a denial of service (malloc called with the result of an integer-overflowing calculation) or possibly have unspecified other impact via a crafted string, as demonstrated by c++filt.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-18483",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2018-20002",
+            "namespace": "debian:10",
+            "description": "The _bfd_generic_read_minisymbols function in syms.c in the Binary File Descriptor (BFD) library (aka libbfd), as distributed in GNU Binutils 2.31, has a memory leak via a crafted ELF file, leading to a denial of service (memory consumption), as demonstrated by nm.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-20002",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2021-20294",
+            "namespace": "debian:10",
+            "description": "A flaw was found in binutils readelf 2.35 program. An attacker who is able to convince a victim using readelf to read a crafted file could trigger a stack buffer overflow, out-of-bounds write of arbitrary data supplied by the attacker. The highest impact of this flaw is to confidentiality, integrity, and availability.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-20294",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "openldap",
+            "featureversion": "2.4.47+dfsg-3+deb10u6",
+            "vulnerability": "CVE-2017-14159",
+            "namespace": "debian:10",
+            "description": "slapd in OpenLDAP 2.4.45 and earlier creates a PID file after dropping privileges to a non-root account, which might allow local users to kill arbitrary processes by leveraging access to this non-root account for PID file modification before a root script executes a \"kill `cat /pathname`\" command, as demonstrated by openldap-initscript.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2017-14159",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2020-16593",
+            "namespace": "debian:10",
+            "description": "A Null Pointer Dereference vulnerability exists in the Binary File Descriptor (BFD) library (aka libbfd), as distributed in GNU Binutils 2.35, in scan_unit_for_symbols, as demonstrated in addr2line, that can cause a denial of service via a crafted file.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-16593",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2020-16592",
+            "namespace": "debian:10",
+            "description": "A use after free issue exists in the Binary File Descriptor (BFD) library (aka libbfd) in GNU Binutils 2.34 in bfd_hash_lookup, as demonstrated in nm-new, that can cause a denial of service via a crafted file.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-16592",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "iptables",
+            "featureversion": "1.8.2-4",
+            "vulnerability": "CVE-2019-11360",
+            "namespace": "debian:10",
+            "description": "A buffer overflow in iptables-restore in netfilter iptables 1.8.2 allows an attacker to (at least) crash the program or potentially gain code execution via a specially crafted iptables-save file. This is related to add_param_to_argv in xshared.c.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-11360",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "iptables",
+            "featureversion": "1.8.2-4",
+            "vulnerability": "CVE-2012-2663",
+            "namespace": "debian:10",
+            "description": "extensions/libxt_tcp.c in iptables through 1.4.21 does not match TCP SYN+FIN packets in --syn rules, which might allow remote attackers to bypass intended firewall restrictions via crafted packets.  NOTE: the CVE-2012-6638 fix makes this issue less relevant.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2012-2663",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "libgcrypt20",
+            "featureversion": "1.8.4-5",
+            "vulnerability": "CVE-2018-6829",
+            "namespace": "debian:10",
+            "description": "cipher/elgamal.c in Libgcrypt through 1.8.2, when used to encrypt messages directly, improperly encodes plaintexts, which allows attackers to obtain sensitive information by reading ciphertext data (i.e., it does not have semantic security in face of a ciphertext-only attack). The Decisional Diffie-Hellman (DDH) assumption does not hold for Libgcrypt's ElGamal implementation.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-6829",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "perl",
+            "featureversion": "5.28.1-6+deb10u1",
+            "vulnerability": "CVE-2011-4116",
+            "namespace": "debian:10",
+            "description": "_is_safe in the File::Temp module for Perl does not properly handle symlinks.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2011-4116",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "openssl",
+            "featureversion": "1.1.1d-0+deb10u6",
+            "vulnerability": "CVE-2010-0928",
+            "namespace": "debian:10",
+            "description": "OpenSSL 0.9.8i on the Gaisler Research LEON3 SoC on the Xilinx Virtex-II Pro FPGA uses a Fixed Width Exponentiation (FWE) algorithm for certain signature calculations, and does not verify the signature before providing it to a caller, which makes it easier for physically proximate attackers to determine the private key via a modified supply voltage for the microprocessor, related to a \"fault-based attack.\"",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2010-0928",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "openssl",
+            "featureversion": "1.1.1d-0+deb10u6",
+            "vulnerability": "CVE-2007-6755",
+            "namespace": "debian:10",
+            "description": "The NIST SP 800-90A default statement of the Dual Elliptic Curve Deterministic Random Bit Generation (Dual_EC_DRBG) algorithm contains point Q constants with a possible relationship to certain \"skeleton key\" values, which might allow context-dependent attackers to defeat cryptographic protection mechanisms by leveraging knowledge of those values.  NOTE: this is a preliminary CVE for Dual_EC_DRBG; future research may provide additional details about point Q and associated attacks, and could potentially lead to a RECAST or REJECT of this CVE.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2007-6755",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "xdg-user-dirs",
+            "featureversion": "0.17-2",
+            "vulnerability": "CVE-2017-15131",
+            "namespace": "debian:10",
+            "description": "It was found that system umask policy is not being honored when creating XDG user directories, since Xsession sources xdg-user-dirs.sh before setting umask policy. This only affects xdg-user-dirs before 0.15.5 as shipped with Red Hat Enterprise Linux.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2017-15131",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "glib2.0",
+            "featureversion": "2.58.3-2+deb10u2",
+            "vulnerability": "CVE-2020-35457",
+            "namespace": "debian:10",
+            "description": "** DISPUTED ** GNOME GLib before 2.65.3 has an integer overflow, that might lead to an out-of-bounds write, in g_option_group_add_entries. NOTE: the vendor's position is \"Realistically this is not a security issue. The standard pattern is for callers to provide a static list of option entries in a fixed number of calls to g_option_group_add_entries().\" The researcher states that this pattern is undocumented.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-35457",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "bash",
+            "featureversion": "5.0-4",
+            "vulnerability": "CVE-2019-18276",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in disable_priv_mode in shell.c in GNU Bash through 5.0 patch 11. By default, if Bash is run with its effective UID not equal to its real UID, it will drop privileges by setting its effective UID to its real UID. However, it does so incorrectly. On Linux and other systems that support \"saved UID\" functionality, the saved UID is not dropped. An attacker with command execution in the shell can use \"enable -f\" for runtime loading of a new builtin, which can be a shared object that calls setuid() and therefore regains privileges. However, binaries running with an effective UID of 0 are unaffected.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2019-18276",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "python3.7",
+            "featureversion": "3.7.3-2+deb10u3",
+            "vulnerability": "CVE-2017-17522",
+            "namespace": "debian:10",
+            "description": "** DISPUTED ** Lib/webbrowser.py in Python through 3.6.3 does not validate strings before launching the program specified by the BROWSER environment variable, which might allow remote attackers to conduct argument-injection attacks via a crafted URL. NOTE: a software maintainer indicates that exploitation is impossible because the code relies on subprocess.Popen and the default shell=False setting.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2017-17522",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "glib2.0",
+            "featureversion": "2.58.3-2+deb10u2",
+            "vulnerability": "CVE-2012-0039",
+            "namespace": "debian:10",
+            "description": "** DISPUTED ** GLib 2.31.8 and earlier, when the g_str_hash function is used, computes hash values without restricting the ability to trigger hash collisions predictably, which allows context-dependent attackers to cause a denial of service (CPU consumption) via crafted input to an application that maintains a hash table.  NOTE: this issue may be disputed by the vendor; the existence of the g_str_hash function is not a vulnerability in the library, because callers of g_hash_table_new and g_hash_table_new_full can specify an arbitrary hash function that is appropriate for the application.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2012-0039",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "binutils",
+            "featureversion": "2.31.1-16",
+            "vulnerability": "CVE-2018-9138",
+            "namespace": "debian:10",
+            "description": "An issue was discovered in cplus-dem.c in GNU libiberty, as distributed in GNU Binutils 2.29 and 2.30. Stack Exhaustion occurs in the C++ demangling functions provided by libiberty, and there are recursive stack frames: demangle_nested_args, demangle_args, do_arg, and do_type.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2018-9138",
+            "severity": "Negligible",
+            "fixedby": ""
+        },
+        {
+            "featurename": "libxml2",
+            "featureversion": "2.9.4+dfsg1-7+deb10u1",
+            "vulnerability": "CVE-2021-3516",
+            "namespace": "debian:10",
+            "description": "",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-3516",
+            "severity": "Unknown",
+            "fixedby": ""
+        },
+        {
+            "featurename": "libxml2",
+            "featureversion": "2.9.4+dfsg1-7+deb10u1",
+            "vulnerability": "CVE-2021-3518",
+            "namespace": "debian:10",
+            "description": "",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-3518",
+            "severity": "Unknown",
+            "fixedby": ""
+        },
+        {
+            "featurename": "libxml2",
+            "featureversion": "2.9.4+dfsg1-7+deb10u1",
+            "vulnerability": "CVE-2021-3537",
+            "namespace": "debian:10",
+            "description": "",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-3537",
+            "severity": "Unknown",
+            "fixedby": ""
+        },
+        {
+            "featurename": "lz4",
+            "featureversion": "1.8.3-1",
+            "vulnerability": "CVE-2021-3520",
+            "namespace": "debian:10",
+            "description": "",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-3520",
+            "severity": "Unknown",
+            "fixedby": ""
+        },
+        {
+            "featurename": "zeromq3",
+            "featureversion": "4.3.1-4+deb10u2",
+            "vulnerability": "CVE-2021-20237",
+            "namespace": "debian:10",
+            "description": "",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-20237",
+            "severity": "Unknown",
+            "fixedby": ""
+        },
+        {
+            "featurename": "zeromq3",
+            "featureversion": "4.3.1-4+deb10u2",
+            "vulnerability": "CVE-2021-20236",
+            "namespace": "debian:10",
+            "description": "",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-20236",
+            "severity": "Unknown",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2021-31829",
+            "namespace": "debian:10",
+            "description": "kernel/bpf/verifier.c in the Linux kernel through 5.12.1 performs undesirable speculative loads, leading to disclosure of stack content via side-channel attacks, aka CID-801c6058d14a. The specific concern is not protecting the BPF stack area against speculative loads. Also, the BPF stack can contain uninitialized data that might represent sensitive information previously operated on by the kernel.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-31829",
+            "severity": "Unknown",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2020-25670",
+            "namespace": "debian:10",
+            "description": "",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-25670",
+            "severity": "Unknown",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2021-3501",
+            "namespace": "debian:10",
+            "description": "A flaw was found in the Linux kernel in versions before 5.12. The value of internal.ndata, in the KVM API, is mapped to an array index, which can be updated by a user process at anytime which could lead to an out-of-bounds write. The highest threat from this vulnerability is to data integrity and system availability.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-3501",
+            "severity": "Unknown",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2021-3483",
+            "namespace": "debian:10",
+            "description": "",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-3483",
+            "severity": "Unknown",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2020-35501",
+            "namespace": "debian:10",
+            "description": "",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-35501",
+            "severity": "Unknown",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2020-25672",
+            "namespace": "debian:10",
+            "description": "",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-25672",
+            "severity": "Unknown",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2020-25671",
+            "namespace": "debian:10",
+            "description": "",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-25671",
+            "severity": "Unknown",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2021-31916",
+            "namespace": "debian:10",
+            "description": "An out-of-bounds (OOB) memory write flaw was found in list_devices in drivers/md/dm-ioctl.c in the Multi-device driver module in the Linux kernel before 5.12. A bound check failure allows an attacker with special user (CAP_SYS_ADMIN) privilege to gain access to out-of-bounds memory leading to a system crash or a leak of internal kernel information. The highest threat from this vulnerability is to system availability.",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-31916",
+            "severity": "Unknown",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2021-23134",
+            "namespace": "debian:10",
+            "description": "",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-23134",
+            "severity": "Unknown",
+            "fixedby": ""
+        },
+        {
+            "featurename": "linux",
+            "featureversion": "4.19.181-1",
+            "vulnerability": "CVE-2020-25673",
+            "namespace": "debian:10",
+            "description": "",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2020-25673",
+            "severity": "Unknown",
+            "fixedby": ""
+        },
+        {
+            "featurename": "libxml2",
+            "featureversion": "2.9.4+dfsg1-7+deb10u1",
+            "vulnerability": "CVE-2021-3517",
+            "namespace": "debian:10",
+            "description": "",
+            "link": "https://security-tracker.debian.org/tracker/CVE-2021-3517",
+            "severity": "Unknown",
+            "fixedby": ""
+        }
+    ]
+}
