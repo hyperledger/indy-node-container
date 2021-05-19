@@ -6,3 +6,5 @@ lib_indy/ssi4de*
 etc_indy/indy.env
 .cli.env
 .node.env
+.history
+test/lib_indy
