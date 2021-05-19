@@ -1,0 +1,91 @@
+version: "3.8"
+
+services:
+  indy-node_1:
+    image: ghcr.io/idunion/indy-node-container/indy_node:buster
+    container_name: node1
+    ports:
+      - "${INDY_NODE_PORT_1}:${INDY_NODE_PORT_1}"
+      - "${INDY_CLIENT_PORT_1}:${INDY_CLIENT_PORT_1}"
+    volumes:
+      - ./etc_indy:/etc/indy
+      - ./lib_indy:/var/lib/indy
+    environment:
+     - INDY_NODE_NAME=Node1
+     - INDY_NODE_IP=${INDY_NODE_IP_1}
+     - INDY_CLIENT_IP=${INDY_CLIENT_IP_1}
+    env_file:
+      - .env
+    restart: always
+    networks:
+      idunion_local:
+        ipv4_address: 10.133.133.1
+
+  indy-node_2:
+    image: ghcr.io/idunion/indy-node-container/indy_node:buster
+    container_name: node2
+    ports:
+      - "${INDY_NODE_PORT_2}:${INDY_NODE_PORT_2}"
+      - "${INDY_CLIENT_PORT_2}:${INDY_CLIENT_PORT_2}"
+    volumes:
+      - ./etc_indy:/etc/indy
+      - ./lib_indy:/var/lib/indy
+    environment:
+     - INDY_NODE_NAME=Node2
+     - INDY_NODE_IP=${INDY_NODE_IP_2}
+     - INDY_CLIENT_IP=${INDY_CLIENT_IP_2}
+    env_file:
+      - .env
+    restart: always
+    networks:
+      idunion_local:
+        ipv4_address: 10.133.133.2
+
+  indy-node_3:
+    image: ghcr.io/idunion/indy-node-container/indy_node:buster
+    container_name: node3
+    ports:
+      - "${INDY_NODE_PORT_3}:${INDY_NODE_PORT_3}"
+      - "${INDY_CLIENT_PORT_3}:${INDY_CLIENT_PORT_3}"
+    volumes:
+      - ./etc_indy:/etc/indy
+      - ./lib_indy:/var/lib/indy
+    environment:
+     - INDY_NODE_NAME=Node3
+     - INDY_NODE_IP=${INDY_NODE_IP_3}
+     - INDY_CLIENT_IP=${INDY_CLIENT_IP_3}
+    env_file:
+      - .env
+    restart: always
+    networks:
+      idunion_local:
+        ipv4_address: 10.133.133.3
+
+  indy-node_4:
+    image: ghcr.io/idunion/indy-node-container/indy_node:buster
+    container_name: node4
+    ports:
+      - "${INDY_NODE_PORT_4}:${INDY_NODE_PORT_4}"
+      - "${INDY_CLIENT_PORT_4}:${INDY_CLIENT_PORT_4}"
+    volumes:
+      - ./etc_indy:/etc/indy
+      - ./lib_indy:/var/lib/indy
+    environment:
+     - INDY_NODE_NAME=Node4
+     - INDY_NODE_IP=${INDY_NODE_IP_4}
+     - INDY_CLIENT_IP=${INDY_CLIENT_IP_4}
+    env_file:
+      - .env
+    restart: always
+    networks:
+      idunion_local:
+        ipv4_address: 10.133.133.4
+
+networks:
+  idunion_local:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.133.133.0/24
+          gateway: 10.133.133.254
