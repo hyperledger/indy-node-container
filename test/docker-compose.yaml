@@ -95,6 +95,7 @@ services:
   #
   webserver:
     image: von-network-base
+    container_name: ledger-browser
     command: 'bash -c ''sleep 10; ./scripts/start_webserver.sh;'''
     environment:
       - GENESIS_FILE=/var/lib/indy/idunion_local_test/pool_transactions_genesis
