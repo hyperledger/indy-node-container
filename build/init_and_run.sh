@@ -21,7 +21,7 @@ mv /tmp/indy_config.py /etc/indy/indy_config.py
 if [[ ! -d "/var/lib/indy/$INDY_NETWORK_NAME/keys" ]]
 then
     echo -e "[...]\t No keys found. Running Indy Node Init..."
-    if init_indy_node "$INDY_NODE_NAME" "$INDY_NODE_IP" "$INDY_NODE_PORT" "$INDY_CLIENT_IP" "$INDY_CLIENT_PORT" "$INDY_NODE_SEED"
+    if init_indy_keys --name "$INDY_NODE_NAME" --seed "$INDY_NODE_SEED"
     then
         echo -e "[OK]\t Init complete"
     else
