@@ -10,25 +10,24 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
 
-      - name: build and push ubuntu18 base
-        uses: docker/build-push-action@v1
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v1
         with:
+          registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-          dockerfile: build/Dockerfile.base.ubuntu18
-          path: build
-          registry: ghcr.io
-          repository: idunion/indy-node-container/base
-          tags: ubuntu18
+
+      - name: build and push ubuntu18 base
+        uses: docker/build-push-action@v2
+        with:
+          file: build/Dockerfile.base.ubuntu18
+          context: ./build
+          tags: idunion/indy-node-container/base:ubuntu18
 
       - name: build and push indy node based on ubuntu18
-        uses: docker/build-push-action@v1
+        uses: docker/build-push-action@v2
         with:
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          dockerfile: build/Dockerfile
-          path: build
-          registry: ghcr.io
-          repository: idunion/indy-node-container/indy_node
-          tags: ubuntu18
-          build_args: BASE=ghcr.io/idunion/indy-node-container/base:ubuntu18
+          file: build/Dockerfile
+          context: ./build
+          tags: idunion/indy-node-container/indy_node:ubuntu18
+          build-args: BASE=ghcr.io/idunion/indy-node-container/base:ubuntu18

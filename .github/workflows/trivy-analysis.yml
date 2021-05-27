@@ -2,16 +2,16 @@ name: build
 
 on:
   push:
-    # branches: [ main ]
+    branches: [ main ]
   pull_request:
     # The branches below must be a subset of the branches above
-    # branches: [ main ]
+    branches: [ main ]
   schedule:
     # run every day at 22:44
     - cron: '44 22 * * *'
 
 jobs:
-  build:
+  trivy_analysis:
     name: Trivy Analysis
     runs-on: "ubuntu-18.04"
     steps:
