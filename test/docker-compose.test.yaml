@@ -4,6 +4,8 @@ services:
   indy-node_1:
     image: ghcr.io/idunion/indy-node-container/indy_node:buster
     container_name: node1
+    build:
+      context: ../build
     ports:
       - "${INDY_NODE_PORT_1}:${INDY_NODE_PORT_1}"
       - "${INDY_CLIENT_PORT_1}:${INDY_CLIENT_PORT_1}"
@@ -26,6 +28,8 @@ services:
   indy-node_2:
     image: ghcr.io/idunion/indy-node-container/indy_node:buster
     container_name: node2
+    build:
+      context: ../build
     ports:
       - "${INDY_NODE_PORT_2}:${INDY_NODE_PORT_2}"
       - "${INDY_CLIENT_PORT_2}:${INDY_CLIENT_PORT_2}"
@@ -48,6 +52,8 @@ services:
   indy-node_3:
     image: ghcr.io/idunion/indy-node-container/indy_node:buster
     container_name: node3
+    build:
+      context: ../build
     ports:
       - "${INDY_NODE_PORT_3}:${INDY_NODE_PORT_3}"
       - "${INDY_CLIENT_PORT_3}:${INDY_CLIENT_PORT_3}"
@@ -70,6 +76,8 @@ services:
   indy-node_4:
     image: ghcr.io/idunion/indy-node-container/indy_node:buster
     container_name: node4
+    build:
+      context: ../build
     ports:
       - "${INDY_NODE_PORT_4}:${INDY_NODE_PORT_4}"
       - "${INDY_CLIENT_PORT_4}:${INDY_CLIENT_PORT_4}"
@@ -88,32 +96,32 @@ services:
     networks:
       idunion_local:
         ipv4_address: 10.133.133.4
-
   #
   # VON-Network Ledger Browser
   # see https://github.com/bcgov/von-network
-  #
- webserver:
-   image: ghcr.io/idunion/von-network:sha-56a0e4ec
-   container_name: ledger-browser
-   command: 'bash -c ''sleep 10; ./scripts/start_webserver.sh;'''
-   environment:
-     - GENESIS_FILE=/var/lib/indy/idunion_local_test/pool_transactions_genesis
-     - MAX_FETCH=50000
-     - RESYNC_TIME=120
-     - REGISTER_NEW_DIDS=True
-     - LEDGER_INSTANCE_NAME=IDunion Local Test Ledger
-     - WEB_ANALYTICS_SCRIPT=
-     - INFO_SITE_TEXT=IDunion Node Container @ GitHub
-     - INFO_SITE_URL=https://github.com/IDunion/indy-node-container
-   networks:
-     idunion_local:
-       ipv4_address: 10.133.133.5
-   ports:
-     - ${WEB_SERVER_HOST_PORT:-9000}:8000
-   volumes:
-     - ./etc_indy:/etc/indy
-     - ./lib_indy:/var/lib/indy
+  # Fork is in 
+  # https://github.com/idunion/von-network
+  webserver:
+    image: ghcr.io/idunion/von-network:sha-56a0e4ec
+    container_name: ledger-browser
+    command: 'bash -c ''sleep 10; ./scripts/start_webserver.sh;'''
+    environment:
+      - GENESIS_FILE=/var/lib/indy/idunion_local_test/pool_transactions_genesis
+      - MAX_FETCH=50000
+      - RESYNC_TIME=120
+      - REGISTER_NEW_DIDS=True
+      - LEDGER_INSTANCE_NAME=IDunion Local Test Ledger
+      - WEB_ANALYTICS_SCRIPT=
+      - INFO_SITE_TEXT=IDunion Node Container @ GitHub
+      - INFO_SITE_URL=https://github.com/IDunion/indy-node-container
+    networks:
+      idunion_local:
+        ipv4_address: 10.133.133.5
+    ports:
+      - ${WEB_SERVER_HOST_PORT:-9000}:8000
+    volumes:
+      - ./etc_indy:/etc/indy
+      - ./lib_indy:/var/lib/indy
 
 networks:
   idunion_local:
