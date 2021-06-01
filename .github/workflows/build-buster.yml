@@ -1,6 +1,11 @@
 name: Buster Build
 
-on: [push]
+on:
+  push:
+    branches:
+        - main
+  pull_request:
+    branches: [ main ]
 
 jobs:
   push_to_registry:
@@ -29,5 +34,6 @@ jobs:
         with:
           file: build/Dockerfile
           context: ./build
+          # TODO: see https://github.com/marketplace/actions/docker-metadata-action
           tags: idunion/indy-node-container/indy_node:buster,idunion/indy-node-container/indy_node:latest
           build-args: BASE=ghcr.io/idunion/indy-node-container/base:buster
