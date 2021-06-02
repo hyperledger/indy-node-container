@@ -1,0 +1,47 @@
+name: Trivy Analysis (ubuntu:18.04)
+
+on:
+  schedule:
+    # run every Wednesday at 23:10
+    - cron: '10 23 * * 3'
+
+jobs:
+  trivy_analysis:
+    name: Trivy Analysis (ubuntu:18.04)
+    runs-on: "ubuntu-18.04"
+    steps:
+      - name: Run Trivy on ubuntu:18.04
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'ubuntu:18.04'
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
+          output: 'trivy-ubuntu18-base.sarif'
+          severity: 'CRITICAL,HIGH'
+
+      - name: Patch tool name for ubuntu scan
+        run: |
+          sed -i 's/"name": "Trivy",/"name": "TrivyUbuntuBase",/g' trivy-ubuntu18-base.sarif
+
+      - name: Safe trivy-ubuntu18-base.sarif
+        uses: actions/upload-artifact@v2
+        with:
+          name: trivy-ubuntu18-base.sarif
+          path: trivy-ubuntu18-base.sarif
+          retention-days: 8
+
+      # This fails currently - see https://github.com/aquasecurity/trivy/issues/1038
+      # - name: Upload Trivy ubuntu-18.04 scan results to GitHub Security tab
+      #   uses: github/codeql-action/upload-sarif@v1
+      #   with:
+      #     sarif_file: 'trivy-ubuntu18-base.sarif'
+
+      - name: Create .trivyignore
+        run: grep -Po "CVE-\d{4}-\d+" trivy-ubuntu18-base.sarif | sort -u > .trivyignore
+
+      - name: 'Safe .trivyignore'
+        uses: actions/upload-artifact@v2
+        with:
+          name: .trivyignore
+          path: .trivyignore
+          retention-days: 8
