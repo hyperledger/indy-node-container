@@ -94,7 +94,7 @@ services:
   # see https://github.com/bcgov/von-network
   #
   webserver:
-    image: ghcr.io/idunion/von-network:sha-f8dfcd63
+    image: ghcr.io/bcgov/von-network-base:latest
     container_name: ledger-browser
     command: 'bash -c ''sleep 10; ./scripts/start_webserver.sh;'''
     environment:
