@@ -39,19 +39,17 @@ jobs:
           images: ghcr.io/${{ steps.repo_owner.outputs.lowercase }}/indy-node-container/base
           tags: |
             type=raw,value=buster
-            type=ref,event=branch
-            type=ref,event=pr
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
 
       - name: Meta for indy_node
         id: meta_indy_node
         uses: docker/metadata-action@v3
         with:
           images: ghcr.io/${{ steps.repo_owner.outputs.lowercase }}/indy-node-container/indy_node
-          # Note: latest will be created on "git push tag" - see https://github.com/marketplace/actions/docker-metadata-action#latest-tag
+          flavor: |
+            suffix=-buster
+          # Note: latest-buster will be created on "git push tag" - see https://github.com/marketplace/actions/docker-metadata-action#latest-tag
           tags: |
-            type=raw,value=buster
+            type=raw,value=buster,suffix=
             type=ref,event=branch
             type=ref,event=pr
             type=semver,pattern={{version}}
