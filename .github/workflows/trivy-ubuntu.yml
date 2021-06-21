@@ -1,11 +1,10 @@
 name: Trivy Analysis (indy_node:ubuntu18)
 
 on:
-  pull_request:
-    branches: [ main ]
   schedule:
     # run every Wednesday at 23:20
     - cron: '20 23 * * 3'
+  workflow_dispatch:
 
 jobs:
   trivy_analysis:
@@ -18,7 +17,7 @@ jobs:
       - name: Run Trivy on indy_node:ubuntu18
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: 'ghcr.io/idunion/indy-node-container/indy_node:ubuntu18'
+          image-ref: 'ghcr.io/idunion/indy-node-container/indy_node:ubuntu'
           format: 'template'
           template: '@/contrib/sarif.tpl'
           output: 'trivy-indy-node-ubuntu18.sarif'
