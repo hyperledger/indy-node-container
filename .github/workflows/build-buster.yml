@@ -47,7 +47,8 @@ jobs:
           images: ghcr.io/${{ steps.repo_owner.outputs.lowercase }}/indy-node-container/indy_node
           flavor: |
             suffix=-buster
-          # Note: latest-buster will be created on "git push tag" - see https://github.com/marketplace/actions/docker-metadata-action#latest-tag
+            latest=true
+          # Note: latest will be created on "git push tag" - see https://github.com/marketplace/actions/docker-metadata-action#latest-tag
           tags: |
             type=raw,value=buster,suffix=
             type=ref,event=branch
