@@ -31,12 +31,12 @@ clean: clean_buster clean_buster_base clean_ubuntu clean_ubuntu_base
 
 check_buster:
 	mkdir -p trivy-reports
-	-trivy image --format template --template "@trivy/html.tpl" -o trivy-reports/buster.html indy-node-container/indy_node:buster
+	-trivy image --ignore-unfixed --severity HIGH,CRITICAL --format template --template "@trivy/html.tpl" -o trivy-reports/buster.html indy-node-container/indy_node:buster
 #	-xdg-open trivy-reports/buster.html
-	-trivy image --severity HIGH,CRITICAL indy-node-container/indy_node:buster
+	-trivy image --ignore-unfixed --severity HIGH,CRITICAL indy-node-container/indy_node:buster
 
 check_ubuntu:
 	mkdir -p trivy-reports
-	-trivy image --format template --template "@trivy/html.tpl" -o trivy-reports/ubuntu.html indy-node-container/indy_node:ubuntu
+	-trivy image --ignore-unfixed --severity HIGH,CRITICAL --format template --template "@trivy/html.tpl" -o trivy-reports/ubuntu.html indy-node-container/indy_node:ubuntu
 #	-xdg-open trivy-reports/ubuntu.html
-	-trivy image --severity HIGH,CRITICAL indy-node-container/indy_node:ubuntu
+	-trivy image --ignore-unfixed --severity HIGH,CRITICAL indy-node-container/indy_node:ubuntu
