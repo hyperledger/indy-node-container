@@ -1,11 +1,11 @@
 name: Trivy Analysis (indy_node:latest)
 
 on:
-  pull_request:
-    branches: [ main ]
   schedule:
     # run every Wednesday at 23:40
     - cron: '40 23 * * 3'
+  workflow_dispatch:
+
 
 jobs:
   trivy_analysis:
@@ -22,6 +22,7 @@ jobs:
           format: 'template'
           template: '@/contrib/sarif.tpl'
           output: 'trivy-indy-node-latest.sarif'
+          ignore-unfixed: true
           severity: 'CRITICAL,HIGH'
       
       - name: Patch tool name for buster scan
