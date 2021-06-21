@@ -45,9 +45,10 @@ jobs:
         uses: docker/metadata-action@v3
         with:
           images: ghcr.io/${{ steps.repo_owner.outputs.lowercase }}/indy-node-container/indy_node
+          # Note: no latest tag for the ubuntu build
           flavor: |
             suffix=-ubuntu
-          # Note: latest-ubuntu will be created on "git push tag" - see https://github.com/marketplace/actions/docker-metadata-action#latest-tag
+            latest=false
           tags: |
             type=raw,value=ubuntu,suffix=
             type=ref,event=branch
