@@ -17,11 +17,3 @@ RUN apt-get update && \
             gnupg2 \
             build-essential \
  && apt-get autoremove -y
-
-
-# ubuntu 18 libindy package
-# Do we actually need this?
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CE7709D068DB5E88 && \
-    add-apt-repository "deb https://repo.sovrin.org/sdk/deb bionic stable" && \
-    apt-get update && \
-    apt-get install -y libindy
