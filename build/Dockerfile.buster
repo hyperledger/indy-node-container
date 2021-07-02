@@ -9,6 +9,13 @@ ARG BASE=python:3.6-slim-buster
 
 FROM $BUILDER_BASE AS builder
 
+# ubuntu 18 libindy package
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CE7709D068DB5E88 && \
+    add-apt-repository "deb https://repo.sovrin.org/sdk/deb bionic stable" && \
+    apt-get update && \
+    apt-get install -y libindy
+
+
 # deprecated dependencies based on libssl1.0 / libiny-crypto
 RUN \
     # for old libssl needed for libindy-crypto
