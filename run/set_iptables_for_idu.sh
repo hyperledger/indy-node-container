@@ -32,7 +32,7 @@ if ! [ -z "$*" ]; then
 fi
 
 
-echo "INTERFACE=${INTERFACE:=enp0s31f6}"
+echo "INTERFACE=${INTERFACE:=ens18}"
 
 # check if INTERFACE is set to an inet facing interface
 if ! ip a | grep inet | grep "$INTERFACE" >/dev/null; then
