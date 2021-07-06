@@ -1,5 +1,5 @@
 # Current network
-NETWORK_NAME = "sandbox"
+NETWORK_NAME = "ssi4de"
 
 # Disable stdout logging
 enableStdOutLogging = True
