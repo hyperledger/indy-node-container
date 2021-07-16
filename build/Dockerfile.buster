@@ -4,10 +4,27 @@
 # author: Guido Wischrop <guido.wischrop@mgm-tp.com>
 # version: 1.1+2021-06-02
 
-ARG BUILDER_BASE=indy-node-container/base:buster
-ARG BASE=python:3.6-slim-buster
 
-FROM $BUILDER_BASE AS builder
+FROM python:3.6-slim-buster as base
+
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y \
+            libsodium-dev \
+            libsecp256k1-dev \
+            libssl-dev \
+            liblzma-dev \
+            libsnappy-dev \
+            liblz4-dev \
+            libbz2-dev \
+            zlib1g-dev \
+            librocksdb-dev \
+            software-properties-common \
+            gnupg2 \
+            build-essential \
+ && apt-get autoremove -y
+
+FROM base AS builder
 
 # ubuntu 18 libindy package
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CE7709D068DB5E88 && \
@@ -29,7 +46,7 @@ RUN \
 
 RUN pip install python3-indy indy-node==1.12.4 indy-plenum==1.12.4
 
-FROM $BASE
+FROM base
 
 RUN apt-get update && \
     apt-get upgrade -y && \
