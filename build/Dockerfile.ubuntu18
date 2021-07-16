@@ -4,10 +4,38 @@
 # author: Guido Wischrop <guido.wischrop@mgm-tp.com>
 # version: 1.1+2021-06-02
 
-ARG BUILDER_BASE=indy-node-container/base:ubuntu
-ARG BASE=ubuntu:18.04
 
-FROM $BUILDER_BASE AS builder
+# this docker file is assembled from the files in https://github.com/hyperledger/indy-node/tree/master/environment/docker/pool
+
+FROM ubuntu:18.04 AS base
+
+# Install environment
+RUN apt-get update -y && apt-get upgrade -y && apt-get install -y \
+    git \
+    wget \
+    python3.6 \
+    python3-pip \
+    python3-nacl \
+    apt-transport-https \
+    ca-certificates \
+    software-properties-common \
+    libsodium-dev \
+    libsecp256k1-dev \
+    libssl-dev \
+    liblzma-dev \
+    libsnappy-dev \
+    liblz4-dev \
+    libbz2-dev \
+    zlib1g-dev \
+    librocksdb-dev \
+    software-properties-common \
+    && apt-get autoremove -y
+RUN pip3 install -U \
+    'pip<10.0.0' \
+    setuptools
+
+
+FROM base AS builder
 
 # deprecated dependencies based on libssl1.0 / libiny-crypto
 RUN \
@@ -22,7 +50,7 @@ RUN \
 
 RUN pip install python3-indy indy-node==1.12.4 indy-plenum==1.12.4
 
-FROM $BASE
+FROM base
 
 RUN apt-get update && \
     apt-get upgrade -y && \
