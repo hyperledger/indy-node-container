@@ -67,7 +67,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-          - name: build and push indy node based on ubuntu18
+      - name: build and push indy node based on ubuntu18
         uses: docker/build-push-action@v2
         with:
           file: build/Dockerfile.ubuntu18
