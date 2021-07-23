@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 usage()
 {
     echo "Usage:"
@@ -18,10 +20,13 @@ add_new_rule()
     RULE="$@"
 
     if iptables -C $RULE 2>/dev/null 1>&2; then
-	echo "$RULE already exists"
+	echo "[skip] $RULE already exists"
+    elif [[ "$RULE" == *"DROP"* ]]; then
+	iptables -A $RULE
+	echo "[ok] $RULE added to the end of the chain"
     else
 	iptables -I $RULE
-	echo "$RULE added"
+	echo "[ok] $RULE added"
     fi
 }
 
