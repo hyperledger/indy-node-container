@@ -2,6 +2,8 @@
 
 # This script provides idempotent initialization and finally runs the indy node inside the docker container
 
+set -e
+
 date -Iseconds
 
 echo "INDY_NETWORK_NAME=${INDY_NETWORK_NAME:=sandbox}"
@@ -32,14 +34,28 @@ else
     echo -e "[OK]\t Keys directory exists, skipping init."
 fi
 
-echo -e "[...]\t NOT Starting Indy Node Controller. This tool currently needs systemctl."
-
-echo
-
+echo -e "[SKIP]\t NOT Starting Indy Node Controller. This tool currently needs systemctl."
 #nohup start_node_control_tool &
 
-echo -e "[...]\t Starting Indy Node"
+echo -e "[...]\t Setting directory owner to indy"
 
 echo
 
-exec start_indy_node "$INDY_NODE_NAME" "$INDY_NODE_IP" "$INDY_NODE_PORT" "$INDY_CLIENT_IP" "$INDY_CLIENT_PORT"
+mkdir -p /var/log/indy
+chown -R indy:indy /var/log/indy
+chown -R indy:indy /var/lib/indy/*/keys
+
+if [ -d /var/lib/indy/*/data/ ]; then
+    chown -R indy:indy /var/lib/indy/*/data/
+fi
+
+
+echo -e "[OK]\t Setting directory owner to indy"
+
+echo -e "[...]\t Starting Indy Node as indy user"
+
+echo
+
+exec su indy <<EOF
+start_indy_node "$INDY_NODE_NAME" "$INDY_NODE_IP" "$INDY_NODE_PORT" "$INDY_CLIENT_IP" "$INDY_CLIENT_PORT"
+EOF
