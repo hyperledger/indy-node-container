@@ -60,6 +60,9 @@ COPY --from=builder /usr/local/lib/ /usr/local/lib/
 COPY --from=builder /usr/lib/libindy* /usr/lib/
 COPY --from=builder /usr/lib/x86_64-linux-gnu/libssl* /usr/lib/x86_64-linux-gnu/libcrypto* /usr/lib/x86_64-linux-gnu/
 
+RUN useradd -ms /bin/bash indy
+WORKDIR /home/indy
+
 COPY init_and_run.sh ./
 
 CMD ["./init_and_run.sh"]
