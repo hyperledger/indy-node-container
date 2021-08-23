@@ -8,8 +8,8 @@ It also contains a few utility / helper scripts to help with the setup.
 
 - `./generate_random_seeds.sh` and then securely backup `.node.env` which holds the seed for generating the private keys
 - Put `pool_transactions_genesis` and `domain_transactions_genesis` for your network into the `lib_indy` folder. The sub folder name has to match the `INDY_NETWORK_NAME` set in `.env` in the next step.
-- Set the variables (Networkname, ips, ports) in the `.env` file
-- Pull and run the container in deamon mode `docker-compose up -d`
+- Set the variables (Networkname, ips, ports) in the `.env` file. You can also switch from the default Debian based image to the ubuntu based one.
+- (Pull and) run the container in deamon mode via `docker-compose up -d`.
 - Look at `docker logs indy_node` and `docker exec -it indy_node validator-info` to check the state of your node
 - You need to run e.g. indy_cli (not included here) to actually interact with the ledger
 

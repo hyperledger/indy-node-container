@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   indy-node:
-    image: ghcr.io/idunion/indy-node-container/indy_node:buster
+    image: ${IMAGE}
     container_name: indy_node
     ports:
       - "${INDY_NODE_PORT}:${INDY_NODE_PORT}"
