@@ -1,0 +1,91 @@
+name: Ubuntu 16 Build
+
+on:
+  push:
+    branches: [ main ]
+    tags:
+      - 'v*'
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  push_to_registry:
+    name: Push Docker image to GitHub Packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Lowercase repo owner
+        id: repo_owner
+        run: echo "::set-output name=lowercase::$(echo ${{ github.repository_owner }} | tr \"[:upper:]\" \"[:lower:]\")"
+        shell: bash
+
+      - name: Meta for base
+        id: meta_base
+        uses: docker/metadata-action@v3
+        with:
+          images: ghcr.io/${{ steps.repo_owner.outputs.lowercase }}/indy-node-container/base
+          tags: |
+            type=raw,value=ubuntu
+
+      - name: Meta for indy_node
+        id: meta_indy_node
+        uses: docker/metadata-action@v3
+        with:
+          images: ghcr.io/${{ steps.repo_owner.outputs.lowercase }}/indy-node-container/indy_node
+          # Note: no latest tag for the ubuntu build
+          flavor: |
+            suffix=-ubuntu
+            latest=false
+          tags: |
+            type=raw,value=ubuntu,suffix=
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+          labels: |
+            org.opencontainers.image.title=IDunion Indy Node Container
+            org.opencontainers.image.description=IDunion Indy Node Container based on ubuntu:16.04
+            org.opencontainers.image.vendor=IDunion
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: build and push indy node based on ubuntu16
+        uses: docker/build-push-action@v2
+        with:
+          file: build/Dockerfile.ubuntu16
+          context: ./build
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta_indy_node.outputs.tags }}
+          labels: ${{ steps.meta_indy_node.outputs.labels }}
+          build-args: |
+            BUILDER_BASE=ghcr.io/idunion/indy-node-container/base:ubuntu16
+            BASE=ubuntu:16.04
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new
+
+      # Temp fix
+      # https://github.com/docker/build-push-action/blob/master/docs/advanced/cache.md#github-cache
+      # https://github.com/docker/build-push-action/issues/252
+      # https://github.com/moby/buildkit/issues/1896
+      - name: Move cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
