@@ -1,4 +1,4 @@
-name: Ubuntu 18 Build
+name: Ubuntu 16 Build
 
 on:
   push:
@@ -39,7 +39,7 @@ jobs:
           images: ghcr.io/${{ steps.repo_owner.outputs.lowercase }}/indy-node-container/indy_node
           # Note: no latest tag for the ubuntu build
           flavor: |
-            suffix=-ubuntu18
+            suffix=-ubuntu16
             latest=false
           tags: |
             type=raw,value=ubuntu,suffix=
@@ -49,7 +49,7 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
           labels: |
             org.opencontainers.image.title=IDunion Indy Node Container
-            org.opencontainers.image.description=IDunion Indy Node Container based on ubuntu:18.04
+            org.opencontainers.image.description=IDunion Indy Node Container based on ubuntu:16.04
             org.opencontainers.image.vendor=IDunion
 
       - name: Log in to GitHub Container Registry
@@ -59,18 +59,18 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: build and push indy node based on ubuntu18
+      - name: build and push indy node based on ubuntu16
         uses: docker/build-push-action@v2
         with:
-          file: build/Dockerfile.ubuntu18
+          file: build/Dockerfile.ubuntu16
           context: ./build
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta_indy_node.outputs.tags }}
           labels: ${{ steps.meta_indy_node.outputs.labels }}
-          ### Not used at the moment. Base and actual indy-node images are packed into one Docker file
+          ### No base image used at the moment
           # build-args: |
-          #   BUILDER_BASE=ghcr.io/idunion/indy-node-container/base:ubuntu18
-          #   BASE=ubuntu:18.04
+          #   BUILDER_BASE=ghcr.io/idunion/indy-node-container/base:ubuntu16
+          #   BASE=ubuntu:16.04
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
 
