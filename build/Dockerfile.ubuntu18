@@ -32,7 +32,9 @@ RUN apt-get update -y && apt-get upgrade -y && apt-get install -y \
     && apt-get autoremove -y
 RUN pip3 install -U \
     'pip<10.0.0' \
-    setuptools
+    # Version of setuptools needs to be pinned because support for 2to3 during builds has been removed in v58.0
+    # https://github.com/pypa/setuptools/blob/v58.0.0/CHANGES.rst
+    'setuptools<58.0'
 
 
 FROM base AS builder
