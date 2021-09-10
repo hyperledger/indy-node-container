@@ -32,14 +32,6 @@ jobs:
         run: echo "::set-output name=lowercase::$(echo ${{ github.repository_owner }} | tr \"[:upper:]\" \"[:lower:]\")"
         shell: bash
 
-      - name: Meta for base
-        id: meta_base
-        uses: docker/metadata-action@v3
-        with:
-          images: ghcr.io/${{ steps.repo_owner.outputs.lowercase }}/indy-node-container/base
-          tags: |
-            type=raw,value=ubuntu
-
       - name: Meta for indy_node
         id: meta_indy_node
         uses: docker/metadata-action@v3
@@ -47,7 +39,7 @@ jobs:
           images: ghcr.io/${{ steps.repo_owner.outputs.lowercase }}/indy-node-container/indy_node
           # Note: no latest tag for the ubuntu build
           flavor: |
-            suffix=-ubuntu
+            suffix=-ubuntu16
             latest=false
           tags: |
             type=raw,value=ubuntu,suffix=
@@ -75,9 +67,10 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta_indy_node.outputs.tags }}
           labels: ${{ steps.meta_indy_node.outputs.labels }}
-          build-args: |
-            BUILDER_BASE=ghcr.io/idunion/indy-node-container/base:ubuntu16
-            BASE=ubuntu:16.04
+          ### No base image used at the moment
+          # build-args: |
+          #   BUILDER_BASE=ghcr.io/idunion/indy-node-container/base:ubuntu16
+          #   BASE=ubuntu:16.04
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
 
