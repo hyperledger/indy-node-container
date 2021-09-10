@@ -17,7 +17,7 @@ jobs:
       - name: Run Trivy on indy_node:ubuntu18
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: 'ghcr.io/idunion/indy-node-container/indy_node:ubuntu'
+          image-ref: 'ghcr.io/idunion/indy-node-container/indy_node:ubuntu18'
           format: 'template'
           template: '@/contrib/sarif.tpl'
           output: 'trivy-indy-node-ubuntu18.sarif'
