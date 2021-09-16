@@ -1,0 +1,241 @@
+name: Matrix Build
+
+on:
+  push:
+    branches: [ 'main' ]
+    tags:
+      - 'v*'
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  
+  build_and_test:
+    name: Build and Test Images 
+    runs-on: ubuntu-latest
+    services:
+      registry:
+        image: registry:2
+        ports:
+          - 5000:5000
+    strategy:
+      matrix:
+        os_version: [
+          'buster',
+          'ubuntu16',
+          'ubuntu18'
+        ]
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          driver-opts: network=host
+
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ matrix.os_version }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-${{ matrix.os_version }}
+            ${{ runner.os }}-buildx
+
+      - name: Lowercase repo owner
+        id: repo_owner
+        run: echo "::set-output name=lowercase::$(echo ${{ github.repository_owner }} | tr \"[:upper:]\" \"[:lower:]\")"
+        shell: bash
+
+      - name: Meta for indy_node
+        id: meta_indy_node
+        uses: docker/metadata-action@v3
+        with:
+          images: localhost:5000/${{ steps.repo_owner.outputs.lowercase }}/indy-node-container/indy_node
+          flavor: |
+            suffix=-${{ matrix.os_version }}
+            latest=false
+          # Note: latest will be created on "git push tag" - see https://github.com/marketplace/actions/docker-metadata-action#latest-tag
+          tags: |
+            type=raw,value=${{ matrix.os_version }},suffix=-tmp-test-${{ github.sha }}
+          labels: |
+            org.opencontainers.image.title=Temporary Test Container
+            org.opencontainers.image.description=Temporary Test Container based on ${{ matrix.os_version }}
+            org.opencontainers.image.vendor=IDunion
+
+      - name: build node image based on ${{ matrix.os_version }}
+        uses: docker/build-push-action@v2
+        with:
+          file: build/Dockerfile.${{ matrix.os_version }}
+          context: ./build
+          push: true
+          tags: ${{ steps.meta_indy_node.outputs.tags }}
+          labels: ${{ steps.meta_indy_node.outputs.labels }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new
+
+      # Temp fix
+      # https://github.com/docker/build-push-action/blob/master/docs/advanced/cache.md#github-cache
+      # https://github.com/docker/build-push-action/issues/252
+      # https://github.com/moby/buildkit/issues/1896
+      - name: Move cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+
+      - name: Set image name
+        id: image
+        run: echo "::set-output name=name::$(echo localhost:5000/${{ steps.repo_owner.outputs.lowercase }}/indy-node-container/indy_node:${{ matrix.os_version }}-tmp-test-${{ github.sha }})"
+
+      - name: Start 4 nodes and the ledger browser
+        run: |
+          cd test
+          ./init-test-network.sh ${{ steps.image.outputs.name }}
+          IMAGE_NAME=${{ steps.image.outputs.name }} docker-compose up -d
+
+      - name: Get Ledger State
+        id: ledger
+        run: |
+          echo "Waiting 30 seconds for the ledger browser to start ..."
+          sleep 30
+          curl -s --retry 5 --retry-delay 5 --max-time 10 http://localhost:9000/status?validators=1 > ledger_state.json
+          SYNC_STATE_N1=$(jq '.validators[0].Node_info.Catchup_status.Ledger_statuses[] | . == "synced"' ledger_state.json | sort -u)
+          SYNC_STATE_N2=$(jq '.validators[1].Node_info.Catchup_status.Ledger_statuses[] | . == "synced"' ledger_state.json | sort -u)
+          SYNC_STATE_N3=$(jq '.validators[2].Node_info.Catchup_status.Ledger_statuses[] | . == "synced"' ledger_state.json | sort -u)
+          SYNC_STATE_N4=$(jq '.validators[3].Node_info.Catchup_status.Ledger_statuses[] | . == "synced"' ledger_state.json | sort -u)
+          FRESHNESS_N1=$(jq '.validators[0].Node_info.Freshness_status[].Has_write_consensus' ledger_state.json | sort -u)
+          FRESHNESS_N2=$(jq '.validators[1].Node_info.Freshness_status[].Has_write_consensus' ledger_state.json | sort -u)
+          FRESHNESS_N3=$(jq '.validators[2].Node_info.Freshness_status[].Has_write_consensus' ledger_state.json | sort -u)
+          FRESHNESS_N4=$(jq '.validators[3].Node_info.Freshness_status[].Has_write_consensus' ledger_state.json | sort -u)
+          UNREACHABLE_N1=$(jq '.validators[0].Pool_info.Unreachable_nodes_count' ledger_state.json)
+          UNREACHABLE_N2=$(jq '.validators[1].Pool_info.Unreachable_nodes_count' ledger_state.json)
+          UNREACHABLE_N3=$(jq '.validators[2].Pool_info.Unreachable_nodes_count' ledger_state.json)
+          UNREACHABLE_N4=$(jq '.validators[3].Pool_info.Unreachable_nodes_count' ledger_state.json)
+          echo "Node 1 (synced=$SYNC_STATE_N1, write-consensus=$FRESHNESS_N1, unreachable-nodes=$UNREACHABLE_N1): $(jq '.validators[0].Node_info.Catchup_status.Ledger_statuses' ledger_state.json)"
+          echo "Node 2 (synced=$SYNC_STATE_N2, write-consensus=$FRESHNESS_N2, unreachable-nodes=$UNREACHABLE_N2): $(jq '.validators[1].Node_info.Catchup_status.Ledger_statuses' ledger_state.json)"
+          echo "Node 3 (synced=$SYNC_STATE_N3, write-consensus=$FRESHNESS_N3, unreachable-nodes=$UNREACHABLE_N3): $(jq '.validators[2].Node_info.Catchup_status.Ledger_statuses' ledger_state.json)"
+          echo "Node 4 (synced=$SYNC_STATE_N4, write-consensus=$FRESHNESS_N4, unreachable-nodes=$UNREACHABLE_N4): $(jq '.validators[3].Node_info.Catchup_status.Ledger_statuses' ledger_state.json)"
+          echo "::set-output name=n1_synced::$SYNC_STATE_N1"
+          echo "::set-output name=n2_synced::$SYNC_STATE_N2"
+          echo "::set-output name=n3_synced::$SYNC_STATE_N3"
+          echo "::set-output name=n4_synced::$SYNC_STATE_N4"
+          echo "::set-output name=n1_freshness::$FRESHNESS_N1"
+          echo "::set-output name=n2_freshness::$FRESHNESS_N2"
+          echo "::set-output name=n3_freshness::$FRESHNESS_N3"
+          echo "::set-output name=n4_freshness::$FRESHNESS_N4"
+          echo "::set-output name=n1_unreachable::$UNREACHABLE_N1"
+          echo "::set-output name=n2_unreachable::$UNREACHABLE_N2"
+          echo "::set-output name=n3_unreachable::$UNREACHABLE_N3"
+          echo "::set-output name=n4_unreachable::$UNREACHABLE_N4"
+
+      - name: Safe ledger_state.json for later inspection
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.os_version }}-tmp-test-${{ github.sha }}-ledger_state.json
+          path: ledger_state.json
+          retention-days: 3
+
+      - name: Fail if ledger is not in sync
+        if: |
+          steps.ledger.outputs.n1_synced != 'true' ||
+          steps.ledger.outputs.n2_synced != 'true' ||
+          steps.ledger.outputs.n3_synced != 'true' ||
+          steps.ledger.outputs.n4_synced != 'true' ||
+          steps.ledger.outputs.n1_freshness != 'true' ||
+          steps.ledger.outputs.n2_freshness != 'true' ||
+          steps.ledger.outputs.n3_freshness != 'true' ||
+          steps.ledger.outputs.n4_freshness != 'true' ||
+          steps.ledger.outputs.n1_unreachable != 0 ||
+          steps.ledger.outputs.n2_unreachable != 0 ||
+          steps.ledger.outputs.n3_unreachable != 0 ||
+          steps.ledger.outputs.n4_unreachable != 0
+
+        uses: actions/github-script@v3
+        with:
+          script: |
+            core.setFailed('${{ matrix.os_version }} - Not all nodes are in sync!')
+
+
+  push_to_registry:
+    name: Push Docker image to GitHub Packages
+    runs-on: ubuntu-latest
+    needs: build_and_test
+    strategy:
+      matrix:
+        os_version: [
+          'buster',
+          'ubuntu16',
+          'ubuntu18'
+        ]
+
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ matrix.os_version }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-${{ matrix.os_version }}
+            ${{ runner.os }}-buildx
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Lowercase repo owner
+        id: repo_owner
+        run: echo "::set-output name=lowercase::$(echo ${{ github.repository_owner }} | tr \"[:upper:]\" \"[:lower:]\")"
+        shell: bash
+
+      - name: Meta for indy_node
+        id: meta_indy_node
+        uses: docker/metadata-action@v3
+        with:
+          images: ghcr.io/${{ steps.repo_owner.outputs.lowercase }}/indy-node-container/indy_node
+          flavor: |
+            suffix=-${{ matrix.os_version }},onlatest=true
+            latest=auto
+          # Note: latest will be created on "git push tag" - see https://github.com/marketplace/actions/docker-metadata-action#latest-tag
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+          labels: |
+            org.opencontainers.image.title=IDunion Indy Node Container
+            org.opencontainers.image.description=IDunion Indy Node Container based on ${{ matrix.os_version }}
+            org.opencontainers.image.vendor=IDunion
+
+      - name: push indy node based on ${{ matrix.os_version }}
+        uses: docker/build-push-action@v2
+        with:
+          file: build/Dockerfile.${{ matrix.os_version }}
+          context: ./build
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta_indy_node.outputs.tags }}
+          labels: ${{ steps.meta_indy_node.outputs.labels }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new
+
+      # Temp fix
+      # https://github.com/docker/build-push-action/blob/master/docs/advanced/cache.md#github-cache
+      # https://github.com/docker/build-push-action/issues/252
+      # https://github.com/moby/buildkit/issues/1896
+      - name: Move cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
