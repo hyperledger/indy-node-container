@@ -13,10 +13,10 @@ clean_buster:
 	-docker image rm indy-node-container/indy_node:buster
 
 clean_ubuntu16:
-	-docker image rm indy-node-container/indy_node:ubuntu
+	-docker image rm indy-node-container/indy_node:ubuntu16
 
 clean_ubuntu18:
-	-docker image rm indy-node-container/indy_node:ubuntu
+	-docker image rm indy-node-container/indy_node:ubuntu18
 
 clean: clean_buster clean_ubuntu16 clean_ubuntu18
 
