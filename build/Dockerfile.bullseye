@@ -1,0 +1,68 @@
+# This container is to run indy-node.
+# It has been created in the indy-node docker working group of the ID Union project.
+# author: Sebastian Schmittner <sebastian.schmittner@eecc.de>
+# author: Guido Wischrop <guido.wischrop@mgm-tp.com>
+# version: 1.1+2021-06-02
+
+
+FROM python:3.6-slim-bullseye as base
+
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y \
+            libsodium-dev \
+            libsecp256k1-dev \
+            libssl-dev \
+            liblzma-dev \
+            libsnappy-dev \
+            liblz4-dev \
+            libbz2-dev \
+            zlib1g-dev \
+            librocksdb-dev \
+            software-properties-common \
+            gnupg2 \
+            build-essential \
+ && apt-get autoremove -y
+
+FROM base AS builder
+
+# ubuntu 18 libindy package
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CE7709D068DB5E88 && \
+    add-apt-repository "deb https://repo.sovrin.org/sdk/deb bionic stable" && \
+    apt-get update && \
+    apt-get install -y libindy
+
+
+# deprecated dependencies based on libssl1.0 / libiny-crypto
+RUN \
+    # for old libssl needed for libindy-crypto
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32 && \
+    add-apt-repository "deb http://security.ubuntu.com/ubuntu bionic-security main" && \
+    # for libindy-crypto
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68DB5E88 && \
+    add-apt-repository "deb https://repo.sovrin.org/sdk/deb xenial stable" && \
+    apt-get update && \
+    apt-get install -y libssl1.0.0 libindy-crypto=0.4.5 python3-indy-crypto=0.4.5
+
+RUN pip install python3-indy indy-node==1.12.4 indy-plenum==1.12.4
+
+FROM base
+
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y \
+            libsodium23 \
+            librocksdb6.11 && \
+    apt-get autoremove -y
+
+COPY --from=builder /usr/local/bin/ /usr/local/bin/
+COPY --from=builder /usr/local/lib/ /usr/local/lib/
+COPY --from=builder /usr/lib/libindy* /usr/lib/
+COPY --from=builder /usr/lib/x86_64-linux-gnu/libssl* /usr/lib/x86_64-linux-gnu/libcrypto* /usr/lib/x86_64-linux-gnu/
+
+RUN useradd -ms /bin/bash indy
+WORKDIR /home/indy
+
+COPY init_and_run.sh ./
+
+CMD ["./init_and_run.sh"]
