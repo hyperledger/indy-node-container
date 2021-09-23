@@ -1,7 +1,5 @@
-[![Buster Build](https://github.com/IDunion/indy-node-container/actions/workflows/build-buster.yml/badge.svg)](https://github.com/IDunion/indy-node-container/actions/workflows/build-buster.yml)
-[![Ubuntu 16 Build](https://github.com/IDunion/indy-node-container/actions/workflows/build-ubuntu16.yml/badge.svg)](https://github.com/IDunion/indy-node-container/actions/workflows/build-ubuntu16.yml)
-[![Ubuntu 18 Build](https://github.com/IDunion/indy-node-container/actions/workflows/build-ubuntu18.yml/badge.svg)](https://github.com/IDunion/indy-node-container/actions/workflows/build-ubuntu18.yml)
-[![Ledger Test](https://github.com/IDunion/indy-node-container/actions/workflows/ledger-test.yml/badge.svg)](https://github.com/IDunion/indy-node-container/actions/workflows/ledger-test.yml)
+[![All Indy-Node Builds&Tests](https://github.com/IDunion/indy-node-container/actions/workflows/build-all.yml/badge.svg)](https://github.com/IDunion/indy-node-container/actions/workflows/build-all.yml)
+
 
 # Indy Node Docker Container Working Group
 
