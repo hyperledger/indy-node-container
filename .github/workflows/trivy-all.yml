@@ -21,7 +21,7 @@ jobs:
       - name: Run Trivy on indy_node:${{ matrix.os_version }}
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: 'ghcr.io/idunion/indy-node-container/indy_node:latet-${{ matrix.os_version }}'
+          image-ref: 'ghcr.io/idunion/indy-node-container/indy_node:latest-${{ matrix.os_version }}'
           format: 'template'
           template: '@/contrib/sarif.tpl'
           output: 'trivy-indy-node-${{ matrix.os_version }}.sarif'
