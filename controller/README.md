@@ -15,3 +15,8 @@ The controller uses a shared service network namespace to communicate with the n
 ### Environment variables
 * CONTAINER: name of the indy node container to be controlled
 * ENGINE: container engine to be used. Defaults to docker
+
+### Mountpoints
+Mountpoint for the respective container engine socket. This will give the Controller container the same access to the engine has the Host. It is strongly advised to run in rootless mode to not expose other container.
+* Docker: `/run/user/$(id -u $HOME)/docker.sock:/var/run/docker.sock`
+* Podman: `/var/run/user/$(id -u $USER)/podman/podman.sock:/var/run/podman/podman.sock`
