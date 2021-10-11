@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   indy-node_1:
-    image: ${IMAGE_NAME}
+    image: ${IMAGE_NAME_NODE}
     init: true
     container_name: node1
     ports:
@@ -25,7 +25,7 @@ services:
         ipv4_address: 10.133.133.1
 
   indy-node_2:
-    image: ${IMAGE_NAME}
+    image: ${IMAGE_NAME_NODE}
     init: true
     container_name: node2
     ports:
@@ -48,7 +48,7 @@ services:
         ipv4_address: 10.133.133.2
 
   indy-node_3:
-    image: ${IMAGE_NAME}
+    image: ${IMAGE_NAME_NODE}
     init: true
     container_name: node3
     ports:
@@ -71,7 +71,7 @@ services:
         ipv4_address: 10.133.133.3
 
   indy-node_4:
-    image: ${IMAGE_NAME}
+    image: ${IMAGE_NAME_NODE}
     init: true
     container_name: node4
     ports:
@@ -119,6 +119,65 @@ services:
     volumes:
       - ./etc_indy:/etc/indy
       - ./lib_indy:/var/lib/indy
+
+  indy-cli:
+    image: bcgovimages/von-image:py36-1.14-1
+    container_name: client
+    volumes:
+      - ./lib_indy/idunion_local_test/pool_transactions_genesis:/pool_transactions_genesis
+      - ./etc_indy:/etc/indy
+    restart: "no"
+    networks:
+      idunion_local:
+        ipv4_address: 10.133.133.6
+
+  indy-controller_1:
+    image: ${IMAGE_NAME_CONTROLLER}
+    init: true
+    container_name: controller1
+    environment:
+     - CONTAINER=node1
+    volumes:
+      - ./etc_indy:/etc/indy
+      - $SOCK:/var/run/docker.sock
+    restart: always
+    network_mode: "service:indy-node_1"
+
+  indy-controller_2:
+    image: ${IMAGE_NAME_CONTROLLER}
+    init: true
+    container_name: controller2
+    environment:
+      - CONTAINER=node2
+    volumes:
+      - ./etc_indy:/etc/indy
+      - $SOCK:/var/run/docker.sock
+    restart: always
+    network_mode: "service:indy-node_2"
+
+  indy-controller_3:
+    image: ${IMAGE_NAME_CONTROLLER}
+    init: true
+    container_name: controller3
+    environment:
+      - CONTAINER=node3
+    volumes:
+      - ./etc_indy:/etc/indy
+      - $SOCK:/var/run/docker.sock
+    restart: always
+    network_mode: "service:indy-node_3"
+
+  indy-controller_4:
+    image: ${IMAGE_NAME_CONTROLLER}
+    init: true
+    container_name: controller4
+    environment:
+      - CONTAINER=node4
+    volumes:
+      - ./etc_indy:/etc/indy
+      - $SOCK:/var/run/docker.sock
+    restart: always
+    network_mode: "service:indy-node_4"
 
 networks:
   idunion_local:
