@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [ -z ${1+x} ]; then
-  IMAGE_NAME_NODE=ghcr.io/idunion/indy-node-container/indy_node:buster
+  IMAGE_NAME_NODE=ghcr.io/idunion/indy-node-container/indy_node:latest-buster
 else
   IMAGE_NAME_NODE=$1
 fi
