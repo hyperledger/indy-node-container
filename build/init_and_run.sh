@@ -34,16 +34,13 @@ else
     echo -e "[OK]\t Keys directory exists, skipping init."
 fi
 
-echo -e "[SKIP]\t NOT Starting Indy Node Controller. This tool currently needs systemctl."
-#nohup start_node_control_tool &
-
 echo -e "[...]\t Setting directory owner to indy"
 
 echo
 
-mkdir -p /var/log/indy
-chown -R indy:indy /var/log/indy
-chown -R indy:indy /var/lib/indy/*/keys
+mkdir -vp /var/log/indy
+chown -vR indy:indy /var/log/indy
+chown -vR indy:indy /var/lib/indy
 
 if [ -d /var/lib/indy/*/data/ ]; then
     chown -R indy:indy /var/lib/indy/*/data/
