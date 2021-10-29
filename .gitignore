@@ -2,12 +2,9 @@ __pycache__
 keys
 *~
 *__pycache__
-lib_indy/ssi4de*
-etc_indy/indy.env
+*lib_indy*
+*etc_indy/indy.env
 .cli.env
 .node.env
 .history
-test/lib_indy
-run/etc_indy/indy.env
-run/lib_indy/sandbox*
 trivy-reports
