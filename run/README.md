@@ -8,8 +8,9 @@ It also contains a few utility / helper scripts to help with the setup.
 
 - `./generate_random_seeds.sh` and then securely backup `.node.env` which holds the seed for generating the private keys
 - Put `pool_transactions_genesis` and `domain_transactions_genesis` for your network into the `lib_indy` folder. The sub folder name has to match the `INDY_NETWORK_NAME` set in `.env` in the next step.
-- Set the variables (Networkname, ips, ports) in the `.env` file. You can also switch from the default Debian based image to the ubuntu based one.
-- (Pull and) run the container in deamon mode via `docker-compose up -d`.
+- Set the variables (network name, ips, ports) in the `.env` file. You can also choose the base image, see https://github.com/IDunion/indy-node-container/pkgs/container/indy-node-container%2Findy_node .
+- (Pull and) run the container in daemon mode via `docker-compose up -d`.
+  - This will start two containers. One for the indy node and one for the node controller service that takes care of pool restarts. See below for details.
 - Look at `docker logs indy_node` and `docker exec -it indy_node validator-info` to check the state of your node
 - You need to run e.g. indy_cli (not included here) to actually interact with the ledger
 
@@ -24,4 +25,12 @@ The relevant directories are mounted as
       - ./lib_indy:/var/lib/indy
 ```
 
-giving direct access to the relevant config files from the host machine, if needed. Note that the `NETWORK_NAME` is overriden at startup with the value from `INDY_NETWORK_NAME` from `.env`.
+giving direct access to the relevant config files from the host machine, if needed. Note that the `NETWORK_NAME` in `indy_config.py` is overridden at startup with the value from `INDY_NETWORK_NAME` from `.env`.
+
+## Logging
+
+The log dir is mounted to `./log_indy` by default to ease access to the log files.
+
+## Node Controller
+
+The current approach to handle pool restarts is to have the node controller running in a separate service container which has access to the docker socket (`SOCK=/var/run/docker.sock`  in the `.env` file which might have to be adapted depending on your local docker setting). You can run the node without the node controller with e.g. `docker-compose up --scale indy-controller=0`. Note however that such nodes will not participate in pool restarts.
