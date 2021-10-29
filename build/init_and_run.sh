@@ -42,11 +42,6 @@ mkdir -vp /var/log/indy
 chown -vR indy:indy /var/log/indy
 chown -vR indy:indy /var/lib/indy
 
-if [ -d /var/lib/indy/*/data/ ]; then
-    chown -R indy:indy /var/lib/indy/*/data/
-fi
-
-
 echo -e "[OK]\t Setting directory owner to indy"
 
 echo -e "[...]\t Starting Indy Node as indy user"
