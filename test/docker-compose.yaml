@@ -182,6 +182,7 @@ services:
 networks:
   idunion_local:
     driver: bridge
+    name: indy
     ipam:
       driver: default
       config:

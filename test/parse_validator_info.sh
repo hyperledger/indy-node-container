@@ -4,7 +4,7 @@
 set -e
 
 echo -e "[...]\tretrieving ledger status"
-curl -s --retry 5 --retry-delay 5 --max-time 10 http://localhost:9000/status?validators=1 >ledger_state.json
+curl -vs --retry 5 --retry-delay 5 --max-time 10 http://localhost:9000/status?validators=1 >ledger_state.json
 echo -e "[OK]"
 echo -e "[...]\tparsing ledger status"
 SYNC_STATE_N1=$(jq '.validators[0].Node_info.Catchup_status.Ledger_statuses[] | . == "synced"' ledger_state.json | sort -u)
