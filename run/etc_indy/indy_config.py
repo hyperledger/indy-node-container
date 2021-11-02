@@ -25,4 +25,5 @@ PLUGINS_DIR = '/var/lib/indy/plugins'
 # Directory to store node info.
 NODE_INFO_DIR = '/var/lib/indy'
 
+# 0 means everything
 logLevel = 0
