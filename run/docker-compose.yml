@@ -3,16 +3,34 @@ version: "3.8"
 services:
   indy-node:
     image: ${IMAGE}
-    container_name: indy_node
+    container_name: ${NODE_CONTAINER_NAME}
     ports:
       - "${INDY_NODE_PORT}:${INDY_NODE_PORT}"
       - "${INDY_CLIENT_PORT}:${INDY_CLIENT_PORT}"
-
     volumes:
       - ./etc_indy:/etc/indy
       - ./lib_indy:/var/lib/indy
       - ./log_indy:/var/log/indy
+    environment:
+      - INDY_NODE_IP=${INDY_NODE_IP}
+      - INDY_NODE_PORT=${INDY_NODE_PORT}
+      - INDY_CLIENT_IP=${INDY_CLIENT_IP}
+      - INDY_CLIENT_PORT=${INDY_CLIENT_PORT}
+      - INDY_NETWORK_NAME=${INDY_NETWORK_NAME}
+      - INDY_NODE_NAME=${INDY_NETWORK_NAME}
     env_file:
-      - .env
       - .node.env
     restart: always
+
+  indy-controller:
+    image: ${IMAGE_NAME_CONTROLLER}
+    init: true
+    container_name: indy_node_controller
+    environment:
+     - CONTAINER=${NODE_CONTAINER_NAME}
+     - INDY_NETWORK_NAME=${INDY_NETWORK_NAME}
+    volumes:
+      - ./etc_indy:/etc/indy
+      - ${SOCK}:/var/run/docker.sock
+    restart: always
+    network_mode: "service:indy-node"
