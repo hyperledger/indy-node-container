@@ -17,7 +17,7 @@ services:
       - INDY_CLIENT_IP=${INDY_CLIENT_IP}
       - INDY_CLIENT_PORT=${INDY_CLIENT_PORT}
       - INDY_NETWORK_NAME=${INDY_NETWORK_NAME}
-      - INDY_NODE_NAME=${INDY_NETWORK_NAME}
+      - INDY_NODE_NAME=${INDY_NODE_NAME}
     env_file:
       - .node.env
     restart: always
