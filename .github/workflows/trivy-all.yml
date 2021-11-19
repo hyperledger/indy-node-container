@@ -13,7 +13,7 @@ jobs:
     runs-on: "ubuntu-20.04"
     strategy:
       matrix:
-        os_version: [ bullseye, buster, ubuntu16, ubuntu18]
+        os_version: [ bullseye, buster, ubuntu16, ubuntu18, ubuntu20 ]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
