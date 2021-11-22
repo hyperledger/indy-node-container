@@ -7,8 +7,7 @@ FROM ubuntu:20.04
 RUN apt-get update -y && apt-get install -y \
     apt-transport-https \
     ca-certificates \
-    gnupg2 \
-    librocksdb5.17
+    gnupg2 
 
 # Bionic-security for libssl1.0.0
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3B4FE6ACC0B21F32 \
@@ -29,6 +28,7 @@ RUN apt-get update -y && apt-get install -y \
     indy-plenum="1.13.0~dev175" \
     ursa="0.3.2-1" \
     python3-pyzmq="18.1.0" \
+    rocksdb=5.8.8 \
     && rm -rf /var/lib/apt/lists/* \
-    # fix missing libursa
+    # fix path to libursa
     && ln -s /usr/lib/ursa/libursa.so /usr/lib/libursa.so
