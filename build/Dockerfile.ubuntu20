@@ -7,7 +7,14 @@ FROM ubuntu:20.04
 RUN apt-get update -y && apt-get install -y \
     apt-transport-https \
     ca-certificates \
-    gnupg2 
+    gnupg2 \
+    ## ToDo remove unused packages
+    libgflags-dev \
+    libsnappy-dev \
+    zlib1g-dev \
+    libbz2-dev \
+    liblz4-dev \
+    libgflags-dev 
 
 # Bionic-security for libssl1.0.0
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3B4FE6ACC0B21F32 \
