@@ -33,4 +33,8 @@ The log dir is mounted to `./log_indy` by default to ease access to the log file
 
 ## Node Controller
 
-The current approach to handle pool restarts is to have the node controller running in a separate service container which has access to the docker socket (`SOCK=/var/run/docker.sock`  in the `.env` file which might have to be adapted depending on your local docker setting). You can run the node without the node controller with e.g. `docker-compose up --scale indy-controller=0`. Note however that such nodes will not participate in pool restarts.
+Our current approach to handle pool restarts is to have the node controller running in a separate service container which has access to the docker socket (`SOCK=/var/run/docker.sock`  in the `.env` file which might have to be adapted depending on your local docker setting). You can run the node without the node controller with e.g. `docker-compose up --scale indy-controller=0`. Note however that such nodes will not participate in pool restarts.
+
+If the node controller container is running and has access to the docker socket of the host, the node will be restarted upon pool restart commands and will participate in a network upgrade. The decision mechanism for whether to accept or reject an upgrade based on avaiable deb package versions is part of indy node server and hence unchanged. However, if an upgrade is accepted, the container will be stopped, pulled, and restarted. Use a tag like `latest-ubuntu18` and make sure that a new `latest` image is avaiable bevor the network upgrade commences.
+
+

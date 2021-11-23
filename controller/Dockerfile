@@ -28,6 +28,7 @@ RUN apt-get update -y && apt-get install -y podman
 RUN mkdir /opt/controller
 
 COPY restart_indy_node.sh /opt/controller/restart_indy_node
+COPY upgrade_indy.sh /opt/controller/upgrade_indy
 COPY start_node_control_tool /opt/controller/start_node_control_tool
 COPY container_node_control_tool.py /opt/controller/container_node_control_tool.py
 COPY init_and_run.sh ./
