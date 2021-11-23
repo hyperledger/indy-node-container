@@ -1,4 +1,4 @@
-all: bullseye buster ubuntu16 ubuntu18
+all: bullseye buster ubuntu16 ubuntu18 ubuntu20
 
 bullseye:
 	docker build -f "build/Dockerfile.bullseye" -t indy-node-container/indy_node:bullseye build
@@ -12,6 +12,9 @@ ubuntu16:
 ubuntu18:
 	docker build -f "build/Dockerfile.ubuntu18" -t indy-node-container/indy_node:ubuntu18 build
 
+ubuntu20:
+	docker build -f "build/Dockerfile.ubuntu20" -t indy-node-container/indy_node:ubuntu20 build
+
 clean_bullseye:
 	-docker image rm indy-node-container/indy_node:bullseye
 
@@ -24,7 +27,10 @@ clean_ubuntu16:
 clean_ubuntu18:
 	-docker image rm indy-node-container/indy_node:ubuntu18
 
-clean: clean_bullseye clean_buster clean_ubuntu16 clean_ubuntu18
+clean_ubuntu20:
+	-docker image rm indy-node-container/indy_node:ubuntu20
+
+clean: clean_bullseye clean_buster clean_ubuntu16 clean_ubuntu18 clean_ubuntu20
 
 
 # all check targets require a local trivy installation - see https://aquasecurity.github.io/trivy/
@@ -52,3 +58,9 @@ check_ubuntu18:
 	-trivy image --ignore-unfixed --severity HIGH,CRITICAL --format template --template "@trivy/html.tpl" -o trivy-reports/ubuntu18.html indy-node-container/indy_node:ubuntu18
 #	-xdg-open trivy-reports/ubuntu18.html
 	-trivy image --ignore-unfixed --severity HIGH,CRITICAL indy-node-container/indy_node:ubuntu18
+
+check_ubuntu20:
+	mkdir -p trivy-reports
+	-trivy image --ignore-unfixed --severity HIGH,CRITICAL --format template --template "@trivy/html.tpl" -o trivy-reports/ubuntu20.html indy-node-container/indy_node:ubuntu20
+#	-xdg-open trivy-reports/ubuntu20.html
+	-trivy image --ignore-unfixed --severity HIGH,CRITICAL indy-node-container/indy_node:ubuntu20
