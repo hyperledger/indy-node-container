@@ -4,15 +4,15 @@ print_error() {
     >&2 echo -e "\033[1;31mError:\033[0m $1"
 }
 
-if [ -z "$CONTAINER" ]; then
-    print_error "Missing node container environment variable"
+if [ -z "$NODE_CONTAINER" ]; then
+    print_error "Missing node container name environment variable"
     exit 22
 fi
 
 if [ "$ENGINE" == "podman" ]; then
-    podman --remote container restart $CONTAINER
+    podman --remote container restart "$NODE_CONTAINER"
 else
-    docker container restart $CONTAINER
+    docker container restart "$NODE_CONTAINER"
 fi
 
 exit 0
