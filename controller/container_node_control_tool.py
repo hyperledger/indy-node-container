@@ -81,7 +81,7 @@ class NodeControlTool:
         self.server.setblocking(0)
 
         # Bind the socket to the port
-        self.server_address = ('localhost', 30003)
+        self.server_address = ('0.0.0.0', 30003)
 
         logger.info('Node control tool is starting up on {} port {}'.format(*self.server_address))
         self.server.bind(self.server_address)
@@ -94,6 +94,11 @@ class NodeControlTool:
         cmd = compose_cmd(['/opt/controller/restart_indy_node'])
         NodeControlUtil.run_shell_script(cmd, timeout=self.timeout)
 
+    def _call_upgrade_node_script(self):
+        logger.info('Upgrading indy')
+        cmd = compose_cmd(['/opt/controller/upgrade_indy'])
+        NodeControlUtil.run_shell_script(cmd, timeout=self.timeout)
+
     def _upgrade(
             self,
             new_src_ver: SourceVersion,
@@ -101,7 +106,10 @@ class NodeControlTool:
             migrate=True,
             rollback=True
     ):
-        logger.error("Upgrade message has not yet been implemented")
+        try:
+            self._call_upgrade_node_script()
+        except Exception as ex:
+            logger.error("Upgrade fail: " + ex.args[0])
 
     def _restart(self):
         try:
