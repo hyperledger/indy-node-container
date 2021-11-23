@@ -8,3 +8,4 @@ keys
 .node.env
 .history
 trivy-reports
+test/etc_indy/node*

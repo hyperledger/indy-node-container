@@ -14,7 +14,8 @@ RUN apt-get update -y && apt-get install -y \
     zlib1g-dev \
     libbz2-dev \
     liblz4-dev \
-    libgflags-dev 
+    libgflags-dev \
+    python3-pip
 
 # Bionic-security for libssl1.0.0
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3B4FE6ACC0B21F32 \
@@ -39,3 +40,15 @@ RUN apt-get update -y && apt-get install -y \
     && rm -rf /var/lib/apt/lists/* \
     # fix path to libursa
     && ln -s /usr/lib/ursa/libursa.so /usr/lib/libursa.so
+
+RUN pip3 install -U \
+    # Required by setup.py
+    setuptools==50.3.2 \
+    'pip<10.0.0'
+
+
+WORKDIR /home/indy
+
+COPY init_and_run.sh ./
+
+CMD ["./init_and_run.sh"]
