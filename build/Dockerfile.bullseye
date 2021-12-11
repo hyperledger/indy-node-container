@@ -5,62 +5,85 @@
 # version: 1.1+2021-06-02
 
 
-FROM python:3.6-slim-bullseye as base
+FROM python:3.6-slim-bullseye
 
-RUN apt-get update && \
+
+RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install -y \
-            libsodium-dev \
-            libsecp256k1-dev \
-            libssl-dev \
-            liblzma-dev \
-            libsnappy-dev \
-            liblz4-dev \
-            libbz2-dev \
-            zlib1g-dev \
-            librocksdb-dev \
-            software-properties-common \
-            gnupg2 \
-            build-essential \
- && apt-get autoremove -y
+    apt-transport-https \
+    ca-certificates \
+    gnupg2
 
-FROM base AS builder
+# RUN apt-get update && \
+#     apt-get upgrade -y && \
+#     apt-get install -y \
+#             libsodium-dev \
+#             libsecp256k1-dev \
+#             libssl-dev \
+#             liblzma-dev \
+#             libsnappy-dev \
+#             liblz4-dev \
+#             libbz2-dev \
+#             zlib1g-dev \
+#             librocksdb-dev \
+#             software-properties-common \
+#             gnupg2 \
+#             build-essential \
+#  && apt-get autoremove -y
+
+
+# Hyperledger Artifactory
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 9692C00E657DDE61 \
+    && echo "deb https://hyperledger.jfrog.io/artifactory/indy focal dev" >> /etc/apt/sources.list \
+    # Prioritize packages from hyperledger.jfrog.io
+    && printf '%s\n%s\n%s\n' 'Package: *' 'Pin: origin hyperledger.jfrog.io' 'Pin-Priority: 1001' >> /etc/apt/preferences
+
+
+# Bionic-security for libssl1.0.0
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3B4FE6ACC0B21F32 \
+    && echo "deb http://security.ubuntu.com/ubuntu bionic-security main"  >> /etc/apt/sources.list
+
+# Sovrin -> Ursa
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CE7709D068DB5E88 \
+    && bash -c 'echo "deb https://repo.sovrin.org/deb bionic master" >> /etc/apt/sources.list'
+
+RUN apt-get update -y && apt-get install -y \
+    indy-node="1.13.0~dev206" \
+    indy-plenum="1.13.0~dev175" \
+    ursa="0.3.2-1" \
+    python3-pyzmq="18.1.0" \
+    rocksdb=5.8.8 \
+    && rm -rf /var/lib/apt/lists/* \
+    # fix path to libursa
+    && ln -s /usr/lib/ursa/libursa.so /usr/lib/libursa.so
+
+RUN pip3 install -U \
+    # Required by setup.py
+    setuptools==50.3.2 \
+    'pip<10.0.0'
+
+
 
 # ubuntu 18 libindy package
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CE7709D068DB5E88 && \
-    add-apt-repository "deb https://repo.sovrin.org/sdk/deb bionic stable" && \
-    apt-get update && \
-    apt-get install -y libindy
+#RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CE7709D068DB5E88 && \
+    #add-apt-repository "deb https://repo.sovrin.org/sdk/deb bionic stable" && \
+    #apt-get update && \
+    #apt-get install -y libindy
 
 
 # deprecated dependencies based on libssl1.0 / libiny-crypto
-RUN \
+#RUN \
     # for old libssl needed for libindy-crypto
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32 && \
-    add-apt-repository "deb http://security.ubuntu.com/ubuntu bionic-security main" && \
+    #apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32 && \
+    #add-apt-repository "deb http://security.ubuntu.com/ubuntu bionic-security main" && \
     # for libindy-crypto
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68DB5E88 && \
-    add-apt-repository "deb https://repo.sovrin.org/sdk/deb xenial stable" && \
-    apt-get update && \
-    apt-get install -y libssl1.0.0 libindy-crypto=0.4.5 python3-indy-crypto=0.4.5
+    #apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68DB5E88 && \
+    #add-apt-repository "deb https://repo.sovrin.org/sdk/deb xenial stable" && \
+    #apt-get update && \
+    #apt-get install -y libssl1.0.0 libindy-crypto=0.4.5 python3-indy-crypto=0.4.5
 
-RUN pip install python3-indy indy-node==1.12.4 indy-plenum==1.12.4
 
-FROM base
-
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y \
-            libsodium23 \
-            librocksdb6.11 && \
-    apt-get autoremove -y
-
-COPY --from=builder /usr/local/bin/ /usr/local/bin/
-COPY --from=builder /usr/local/lib/ /usr/local/lib/
-COPY --from=builder /usr/lib/libindy* /usr/lib/
-COPY --from=builder /usr/lib/x86_64-linux-gnu/libssl* /usr/lib/x86_64-linux-gnu/libcrypto* /usr/lib/x86_64-linux-gnu/
-
-RUN useradd -ms /bin/bash indy
 WORKDIR /home/indy
 
 COPY init_and_run.sh ./
