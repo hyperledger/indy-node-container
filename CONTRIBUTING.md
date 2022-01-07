@@ -1,4 +1,4 @@
-# Contributing to Business Partner Agent
+# Contributing to the Indy Node Container Working Group of ID Union
 
 Want to contribute? That's great! Any contribution is welcome, e.g.
 documentation, bug reports, feature request, issues, blog posts,
