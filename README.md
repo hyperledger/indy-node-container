@@ -11,6 +11,18 @@ We also provide a few [utility scripts, including a docker-compose file](run/) t
 See here for instructions how to setup and run the indy node images from this repository.
 
 
+## Contributing
+
+Any contribution is welcome, e.g. documentation, bug reports, feature request, issues, blog posts, tutorials, feature implementations, etc. You can contribute code or documentation through the standard GitHub pull request model.
+
+[Please have a look at CONTRIBUTING.md](CONTRIBUTING.md) for details, in particular how and why you need to sign off commits.
+
+## Code of Conduct
+
+Be excellent to each other!
+
+[See CODE_OF_CONDUCT.md for details.](CODE_OF_CONDUCT.md)
+
 
 ## License
 
