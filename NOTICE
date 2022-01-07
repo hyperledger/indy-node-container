@@ -1,4 +1,4 @@
-# This is the official list of copyright holders and authors of the content of the Indy Node Container repository of ID Union 
+# This is the official list of copyright holders ("contributors") of the content of the Indy Node Container repository of ID Union 
 # hosted at https://github.com/IDunion/indy-node-container.
 #
 # Often employers or academic institutions have ownership over code that is
@@ -18,6 +18,10 @@
 #
 #     Organization's name
 #         Individual's name <submission corporate email address>
+#
+#
+# Before adding anyone to this file, you have to ensure the rules layed out in CONTRIBUTING.md 
+# are obeyed for all contributors.
 #
 # Please keep the list sorted.
 
