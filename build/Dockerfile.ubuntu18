@@ -13,6 +13,7 @@ RUN apt-get update -y && apt-get upgrade -y && apt-get install -y \
     apt-transport-https \
     ca-certificates \
     software-properties-common \
+    iproute2 \
     && apt-get autoremove -y
 
 # get node 1.12.4 dependencies from Ubtuntu 16 + sovrin repos

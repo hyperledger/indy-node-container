@@ -1,0 +1,35 @@
+# This is the official list of copyright holders ("contributors") of the content of the Indy Node Container repository
+# hosted at https://github.com/IDunion/indy-node-container.
+#
+# Often employers or academic institutions have ownership over code that is
+# written in certain circumstances, so please do due diligence to ensure that
+# you have the right to submit the code.
+#
+# When adding J Random Contributor's name to this file, either J's name on its
+# own or J's name associated with J's organization's name should be added,
+# depending on whether J's employer (or academic institution) has ownership
+# over code that is written for this project.
+#
+# How to add names to this file:
+#     Individual's name <submission email address>.
+#
+# If Individual's organization is copyright holder of her contributions add the
+# organization's name, optionally also the contributor's name:
+#
+#     Organization's name
+#         Individual's name <submission corporate email address>
+#
+#
+# Before adding anyone to this file, you have to ensure the rules layed out in CONTRIBUTING.md 
+# are obeyed for all contributors.
+#
+# Please keep the list sorted.
+
+
+ European EPC Competence Center GmbH
+ - Sebastian Schmittner <sebastian.schmittner@eecc.de>
+ 
+ Institute for Internet Security - if(is)
+- Robin Klemens <klemens@internet-sicherheit.de>
+- Cristian Kubis <kubis@internet-sicherheit.de>
+ 
