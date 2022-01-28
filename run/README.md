@@ -6,6 +6,15 @@ It also contains a few utility / helper scripts to help with the setup.
 
 ## How To
 
+
+### Setup
+
+You need a (semi) recent version of [docker](https://docs.docker.com/engine/install/#server) and [docker compose (version => 1.27.0)](https://docs.docker.com/compose/install/) installed. 
+
+Of course, you can also use all our containers with other tools such as podman but that currently requires [some extra work on](https://podman.io/blogs/2021/01/11/podman-compose.html). If you produce a setup + step by step guide for the [tests](https://github.com/IDunion/indy-node-container/tree/main/test) or for [running the node](https://github.com/IDunion/indy-node-container/tree/main/run), please do share them! (Open an [issue/PR](https://github.com/IDunion/indy-node-container) or start [here](https://github.com/IDunion/indy-node-container/issues/48).)
+
+### Step By Step
+
 - `./generate_random_seeds.sh` and then securely backup `.node.env` which holds the seed for generating the private keys
 - Put `pool_transactions_genesis` and `domain_transactions_genesis` for your network into the `lib_indy` folder. The sub folder name has to match the `INDY_NETWORK_NAME` set in `.env` in the next step.
 - Set the variables (network name, ips, ports) in the `.env` file. You can also choose the base image, see https://github.com/IDunion/indy-node-container/pkgs/container/indy-node-container%2Findy_node .
