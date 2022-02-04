@@ -8,5 +8,5 @@
   #         `mode`, and `blob_id`), `parents` (list of hashes or integer
   #         marks)
   if commit.author_name == b"Sebastian Schmittner" and b"Signed-off-by:" not in commit.message:
-      commit.message = commit.message + b"\nSigned-off-by: Sebastian Schmittner <sebastian.schmittner@eecc.de>"
+      commit.message = commit.message + b"\n\nSigned-off-by: Sebastian Schmittner <sebastian.schmittner@eecc.de>"
   
