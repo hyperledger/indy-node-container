@@ -7,6 +7,6 @@
   #         FileChange objects, each containing a `type`, `filename`,
   #         `mode`, and `blob_id`), `parents` (list of hashes or integer
   #         marks)
-  if commit.author_email == b"sebastian.schmittner@eecc.de" and b"Signed-off-by:" not in commit.message:
+  if commit.author_name == b"Sebastian Schmittner" and b"Signed-off-by:" not in commit.message:
       commit.message = commit.message + b"\nSigned-off-by: Sebastian Schmittner <sebastian.schmittner@eecc.de>"
   
