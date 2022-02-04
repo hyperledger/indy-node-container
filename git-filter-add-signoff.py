@@ -1,4 +1,4 @@
-  # This file is supposed to be used as `git filter-repo --force --commit-callback "$(cat git-filter-repo-body.py)"`
+  # This file is supposed to be used as `git filter-repo --force --commit-callback "$(cat git-filter-add-signoff.py)"`
   # Mind to adapt the following before:
   username = b"Sebastian Schmittner"
   email = b"sebastian.schmittner@eecc.de"
