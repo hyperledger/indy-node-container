@@ -1,6 +1,6 @@
-  # This file is supposed to be used as `git filter-repo --force --commit-callback "$(cat git-filter-add-signoff.py)"`
+  # This file is supposed to be used as `python3 .../git-filter-repo.py --force --commit-callback "$(cat git-filter-add-signoff.py)"`
   # Mind to adapt the following before:
-  username = b"Sebastian Schmittner"
+  usernames = [b"Sebastian Schmittner", b"HackMD", b"Artur A Philipp", b"debian"]
   email = b"sebastian.schmittner@eecc.de"
   # See https://htmlpreview.github.io/?https://github.com/newren/git-filter-repo/blob/docs/html/git-filter-repo.html#CALLBACKS
   # 
@@ -10,5 +10,5 @@
   #         FileChange objects, each containing a `type`, `filename`,
   #         `mode`, and `blob_id`), `parents` (list of hashes or integer
   #         marks)
-  if commit.author_name == username and b"Signed-off-by:" not in commit.message:
-      commit.message = commit.message + b"\n\nSigned-off-by: " + username + " <" + email + ">"
+  if commit.author_name in usernames and b"Signed-off-by:" not in commit.message:
+      commit.message = commit.message + b"\n\nSigned-off-by: " + usernames[0] + b" <" + email + b">"
