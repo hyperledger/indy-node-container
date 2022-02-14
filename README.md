@@ -1,4 +1,4 @@
-[![All Indy-Node Builds&Tests](https://github.com/IDunion/indy-node-container/actions/workflows/build-all.yml/badge.svg)](https://github.com/IDunion/indy-node-container/actions/workflows/build-all.yml)
+[![Building All Containers](https://github.com/hyperledger/indy-node-container/actions/workflows/build-all.yml/badge.svg)](https://github.com/hyperledger/indy-node-container/actions/workflows/build-all.yml)
 
 
 # Indy Node Docker Container Working Group

@@ -1,4 +1,4 @@
-name: Matrix Build
+name: Building All Containers
 
 on:
   push:
@@ -249,9 +249,9 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
           labels: |
-            org.opencontainers.image.title=IDunion Indy Node Container
-            org.opencontainers.image.description=IDunion Indy Node Container based on ${{ matrix.os_version }}
-            org.opencontainers.image.vendor=IDunion
+            org.opencontainers.image.title=Indy Node Container
+            org.opencontainers.image.description=Indy Node Container based on ${{ matrix.os_version }}
+            org.opencontainers.image.vendor=Hyperledger
       - name: Push indy node based on ${{ matrix.os_version }}
         uses: docker/build-push-action@v2
         with:
@@ -303,9 +303,9 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
           labels: |
-            org.opencontainers.image.title=IDunion Indy Node Container Controller
-            org.opencontainers.image.description=IDunion Indy Node Container Controller
-            org.opencontainers.image.vendor=IDunion
+            org.opencontainers.image.title=Indy Node Container Controller
+            org.opencontainers.image.description=Indy Node Container Controller
+            org.opencontainers.image.vendor=Hyperledger
       - name: Push indy node controller
         uses: docker/build-push-action@v2
         with:
