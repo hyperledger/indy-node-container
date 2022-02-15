@@ -1,6 +1,5 @@
 [![All Indy-Node Builds&Tests](actions/workflows/build-all.yml/badge.svg)](actions/workflows/build-all.yml)
 
-
 # Indy Node Docker Container
 
 This repository aims to provide easy-to-use containers with minimal dependencies to run instances of [Hyperledger Indy Node](https://github.com/hyperledger/indy-node). The primary goal is to support stewards joining an existing Network, but of course the containers can also be used in a stand alone (local/test/...) network. The initial contributions stem from the Container Working Group of [ID Union](https://github.com/IDunion). The repository was contributed to Hyperledger in 2022-02.
