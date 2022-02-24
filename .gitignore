@@ -9,3 +9,4 @@ keys
 .history
 trivy-reports
 test/etc_indy/node*
+.vscode
