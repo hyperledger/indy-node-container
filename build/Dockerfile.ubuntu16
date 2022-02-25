@@ -1,6 +1,8 @@
 # This container is to run indy-node.
-# It has been created in the indy-node docker working group of the ID Union project.
-# author: Robin Klemens <klemens@intnernet-sicherheit.de>
+# This file is part of https://github.com/hyperledger/indy-node-container .
+# Copyright 2021-2022 by all poeple listed in https://github.com/hyperledger/indy-node-container/blob/main/NOTICE , see
+# https://github.com/hyperledger/indy-node-container/blob/main/LICENSE for the license information.
+#
 # version: 1.0+2021-09-02
 
 FROM ubuntu:16.04
