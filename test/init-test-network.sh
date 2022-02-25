@@ -4,7 +4,7 @@ NODES=${NODES:-4}
 source .env
 
 if [ -z ${1+x} ]; then
-  IMAGE_NAME_NODE=ghcr.io/hyperledger/indy-node-container/indy_node:latest-ubuntu18
+  IMAGE_NAME_NODE=ghcr.io/hyperledger/indy-node-container/indy_node:latest-buster
 else
   IMAGE_NAME_NODE=$1
 fi
