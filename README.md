@@ -1,19 +1,21 @@
-[![Building All Containers](https://github.com/hyperledger/indy-node-container/actions/workflows/build-all.yml/badge.svg)](https://github.com/hyperledger/indy-node-container/actions/workflows/build-all.yml)
+[![All Indy-Node Builds&Tests](actions/workflows/build-all.yml/badge.svg)](actions/workflows/build-all.yml)
 
+# Indy Node Container
 
-# Indy Node Docker Container Working Group
+This repository aims to provide easy-to-use containers with minimal dependencies to run instances of [Hyperledger Indy Node](https://github.com/hyperledger/indy-node). The primary goal is to support stewards joining an existing Network, but of course the containers can also be used in a stand alone (local/test/...) network. The initial contributions stem from the Container Working Group of [ID Union](https://github.com/IDunion). The repository was contributed to Hyperledger in 2022-02.
 
-This is the work bench of the Docker Container Working Group of the [ID Union project](https://github.com/IDunion). The primary goal of this working group is to develop an [Hyperledger Indy Node](https://github.com/hyperledger/indy-node) Docker Image with minimal dependencies.
+Primary artifact are the container images for
+- [Indy Node](https://github.com/hyperledger/indy-node-container/pkgs/container/indy-node-container%2Findy_node)
+- and the [Indy Node Controller](https://github.com/hyperledger/indy-node-container/pkgs/container/indy-node-container%2Findy_node_controller)
+ which are build from the files in [the build folder](build/).
 
-The primary artifact are the container images at https://github.com/orgs/IDunion/packages/container/package/indy-node-container%2Findy_node which are build from the files in [the build folder](build/).
-
-We also provide a few [utility scripts, including a docker-compose file](run/) to help setting up a runtime environment for the containers.
-See here for instructions how to setup and run the indy node images from this repository.
+We also provide a few [utility scripts, including a docker-compose file](run/) to help setting up a run time environment for the containers.
+See [here](run/) for instructions how to setup and run the indy node images from this repository.
 
 
 ## Contributing
 
-Any contribution is welcome, e.g. documentation, bug reports, feature request, issues, blog posts, tutorials, feature implementations, etc. You can contribute code or documentation through the standard GitHub pull request model.
+Any contribution is welcome, e.g. documentation, [bug reports, feature request, issues](issues/), blog posts, tutorials, feature implementations, etc. You can contribute code or documentation through the standard GitHub pull request model.
 
 [Please have a look at CONTRIBUTING.md](CONTRIBUTING.md) for details, in particular how and why you need to sign off commits.
 
@@ -26,7 +28,7 @@ Be excellent to each other!
 
 ## License
 
-Copyright 2020-2021 by all parties listed in the NOTICE file
+Copyright 2020-2022 by all parties listed in the [NOTICE](NOTICE) file
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

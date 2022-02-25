@@ -2,6 +2,10 @@
 
 # This script provides idempotent initialization and finally runs the indy node inside the docker container
 
+# This file is part of https://github.com/hyperledger/indy-node-container .
+# Copyright 2021-2022 by all people listed in https://github.com/hyperledger/indy-node-container/blob/main/NOTICE , see
+# https://github.com/hyperledger/indy-node-container/blob/main/LICENSE for the license information.
+
 set -e
 
 date -Iseconds
