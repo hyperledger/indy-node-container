@@ -1,66 +1,69 @@
 # This container is to run indy-node.
-# It has been created in the indy-node docker working group of the ID Union project.
-# author: Sebastian Schmittner <sebastian.schmittner@eecc.de>
-# author: Guido Wischrop <guido.wischrop@mgm-tp.com>
-# version: 1.1+2021-06-02
+# It is part of https://github.com/hyperledger/indy-node-container . See there for LICENCE, copyright, etc.
+# version: 1.2+2022-02-24
 
 
 FROM python:3.6-slim-buster as base
 
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y \
-            libsodium-dev \
-            libsecp256k1-dev \
-            libssl-dev \
-            liblzma-dev \
-            libsnappy-dev \
-            liblz4-dev \
-            libbz2-dev \
-            zlib1g-dev \
-            librocksdb-dev \
-            software-properties-common \
-            gnupg2 \
-            build-essential \
- && apt-get autoremove -y
+# Install environment
+RUN apt-get update -y && apt-get upgrade -y && apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
+    software-properties-common \
+    iproute2 \
+    gnupg2 \
+    && apt-get autoremove -y
 
-FROM base AS builder
-
-# ubuntu 18 libindy package
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CE7709D068DB5E88 && \
-    add-apt-repository "deb https://repo.sovrin.org/sdk/deb bionic stable" && \
-    apt-get update && \
-    apt-get install -y libindy
-
-
-# deprecated dependencies based on libssl1.0 / libiny-crypto
+# get node 1.12.4 dependencies from Ubtuntu 16 + sovrin repos
 RUN \
-    # for old libssl needed for libindy-crypto
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32 && \
-    add-apt-repository "deb http://security.ubuntu.com/ubuntu bionic-security main" && \
-    # for libindy-crypto
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68DB5E88 && \
-    add-apt-repository "deb https://repo.sovrin.org/sdk/deb xenial stable" && \
-    apt-get update && \
-    apt-get install -y libssl1.0.0 libindy-crypto=0.4.5 python3-indy-crypto=0.4.5
+    add-apt-repository "deb http://archive.ubuntu.com/ubuntu xenial universe" && \
+    add-apt-repository "deb http://archive.ubuntu.com/ubuntu xenial main" && \
+    add-apt-repository "deb http://archive.ubuntu.com/ubuntu xenial-security main" && \
+    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CE7709D068DB5E88 40976EAF437D05B5 3B4FE6ACC0B21F32 && \
+    add-apt-repository "deb https://repo.sovrin.org/deb xenial stable" 
+    
 
-RUN pip install python3-indy indy-node==1.12.4 indy-plenum==1.12.4
+RUN apt-get update -y && \
+    apt-get install -y --allow-downgrades \
+#    libssl1.0.0 \
+#    libsodium18 \
+#    libindy-crypto=0.4.5 \
+#    python3-indy-crypto=0.4.5 \
+    indy-node=1.12.4 \
+    # node depends on plenum
+    indy-plenum=1.12.4 \
+    #plenum dependencies
+    python3-ujson=1.33-1build1 \
+    python3-prompt-toolkit=0.57-1 \
+    python3-pygments=2.2.0 \
+    python3-rlp=0.5.1 \
+    python3-sha3=0.2.1 \
+    python3-leveldb=0~svn68-2build4 \
+    python3-sortedcontainers=1.5.7 \
+    python3-pip=8.1.1-2 \
+    python3-portalocker=0.5.7 \
+    python3-libnacl=1.6.1 \
+    python3-six=1.11.0 \
+    python3-intervaltree=2.1.0 \
+    python3-msgpack=0.4.6-1build1 \
+    python3-rocksdb=0.6.9 \
+    python3-dateutil=2.6.1 \
+    # meta dependencies of those python packages
+    python3-setuptools=38.5.2 \
+    python-pip-whl=8.1.1-2 \
+    # plenum in particular depends on python 3.5
+    python3=3.5.1-3 \
+    python3-minimal=3.5.1-3 \
+    libpython3-stdlib=3.5.1-3 \
+    dh-python=2.20151103ubuntu1.2 \
+    python3-distro=1.3.0 \
+    python3-base58=1.0.0 \
+    python3-psutil=5.4.3 \
+    python3-packaging=19.0 \
+    #
+    && apt-get autoremove -y
 
-FROM base
 
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y \
-            libsodium23 \
-            librocksdb5.17 && \
-    apt-get autoremove -y
-
-COPY --from=builder /usr/local/bin/ /usr/local/bin/
-COPY --from=builder /usr/local/lib/ /usr/local/lib/
-COPY --from=builder /usr/lib/libindy* /usr/lib/
-COPY --from=builder /usr/lib/x86_64-linux-gnu/libssl* /usr/lib/x86_64-linux-gnu/libcrypto* /usr/lib/x86_64-linux-gnu/
-
-RUN useradd -ms /bin/bash indy
 WORKDIR /home/indy
 
 COPY init_and_run.sh ./
