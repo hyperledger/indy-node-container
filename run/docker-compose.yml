@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.9"
 
 services:
   indy-node:
@@ -18,6 +18,9 @@ services:
       - INDY_CLIENT_PORT=${INDY_CLIENT_PORT}
       - INDY_NETWORK_NAME=${INDY_NETWORK_NAME}
       - INDY_NODE_NAME=${INDY_NODE_NAME}
+      - INDY_NODE_LOG_LEVEL=${INDY_NODE_LOG_LEVEL}
+      - INDY_NODE_LOG_STDOUT=${INDY_NODE_LOG_STDOUT}
+      - INDY_NODE_LOG_DIR=${INDY_NODE_LOG_DIR}
     env_file:
       - .node.env
     restart: always
