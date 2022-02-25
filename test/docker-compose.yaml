@@ -21,7 +21,7 @@ services:
       - .env
     restart: always
     networks:
-      idunion_local:
+      indy_node_container_test_network:
         ipv4_address: 10.133.133.1
 
   indy-node_2:
@@ -44,7 +44,7 @@ services:
       - .env
     restart: always
     networks:
-      idunion_local:
+      indy_node_container_test_network:
         ipv4_address: 10.133.133.2
 
   indy-node_3:
@@ -67,7 +67,7 @@ services:
       - .env
     restart: always
     networks:
-      idunion_local:
+      indy_node_container_test_network:
         ipv4_address: 10.133.133.3
 
   indy-node_4:
@@ -90,7 +90,7 @@ services:
       - .env
     restart: always
     networks:
-      idunion_local:
+      indy_node_container_test_network:
         ipv4_address: 10.133.133.4
 
   #
@@ -103,16 +103,16 @@ services:
     container_name: ledger-browser
     command: 'bash -c ''sleep 10; ./scripts/start_webserver.sh;'''
     environment:
-      - GENESIS_FILE=/var/lib/indy/idunion_local_test/pool_transactions_genesis
+      - GENESIS_FILE=/var/lib/indy/$INDY_NETWORK_NAME/pool_transactions_genesis
       - MAX_FETCH=50000
       - RESYNC_TIME=120
       - REGISTER_NEW_DIDS=True
-      - LEDGER_INSTANCE_NAME=IDunion Local Test Ledger
+      - LEDGER_INSTANCE_NAME=Local Test Ledger
       - WEB_ANALYTICS_SCRIPT=
-      - INFO_SITE_TEXT=IDunion Node Container @ GitHub
-      - INFO_SITE_URL=https://github.com/IDunion/indy-node-container
+      - INFO_SITE_TEXT=Node Container @ GitHub
+      - INFO_SITE_URL=https://github.com/hyperledger/indy-node-container
     networks:
-      idunion_local:
+      indy_node_container_test_network:
         ipv4_address: 10.133.133.5
     ports:
       - ${WEB_SERVER_HOST_PORT:-9000}:8000
@@ -124,11 +124,11 @@ services:
     image: bcgovimages/von-image:py36-1.14-1
     container_name: client
     volumes:
-      - ./lib_indy/idunion_local_test/pool_transactions_genesis:/pool_transactions_genesis
+      - ./lib_indy/$INDY_NETWORK_NAME/pool_transactions_genesis:/pool_transactions_genesis
       - ./etc_indy:/etc/indy
     restart: "no"
     networks:
-      idunion_local:
+      indy_node_container_test_network:
         ipv4_address: 10.133.133.6
 
   indy-controller_1:
@@ -143,7 +143,7 @@ services:
       - $SOCK:/var/run/docker.sock
     restart: always
     networks:
-      idunion_local:
+      indy_node_container_test_network:
         ipv4_address: 10.133.133.11
 
 
@@ -159,7 +159,7 @@ services:
       - $SOCK:/var/run/docker.sock
     restart: always
     networks:
-      idunion_local:
+      indy_node_container_test_network:
         ipv4_address: 10.133.133.12
 
   indy-controller_3:
@@ -174,7 +174,7 @@ services:
       - $SOCK:/var/run/docker.sock
     restart: always
     networks:
-      idunion_local:
+      indy_node_container_test_network:
         ipv4_address: 10.133.133.13
 
   indy-controller_4:
@@ -189,11 +189,11 @@ services:
       - $SOCK:/var/run/docker.sock
     restart: always
     networks:
-      idunion_local:
+      indy_node_container_test_network:
         ipv4_address: 10.133.133.14
 
 networks:
-  idunion_local:
+  indy_node_container_test_network:
     driver: bridge
     name: indy
     ipam:

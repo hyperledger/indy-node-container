@@ -8,6 +8,18 @@ on:
 
 
 jobs:
+  workflow_setup:
+    name: Setup variables 
+    runs-on: ubuntu-latest
+    outputs:
+      repo_owner: ${{ steps.repo_owner.outputs.lowercase }}
+      os_matrix: "{\"os_version\":[\"bullseye\",\"buster\",\"ubuntu16\",\"ubuntu18\",\"ubuntu20\"]}"
+    steps:
+      - name: Lowercase repo owner
+        id: repo_owner
+        run: echo "::set-output name=lowercase::$(echo ${{ github.repository_owner }} | tr \"[:upper:]\" \"[:lower:]\")"
+        shell: bash
+
   trivy_analysis:
     name: Trivy Analysis of Indy Node Images
     runs-on: "ubuntu-20.04"
@@ -21,7 +33,7 @@ jobs:
       - name: Run Trivy on indy_node:${{ matrix.os_version }}
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: 'ghcr.io/idunion/indy-node-container/indy_node:latest-${{ matrix.os_version }}'
+          image-ref: 'ghcr.io/${{ needs.workflow_setup.outputs.repo_owner }}/indy-node-container/indy_node:latest-${{ matrix.os_version }}'
           format: 'template'
           template: '@/contrib/sarif.tpl'
           output: 'trivy-indy-node-${{ matrix.os_version }}.sarif'
