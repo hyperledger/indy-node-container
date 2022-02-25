@@ -1,4 +1,5 @@
-[![All Indy-Node Builds&Tests](actions/workflows/build-all.yml/badge.svg)](actions/workflows/build-all.yml)
+[![Building All Containers](https://github.com/hyperledger/indy-node-container/actions/workflows/build-all.yml/badge.svg)](https://github.com/hyperledger/indy-node-container/actions/workflows/build-all.yml)
+
 
 # Indy Node Container
 
