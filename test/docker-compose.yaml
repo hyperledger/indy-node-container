@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   indy-node_1:
-    image: ${IMAGE_NAME_NODE}
+    image: ${REFERENCE_IMAGE_NAME_NODE}
     init: true
     container_name: node1
     ports:
@@ -25,7 +25,7 @@ services:
         ipv4_address: 10.133.133.1
 
   indy-node_2:
-    image: ${IMAGE_NAME_NODE}
+    image: ${REFERENCE_IMAGE_NAME_NODE}
     init: true
     container_name: node2
     ports:
@@ -48,7 +48,7 @@ services:
         ipv4_address: 10.133.133.2
 
   indy-node_3:
-    image: ${IMAGE_NAME_NODE}
+    image: ${REFERENCE_IMAGE_NAME_NODE}
     init: true
     container_name: node3
     ports:
@@ -195,6 +195,7 @@ services:
 networks:
   indy_node_container_test_network:
     driver: bridge
+    name: indy
     ipam:
       driver: default
       config:
