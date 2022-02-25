@@ -5,18 +5,8 @@ on:
     branches: [ 'main' ]
     tags:
       - 'v*'
-    paths-ignore:
-      - '**.md'
-      - 'NOTICE'
-      - '.gitignore'
-      - 'LICENSE'
   pull_request:
     branches: [ 'main' ]
-    paths-ignore:
-      - '**.md'
-      - 'NOTICE'
-      - '.gitignore'
-      - 'LICENSE'
   workflow_dispatch:
 
 jobs:
