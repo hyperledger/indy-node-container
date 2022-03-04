@@ -23,6 +23,7 @@ jobs:
   trivy_analysis:
     name: Trivy Analysis of Indy Node Images
     runs-on: "ubuntu-20.04"
+    needs: workflow_setup
     strategy:
       matrix:
         os_version: [ bullseye, buster, ubuntu16, ubuntu18, ubuntu20 ]
