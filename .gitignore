@@ -13,3 +13,4 @@ test/etc_indy/node*
 network-run/lib_indy*
 network-run/log_indy*
 network-run/etc_indy*
+network-run/.env
