@@ -1,0 +1,187 @@
+version: "3.8"
+
+services:
+  indy-node1-16:
+    image: ${IMAGE1}
+    container_name: ${NODE1_CONTAINER1_NAME}
+    ports:
+      - "${INDY_NODE4_PORT}"
+      - "${INDY_CLIENT4_PORT}"
+      - "${INDY_NODE3_PORT}"
+      - "${INDY_CLIENT3_PORT}"
+      - "${INDY_NODE1_PORT}:${INDY_NODE1_PORT}"
+      - "${INDY_CLIENT1_PORT}:${INDY_CLIENT1_PORT}"
+      - "${INDY_NODE2_PORT}"
+      - "${INDY_CLIENT2_PORT}"
+    volumes:
+      - ./etc_indy1:/etc/indy
+      - ./lib_indy1:/var/lib/indy
+      - ./log_indy1:/var/log/indy
+    environment:
+      - INDY_NODE_IP=${INDY_NODE1_IP}
+      - INDY_NODE_PORT=${INDY_NODE1_PORT}
+      - INDY_CLIENT_IP=${INDY_CLIENT1_IP}
+      - INDY_CLIENT_PORT=${INDY_CLIENT1_PORT}
+      - INDY_NETWORK_NAME=${INDY_NETWORK_NAME}
+      - INDY_NODE_NAME=${INDY_NODE1_NAME}
+      - INDY_NODE_SEED=${INDY_NODE1_SEED}
+    env_file:
+      - .network.env
+    networks:
+      mixer:
+        ipv4_address: ${INDY_NODE1_IP}
+    restart: always
+
+  indy-controller1:
+    image: ${IMAGE_NAME_CONTROLLER}
+    init: true
+    container_name: indy_node_controller1
+    environment:
+     - CONTAINER=${NODE1_CONTAINER1_NAME}
+     - INDY_NETWORK_NAME=${INDY_NETWORK_NAME}
+    volumes:
+      - ./etc_indy1:/etc/indy
+      - ${SOCK}:/var/run/docker.sock
+    restart: always
+    network_mode: "service:indy-node1-16"
+
+  indy-node2-16:
+    image: ${IMAGE1}
+    container_name: ${NODE2_CONTAINER1_NAME}
+    ports:
+      - "${INDY_NODE4_PORT}"
+      - "${INDY_CLIENT4_PORT}"
+      - "${INDY_NODE3_PORT}"
+      - "${INDY_CLIENT3_PORT}"
+      - "${INDY_NODE1_PORT}"
+      - "${INDY_CLIENT1_PORT}"
+      - "${INDY_NODE2_PORT}:${INDY_NODE2_PORT}"
+      - "${INDY_CLIENT2_PORT}:${INDY_CLIENT2_PORT}"
+    volumes:
+      - ./etc_indy2:/etc/indy
+      - ./lib_indy2:/var/lib/indy
+      - ./log_indy2:/var/log/indy
+    environment:
+      - INDY_NODE_IP=${INDY_NODE2_IP}
+      - INDY_NODE_PORT=${INDY_NODE2_PORT}
+      - INDY_CLIENT_IP=${INDY_CLIENT2_IP}
+      - INDY_CLIENT_PORT=${INDY_CLIENT2_PORT}
+      - INDY_NETWORK_NAME=${INDY_NETWORK_NAME}
+      - INDY_NODE_NAME=${INDY_NODE2_NAME}
+      - INDY_NODE_SEED=${INDY_NODE2_SEED}
+    env_file:
+      - .network.env
+    networks:
+      mixer:
+        ipv4_address: ${INDY_NODE2_IP}
+    restart: always
+
+  indy-controller2:
+    image: ${IMAGE_NAME_CONTROLLER}
+    init: true
+    container_name: indy_node_controller2
+    environment:
+     - CONTAINER=${NODE2_CONTAINER1_NAME}
+     - INDY_NETWORK_NAME=${INDY_NETWORK_NAME}
+    volumes:
+      - ./etc_indy2:/etc/indy
+      - ${SOCK}:/var/run/docker.sock
+    restart: always
+    network_mode: "service:indy-node2-16"
+
+  indy-node3-16:
+    image: ${IMAGE1}
+    container_name: ${NODE3_CONTAINER1_NAME}
+    ports:
+      - "${INDY_NODE4_PORT}"
+      - "${INDY_CLIENT4_PORT}"
+      - "${INDY_NODE3_PORT}:${INDY_NODE3_PORT}"
+      - "${INDY_CLIENT3_PORT}:${INDY_CLIENT3_PORT}"
+      - "${INDY_NODE1_PORT}"
+      - "${INDY_CLIENT1_PORT}"
+      - "${INDY_NODE2_PORT}"
+      - "${INDY_CLIENT2_PORT}"
+    volumes:
+      - ./etc_indy3:/etc/indy
+      - ./lib_indy3:/var/lib/indy
+      - ./log_indy3:/var/log/indy
+    environment:
+      - INDY_NODE_IP=${INDY_NODE3_IP}
+      - INDY_NODE_PORT=${INDY_NODE3_PORT}
+      - INDY_CLIENT_IP=${INDY_CLIENT3_IP}
+      - INDY_CLIENT_PORT=${INDY_CLIENT3_PORT}
+      - INDY_NETWORK_NAME=${INDY_NETWORK_NAME}
+      - INDY_NODE_NAME=${INDY_NODE3_NAME}
+      - INDY_NODE_SEED=${INDY_NODE3_SEED}
+    env_file:
+      - .network.env
+    networks:
+      mixer:
+        ipv4_address: ${INDY_NODE3_IP}
+    restart: always
+
+  indy-controller3:
+    image: ${IMAGE_NAME_CONTROLLER}
+    init: true
+    container_name: indy_node_controller3
+    environment:
+     - CONTAINER=${NODE3_CONTAINER1_NAME}
+     - INDY_NETWORK_NAME=${INDY_NETWORK_NAME}
+    volumes:
+      - ./etc_indy3:/etc/indy
+      - ${SOCK}:/var/run/docker.sock
+    restart: always
+    network_mode: "service:indy-node3-16"
+
+  indy-node4-20:
+    image: ${IMAGE2}
+    container_name: ${NODE4_CONTAINER2_NAME}
+    ports:
+      - "${INDY_NODE4_PORT}:${INDY_NODE4_PORT}"
+      - "${INDY_CLIENT4_PORT}:${INDY_CLIENT4_PORT}"
+      - "${INDY_NODE3_PORT}"
+      - "${INDY_CLIENT3_PORT}"
+      - "${INDY_NODE1_PORT}"
+      - "${INDY_CLIENT1_PORT}"
+      - "${INDY_NODE2_PORT}"
+      - "${INDY_CLIENT2_PORT}"
+    volumes:
+      - ./etc_indy4:/etc/indy
+      - ./lib_indy4:/var/lib/indy
+      - ./log_indy4:/var/log/indy
+    environment:
+      - INDY_NODE_IP=${INDY_NODE4_IP}
+      - INDY_NODE_PORT=${INDY_NODE4_PORT}
+      - INDY_CLIENT_IP=${INDY_CLIENT4_IP}
+      - INDY_CLIENT_PORT=${INDY_CLIENT4_PORT}
+      - INDY_NETWORK_NAME=${INDY_NETWORK_NAME}
+      - INDY_NODE_NAME=${INDY_NODE4_NAME}
+      - INDY_NODE_SEED=${INDY_NODE4_SEED}
+    env_file:
+      - .network.env
+    networks:
+      mixer:
+        ipv4_address: ${INDY_NODE4_IP}
+    restart: always
+
+  indy-controller4:
+    image: ${IMAGE_NAME_CONTROLLER}
+    init: true
+    container_name: indy_node_controller4
+    environment:
+     - CONTAINER=${NODE4_CONTAINER2_NAME}
+     - INDY_NETWORK_NAME=${INDY_NETWORK_NAME}
+    volumes:
+      - ./etc_indy4:/etc/indy
+      - ${SOCK}:/var/run/docker.sock
+    restart: always
+    network_mode: "service:indy-node4-20"
+networks:
+  mixer:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.0.0.0/16
+         gateway: 172.0.0.1
+
+

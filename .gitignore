@@ -10,3 +10,6 @@ keys
 trivy-reports
 test/etc_indy/node*
 .vscode
+network-run/lib_indy*
+network-run/log_indy*
+network-run/etc_indy*

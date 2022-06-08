@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+  indy-node5_16:
+    image: ${IMAGE}
+    container_name: ${NODE_CONTAINER_NAME}
+    ports:
+      - "${INDY_NODE_PORT}:${INDY_NODE_PORT}"
+      - "${INDY_CLIENT_PORT}:${INDY_CLIENT_PORT}"
+    volumes:
+      - ./etc_indy${NODE_NUMBER}:/etc/indy
+      - ./lib_indy${NODE_NUMBER}:/var/lib/indy
+      - ./log_indy${NODE_NUMBER}:/var/log/indy
+    networks:
+      mixer:
+        ipv4_address: ${INDY_NODE_IP}
+    environment:
+      - INDY_NODE_IP=${INDY_NODE_IP}
+      - INDY_NODE_PORT=${INDY_NODE_PORT}
+      - INDY_CLIENT_IP=${INDY_CLIENT_IP}
+      - INDY_CLIENT_PORT=${INDY_CLIENT_PORT}
+      - INDY_NETWORK_NAME=${INDY_NETWORK_NAME}
+      - INDY_NODE_NAME=${INDY_NODE_NAME}
+    env_file:
+      - .node16.env
+    restart: always
+
+# FIXME: indy-controller failed when trying to start with mixed network running
+  indy-controller5:
+    image: ${IMAGE_NAME_CONTROLLER}
+    init: true
+    container_name: indy_node_controller5
+    environment:
+     - CONTAINER=${NODE_CONTAINER_NAME}
+     - INDY_NETWORK_NAME=${INDY_NETWORK_NAME}
+    volumes:
+     - ./etc_indy:/etc/indy
+      - ${SOCK}:/var/run/docker.sock
+    restart: always
+    network_mode: "service:indy-node"
+
+networks:
+  mixer:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.24.176.0/16
+         gateway: 172.24.176.2

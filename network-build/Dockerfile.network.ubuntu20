@@ -1,0 +1,60 @@
+# This container is to run indy-node.
+# This file is part of https://github.com/hyperledger/indy-node-container .
+# Copyright 2021-2022 by all people listed in https://github.com/hyperledger/indy-node-container/blob/main/NOTICE , see
+# https://github.com/hyperledger/indy-node-container/blob/main/LICENSE for the license information.
+#
+# author: Robin Klemens <klemens@intnernet-sicherheit.de>
+
+FROM ubuntu:20.04
+
+RUN apt-get update -y && apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
+    gnupg2 \
+    ## ToDo remove unused packages
+    libgflags-dev \
+    libsnappy-dev \
+    zlib1g-dev \
+    libbz2-dev \
+    liblz4-dev \
+    libgflags-dev \
+    python3-pip
+
+# Bionic-security for libssl1.0.0
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3B4FE6ACC0B21F32 \
+    && echo "deb http://security.ubuntu.com/ubuntu bionic-security main"  >> /etc/apt/sources.list
+
+# Sovrin
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CE7709D068DB5E88 \
+    && bash -c 'echo "deb https://repo.sovrin.org/deb bionic master" >> /etc/apt/sources.list'
+
+# Hyperledger Artifactory
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 9692C00E657DDE61 \
+    && echo "deb https://hyperledger.jfrog.io/artifactory/indy focal dev" >> /etc/apt/sources.list \
+    # Prioritize packages from hyperledger.jfrog.io
+    && printf '%s\n%s\n%s\n' 'Package: *' 'Pin: origin hyperledger.jfrog.io' 'Pin-Priority: 1001' >> /etc/apt/preferences
+
+RUN apt-get update -y && apt-get install -y \
+    indy-node="1.13.0~dev206" \
+    indy-plenum="1.13.0~dev175" \
+    ursa="0.3.2-1" \
+    curl \
+    netcat \
+    python3-pyzmq="18.1.0" \
+    rocksdb=5.8.8 \
+    && rm -rf /var/lib/apt/lists/* \
+    # fix path to libursa
+    && ln -s /usr/lib/ursa/libursa.so /usr/lib/libursa.so
+
+RUN pip3 install -U \
+    # Required by setup.py
+    setuptools==50.3.2 \
+    'pip<10.0.0'
+
+
+WORKDIR /home/indy
+
+COPY indy_config.py /tmp/indy_config.py
+COPY init_and_run.sh ./
+
+CMD ["./init_and_run.sh"]
