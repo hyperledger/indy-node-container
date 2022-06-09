@@ -30,7 +30,7 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CE7709D068
 
 # Hyperledger Artifactory
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 9692C00E657DDE61 \
-    && echo "deb https://hyperledger.jfrog.io/artifactory/indy focal dev" >> /etc/apt/sources.list \
+    && echo "deb https://hyperledger.jfrog.io/artifactory/indy focal rc" >> /etc/apt/sources.list \
     # Prioritize packages from hyperledger.jfrog.io
     && printf '%s\n%s\n%s\n' 'Package: *' 'Pin: origin hyperledger.jfrog.io' 'Pin-Priority: 1001' >> /etc/apt/preferences
 
@@ -40,8 +40,8 @@ RUN pip3 install -U \
 
 
 RUN apt-get update -y && apt-get install -y \
-    indy-node="1.13.0~dev1653037779" \
-    indy-plenum="1.13.0~dev14" \
+    indy-node="1.13.1~rc2" \
+    indy-plenum="1.13.1~rc2" \
     ursa="0.3.2-1" \
     python3-pyzmq="22.3.0" \
     rocksdb="5.8.8" \
