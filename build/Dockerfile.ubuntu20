@@ -30,24 +30,25 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CE7709D068
 
 # Hyperledger Artifactory
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 9692C00E657DDE61 \
-    && echo "deb https://hyperledger.jfrog.io/artifactory/indy focal dev" >> /etc/apt/sources.list \
+    && echo "deb https://hyperledger.jfrog.io/artifactory/indy focal rc" >> /etc/apt/sources.list \
     # Prioritize packages from hyperledger.jfrog.io
     && printf '%s\n%s\n%s\n' 'Package: *' 'Pin: origin hyperledger.jfrog.io' 'Pin-Priority: 1001' >> /etc/apt/preferences
 
+RUN pip3 install -U \
+    # Required by setup.py
+    'setuptools==50.3.2'
+
+
 RUN apt-get update -y && apt-get install -y \
-    indy-node="1.13.0~dev206" \
-    indy-plenum="1.13.0~dev175" \
+    indy-node="1.13.1~rc2" \
+    indy-plenum="1.13.1~rc2" \
     ursa="0.3.2-1" \
-    python3-pyzmq="18.1.0" \
-    rocksdb=5.8.8 \
+    python3-pyzmq="22.3.0" \
+    rocksdb="5.8.8" \
+    python3-importlib-metadata="3.10.1" \
     && rm -rf /var/lib/apt/lists/* \
     # fix path to libursa
     && ln -s /usr/lib/ursa/libursa.so /usr/lib/libursa.so
-
-RUN pip3 install -U \
-    # Required by setup.py
-    setuptools==50.3.2 \
-    'pip<10.0.0'
 
 
 WORKDIR /home/indy
