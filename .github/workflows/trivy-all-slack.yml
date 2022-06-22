@@ -1,0 +1,87 @@
+on:
+  schedule:
+    # run every Wednesday at 23:20
+    - cron: '20 23 * * 3'
+  workflow_dispatch:
+​
+jobs:
+  workflow_setup:
+    name: Setup variables
+    runs-on: ubuntu-latest
+    outputs:
+      repo_owner: ${{ steps.repo_owner.outputs.lowercase }}
+      os_matrix: "{\"os_version\":[\"bullseye\",\"buster\",\"ubuntu16\",\"ubuntu18\",\"ubuntu20\"]}"
+    steps:
+      - name: Lowercase repo owner
+        id: repo_owner
+        run: echo "::set-output name=lowercase::$(echo ${{ github.repository_owner }} | tr \"[:upper:]\" \"[:lower:]\")"
+        shell: bash
+​
+  trivy_analysis:
+    name: Trivy Analysis of Indy Node Images
+    runs-on: "ubuntu-20.04"
+    needs: workflow_setup
+    strategy:
+      matrix:
+        os_version: [ bullseye, buster, ubuntu16, ubuntu18, ubuntu20 ]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+​
+      - name: Run Trivy vulnerability scanner for Slack messages on indy_node:${{ matrix.os_version }}
+        uses: aquasecurity/trivy-action@master
+        with:
+          #image-ref: 'ghcr.io/idunion/indy-node-container/indy_node:latest-ubuntu18'
+          image-ref: 'ghcr.io/zickau/indy_node:latest-${{ matrix.os_version }}'
+          scan-type: 'image'
+          severity: 'HIGH,CRITICAL'
+          ignore-unfixed: true
+          format: json
+          #output: 'results.json'
+          output: 'trivy-indy-node-${{ matrix.os_version }}.json'
+          # Ignoring the go.sum file as it may contain the older dependencies entries which are not being used now.
+          skip-dirs: 'go.sum'
+​
+      - name: Read file contents
+        id: read_file
+        uses: andstor/file-reader-action@v1.0.0
+        with:
+          path: "trivy-indy-node-${{ matrix.os_version }}.json"
+​
+      - name: Create Issues Summary
+        run: |
+          summary1=$(grep -o '"VulnerabilityID": "[^"]*' trivy-indy-node-${{ matrix.os_version }}.json | grep -o '[^"]*$' | tr '\n' ',')
+          summary2=$(echo $summary1 | sed 's/.$//')
+          if [ -z $summary1 ]
+          then
+            summary2="0 Issues"
+          fi
+          echo "SUMMARY=$summary2" >> $GITHUB_ENV
+​
+      - name: Send custom JSON data to Slack workflow
+        id: slack
+        uses: slackapi/slack-github-action@v1.18.0
+        with:
+          payload: |
+            {
+              "text": "CVE found: ",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*CVEs (HIGH,CRITICAL)* found in indy_node_container:${{ matrix.os_version }}: "
+                }
+              },
+              {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "${{ env.SUMMARY }}"
+                }
+              }
+            ]
+            }
+        env:
+           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL_IDU }}
+           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
