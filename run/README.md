@@ -27,6 +27,16 @@ The relevant directories are mounted as
 
 giving direct access to the relevant config files from the host machine, if needed. Note that the `NETWORK_NAME` in `indy_config.py` is overridden at startup with the value from `INDY_NETWORK_NAME` from `.env`.
 
+## Firewall (IP Tables)
+
+If the firewall rules for your indy node are not set elsewhere (on the docker host or upstream), you may want to use the
+[set_iptables.sh](./set_iptables.sh) script to set the recommended firewall settings for your node in the DOCKER-USER
+chain.
+See `./set_iptables.sh -h` for usage information. You will need to provide the list of ip addresses of nodes in your
+network in a suitable file. To this end, create a file called `ips` (filename can be changed via variables `IP_FILE=... ./set_iptables.sh`) and put your network's IP addresses into this file, one per line.
+
+
+
 ## Logging
 
 The log dir is mounted to `./log_indy` by default to ease access to the log files.
