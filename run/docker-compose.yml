@@ -27,7 +27,7 @@ services:
     init: true
     container_name: indy_node_controller
     environment:
-     - CONTAINER=${NODE_CONTAINER_NAME}
+     - NODE_CONTAINER=${NODE_CONTAINER_NAME}
      - INDY_NETWORK_NAME=${INDY_NETWORK_NAME}
     volumes:
       - ./etc_indy:/etc/indy
