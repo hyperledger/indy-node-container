@@ -25,10 +25,11 @@ services:
   indy-controller:
     image: ${IMAGE_NAME_CONTROLLER}
     init: true
-    container_name: indy_node_controller
+    container_name: ${CONTROLLER_CONTAINER}
     environment:
-     - CONTAINER=${NODE_CONTAINER_NAME}
+     - NODE_CONTAINER=${NODE_CONTAINER_NAME}
      - INDY_NETWORK_NAME=${INDY_NETWORK_NAME}
+     - CONTROLLER_CONTAINER=${CONTROLLER_CONTAINER}
     volumes:
       - ./etc_indy:/etc/indy
       - ${SOCK}:/var/run/docker.sock
