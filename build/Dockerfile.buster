@@ -32,9 +32,9 @@ RUN apt-get update -y && \
 #    libsodium18 \
 #    libindy-crypto=0.4.5 \
 #    python3-indy-crypto=0.4.5 \
-    indy-node=1.12.4 \
+    indy-node=1.12.5 \
     # node depends on plenum
-    indy-plenum=1.12.4 \
+    indy-plenum=1.12.5 \
     #plenum dependencies
     python3-ujson=1.33-1build1 \
     python3-prompt-toolkit=0.57-1 \
