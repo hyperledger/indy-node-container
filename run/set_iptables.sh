@@ -51,17 +51,11 @@ make_last_rule() {
   echo "[ok] $RULE added to the end of the chain"
 }
 
-# -h --help --whatever
-if ! [ -z "$*" ]; then
-  usage
-  exit 0
-fi
-
 echo "INTERFACE=${INTERFACE:=ens18}"
 
 # check if INTERFACE is set to an inet facing interface
 if ! ip a | grep inet | grep "$INTERFACE" >/dev/null; then
-  echo "interface '$INTERFACE' does not seem to be an internet facing interface"
+  echo "[ERROR] interface '$INTERFACE' does not seem to be an internet facing interface"
   usage
   exit 1
 fi
@@ -69,9 +63,16 @@ fi
 echo "IP_FILE=${IP_FILE:=$1}"
 
 if ! [ -f "$IP_FILE" ]; then
-  echo "file '$IP_FILE' not found"
+  echo "[ERROR] file '$IP_FILE' not found"
   usage
   exit 1
+fi
+
+
+# -h --help --whatever
+if ! [ -z "$2" ]; then
+  usage
+  exit 0
 fi
 
 # 9701 whitelist approach: drop all others INCOMING (-i) connections
