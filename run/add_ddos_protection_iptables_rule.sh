@@ -230,19 +230,19 @@ if [ $? -eq 0 ]; then
     ${OPERATION} "${RULE}"
 
     # Append a rule to limit the total number of simultaneous client connections
-    RULE="INPUT -p tcp --syn --dport ${DPORT} -m connlimit --connlimit-above ${OVER_ALL_CONN_LIMIT} --connlimit-mask 0 -j ${LOG_CHAIN}"
+    RULE="${IP_TABLES_CHAIN} -p tcp --syn --dport ${DPORT} -m connlimit --connlimit-above ${OVER_ALL_CONN_LIMIT} --connlimit-mask 0 -j ${LOG_CHAIN}"
     ${OPERATION} "${RULE}"
 
     # Append a rule to limit the number connections per IP address
-    RULE="INPUT -p tcp -m tcp --dport ${DPORT} --tcp-flags FIN,SYN,RST,ACK SYN -m connlimit --connlimit-above ${CONN_LIMIT_PER_IP} --connlimit-mask 32 --connlimit-saddr -j ${LOG_CHAIN}"
+    RULE="${IP_TABLES_CHAIN} -p tcp -m tcp --dport ${DPORT} --tcp-flags FIN,SYN,RST,ACK SYN -m connlimit --connlimit-above ${CONN_LIMIT_PER_IP} --connlimit-mask 32 --connlimit-saddr -j ${LOG_CHAIN}"
     ${OPERATION} "${RULE}"
 
     # Append rules to rate limit connections
     if (( ${CONN_RATE_LIMIT_LIMIT} > 0 && ${CONN_RATE_LIMIT_PERIOD} > 0 )); then
         echo "Including settings for rate limiting ..."
-        RULE="INPUT -p tcp -m tcp --dport ${DPORT} -m conntrack --ctstate NEW -m recent --set --name DEFAULT --mask 255.255.255.255 --rsource"
+        RULE="${IP_TABLES_CHAIN} -p tcp -m tcp --dport ${DPORT} -m conntrack --ctstate NEW -m recent --set --name DEFAULT --mask 255.255.255.255 --rsource"
         ${OPERATION} "${RULE}"
-        RULE="INPUT -p tcp -m tcp --dport ${DPORT} -m conntrack --ctstate NEW -m recent --update --seconds ${CONN_RATE_LIMIT_PERIOD} --hitcount ${CONN_RATE_LIMIT_LIMIT} --name DEFAULT --mask 255.255.255.255 --rsource -j ${LOG_CHAIN}"
+        RULE="${IP_TABLES_CHAIN} -p tcp -m tcp --dport ${DPORT} -m conntrack --ctstate NEW -m recent --update --seconds ${CONN_RATE_LIMIT_PERIOD} --hitcount ${CONN_RATE_LIMIT_LIMIT} --name DEFAULT --mask 255.255.255.255 --rsource -j ${LOG_CHAIN}"
         ${OPERATION} "${RULE}"
     else
         echo "Rate limiting is disabled, skipping settings for rate limiting ..."
