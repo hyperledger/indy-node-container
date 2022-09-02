@@ -1,12 +1,14 @@
 #!/bin/bash
 
 # Author: Wade Barnes https://gist.github.com/WadeBarnes/
-
+# Minor modifications: Sebastian Schmittner https://github.com/Echsecutor
 
 usage () {
   cat <<-EOF
 
   Usage:
+
+    This script adds a connection rate limit per IP adress to the iptables rules in order to prevent a DDOS attack.
 
     $0 [-d] <client_port> <overall_connlimit> [per_ip_connlimit] [conn_rate_limit] [conn_rate_period] [logging_level]
 
@@ -68,6 +70,8 @@ print_settings() {
   conn_rate_limit:      ${CONN_RATE_LIMIT_LIMIT} ${RATE_LIMIT_MESSAGE} 
   conn_rate_period:     ${CONN_RATE_LIMIT_PERIOD} ${RATE_LIMIT_MESSAGE}
   logging_level:        ${CONN_LOGGING_LEVEL:-Not set, (off) default}
+  
+  IP_TABLES_CHAIN:      ${IP_TABLES_CHAIN}
 
   OPERATION:            ${OPERATION}
   DELETE:               ${DELETE}
@@ -77,6 +81,7 @@ EOF
 
 LOG_CHAIN=LOG_CONN_REJECT
 OPERATION="add_rule"
+IP_TABLES_CHAIN=${IP_TABLES_CHAIN:-DOCKER-USER}
 
 while getopts dth FLAG; do
   case $FLAG in
