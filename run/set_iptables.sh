@@ -85,9 +85,10 @@ while read IP; do
   fi
 done <"$IP_FILE"
 
+# make sure, RETURN ist the last rule
+make_last_rule $CHAIN -j RETURN
+
 # 9702 connlimit
 # add_new_rule $CHAIN -p tcp --syn --dport $CLI_PORT -m connlimit --connlimit-above $MAX_CONN -j REJECT
 echo "Connection limit are no longer set via this script. There is now a seperate script to handle connection limits."
-
-# make sure, RETURN ist the last rule
-make_last_rule $CHAIN -j RETURN
+echo "See ./add_ddos_protection_iptables_rule.sh -h"

@@ -165,6 +165,7 @@ delete_rule() {
 
 save_rules() {
     su -c "iptables-save > /etc/iptables/rules.v4 && ip6tables-save > /etc/iptables/rules.v6"
+    echo "iptables rules saved"
 }
 
 disable_ipv6() {
