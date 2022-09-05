@@ -23,7 +23,6 @@ RUN pip3 install -U \
 RUN echo "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_18.04/ /" | tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
 RUN apt-key adv --fetch-keys https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_18.04/Release.key
 RUN pip install python3-indy indy-node==1.12.6
-RUN apt-get update -y && apt-get install -y podman dbus-user-session
 
 RUN mkdir /opt/controller
 
