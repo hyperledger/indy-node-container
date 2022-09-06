@@ -3,7 +3,6 @@
 set +x
 set -e
 
-DEFAULT_ADRESS_FILE=ips
 echo "INTERNAL_PORT=${INTERNAL_PORT:=9701}"
 echo "CLI_PORT=${CLI_PORT:=9702}"
 echo "CHAIN=${CHAIN:=DOCKER-USER}"
@@ -12,9 +11,9 @@ echo "MAX_CONN=${MAX_CONN:=500}"
 usage() {
   echo
   echo "Usage:"
-  echo -n "INTERFACE=[your_network_interface] IP_FILE=[path_to_ip_addresses_file, defaults to $DEFAULT_ADRESS_FILE] "
-  echo -n "INTERNAL_PORT[default 9701] CLI_PORT=[default 9702] CHAIN[default DOCKER-USER] MAX_CONN[default 500]"
-  echo "$0"
+  echo -n "INTERFACE=[your_network_interface] IP_FILE=[path_to_ip_addresses_file, defaults to first argument, env wins ties] "
+  echo -n "INTERNAL_PORT=[indy port, default 9701] CLI_PORT=[client port, default 9702] CHAIN=[iptables chain to edit, default DOCKER-USER]"
+  echo "$0 [IP_FILE]"
   echo
   echo "This script will add rules to your ip tables chain CHAIN to allow incoming connections on port INTERNAL_PORT"
   echo "only from ips listed in the IP_FILE. It will also restrict the number of connections to port CLI_PORT to MAX_CONN."
@@ -52,27 +51,28 @@ make_last_rule() {
   echo "[ok] $RULE added to the end of the chain"
 }
 
-# -h --help --whatever
-if ! [ -z "$*" ]; then
-  usage
-  exit 0
-fi
-
 echo "INTERFACE=${INTERFACE:=ens18}"
 
 # check if INTERFACE is set to an inet facing interface
 if ! ip a | grep inet | grep "$INTERFACE" >/dev/null; then
-  echo "interface '$INTERFACE' does not seem to be an internet facing interface"
+  echo "[ERROR] interface '$INTERFACE' does not seem to be an internet facing interface"
   usage
   exit 1
 fi
 
-echo "IP_FILE=${IP_FILE:=$DEFAULT_ADRESS_FILE}"
+echo "IP_FILE=${IP_FILE:=$1}"
 
 if ! [ -f "$IP_FILE" ]; then
-  echo "file '$IP_FILE' not found"
+  echo "[ERROR] file '$IP_FILE' not found"
   usage
   exit 1
+fi
+
+
+# -h --help --whatever
+if ! [ -z "$2" ]; then
+  usage
+  exit 0
 fi
 
 # 9701 whitelist approach: drop all others INCOMING (-i) connections
@@ -85,8 +85,10 @@ while read IP; do
   fi
 done <"$IP_FILE"
 
-# 9702 connlimit
-add_new_rule $CHAIN -p tcp --syn --dport $CLI_PORT -m connlimit --connlimit-above $MAX_CONN -j REJECT
-
 # make sure, RETURN ist the last rule
 make_last_rule $CHAIN -j RETURN
+
+# 9702 connlimit
+# add_new_rule $CHAIN -p tcp --syn --dport $CLI_PORT -m connlimit --connlimit-above $MAX_CONN -j REJECT
+echo "Connection limit are no longer set via this script. There is now a seperate script to handle connection limits."
+echo "See ./add_ddos_protection_iptables_rule.sh -h"
