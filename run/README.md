@@ -33,7 +33,13 @@ If the firewall rules for your indy node are not set elsewhere (on the docker ho
 [set_iptables.sh](./set_iptables.sh) script to set the recommended firewall settings for your node in the DOCKER-USER
 chain.
 See `./set_iptables.sh -h` for usage information. You will need to provide the list of ip addresses of nodes in your
-network in a suitable file. To this end, create a file called `ips` (filename can be changed via variables `IP_FILE=... ./set_iptables.sh`) and put your network's IP addresses into this file, one per line.
+network in a suitable file. To this end, create a file and put your network's IP addresses into this file, one per line.
+You also need to figure out the network interface over which you docker host receives incoming connections from the internet.
+Then run the script like
+
+```
+sudo ./set_iptables.sh INTERFACE IP_FILE
+```
 
 
 
