@@ -36,7 +36,7 @@ EOF
 }
 
 print_settings() {
-    if ((${CONN_RATE_LIMIT_LIMIT} <= 0 || ${CONN_RATE_LIMIT_PERIOD} <= 0)); then
+    if ((CONN_RATE_LIMIT_LIMIT <= 0)) || ((CONN_RATE_LIMIT_PERIOD <= 0)); then
         RATE_LIMIT_MESSAGE=" - Connection rate limiting is turned off."
     fi
 
@@ -105,7 +105,7 @@ add() {
 }
 
 delete() {
-    if [ ! -z ${DELETE} ]; then
+    if [ -n ${DELETE} ]; then
         return 0
     else
         return 1
@@ -186,7 +186,7 @@ RULE="${IP_TABLES_CHAIN} -p tcp -m tcp --dport ${DPORT} --tcp-flags FIN,SYN,RST,
 ${OPERATION} ${RULE}
 
 # Append rules to rate limit connections
-if ((${CONN_RATE_LIMIT_LIMIT} > 0 && ${CONN_RATE_LIMIT_PERIOD} > 0)); then
+if ((CONN_RATE_LIMIT_LIMIT} > 0)) && ((CONN_RATE_LIMIT_PERIOD > 0)); then
     echo "Including settings for rate limiting ..."
     RULE="${IP_TABLES_CHAIN} -p tcp -m tcp --dport ${DPORT} -m conntrack --ctstate NEW -m recent --set --name DEFAULT --mask 255.255.255.255 --rsource"
     ${OPERATION} ${RULE}

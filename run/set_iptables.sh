@@ -63,9 +63,9 @@ echo "[...] Setting up iptables white list for ips that may access port ${INTERN
 add_new_rule $CHAIN -p tcp -i $INTERFACE --dport $INTERNAL_PORT -j DROP
 
 # 9701 create IP whitelist from file
-while read IP; do
+while read -r IP; do
     if [[ "$IP" != "#"* ]] && [[ "$IP" != "" ]]; then
-        add_new_rule $CHAIN -p tcp --dport $INTERNAL_PORT -s $IP -j ACCEPT
+        add_new_rule $CHAIN -p tcp --dport $INTERNAL_PORT -s "$IP" -j ACCEPT
     fi
 done <"$IP_FILE"
 
