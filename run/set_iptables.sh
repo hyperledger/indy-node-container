@@ -30,7 +30,8 @@ if ! ip_tables_installed; then
     exit 1
 fi
 
-echo "INTERFACE=${INTERFACE:=$1}"
+INTERFACE=$1
+echo "INTERFACE=${INTERFACE:=ens18}"
 
 # check if INTERFACE is set to an inet facing interface
 if ! ip a | grep inet | grep "$INTERFACE" >/dev/null; then
