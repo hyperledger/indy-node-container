@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Original author: Wade Barnes https://gist.github.com/WadeBarnes/
+# See https://github.com/hyperledger/indy-node/blob/main/scripts/setup_iptables
 # Modifications for https://github.com/hyperledger/indy-node-container : Sebastian Schmittner https://github.com/Echsecutor
 
 usage() {
