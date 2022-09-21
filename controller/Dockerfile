@@ -13,16 +13,20 @@ RUN apt-get update -y && apt-get install -y \
     libbz2-dev \
     zlib1g-dev \
     librocksdb-dev \
-    python3.6 \
+    python3.5 \
     python3-pip \
     docker.io
 RUN pip3 install -U \
     'pip<10.0.0' \
     'setuptools<58.0'
+RUN pip install python3-indy indy-node==1.12.6
 
+
+# https://podman.io/getting-started/installation#installing-on-linux
+# > CAUTION: The Kubic repo is NOT recommended for production use. 
 RUN echo "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_18.04/ /" | tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
 RUN apt-key adv --fetch-keys https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_18.04/Release.key
-RUN pip install python3-indy indy-node==1.12.6
+RUN apt-get update -y && apt-get install -y podman
 
 RUN mkdir /opt/controller
 
