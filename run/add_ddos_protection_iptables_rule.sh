@@ -142,7 +142,7 @@ if [ $# -lt 2 ]; then
     usage
 fi
 
-if [ ! -z ${TEST_MODE} ]; then
+if [ -n ${TEST_MODE} ]; then
     print_settings
     exit 0
 fi
@@ -168,7 +168,7 @@ delete_rule ${RULE}
 
 # Append a rule that sets log level and log prefix
 # Default to no logging unless a logging level is explicitly supplied.
-if [ ! -z ${CONN_LOGGING_LEVEL} ]; then
+if [ -n ${CONN_LOGGING_LEVEL} ]; then
     RULE="${LOG_CHAIN} -j LOG --log-level ${CONN_LOGGING_LEVEL} --log-prefix \"connlimit: \""
     ${OPERATION} ${RULE}
 fi
