@@ -19,7 +19,7 @@ RUN apt-get update -y && apt-get install -y \
 RUN pip3 install -U \
     'pip<10.0.0' \
     'setuptools<58.0'
-RUN pip install python3-indy indy-node==1.12.6
+RUN pip3 install python3-indy indy-node==1.12.6
 
 
 # https://podman.io/getting-started/installation#installing-on-linux
