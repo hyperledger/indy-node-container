@@ -4,17 +4,77 @@ This folder is intended to provide an environment to run the indy node container
 It also contains a few utility / helper scripts to help with the setup.
 
 
-## How To
+## Step by Step Setup
 
-- `./generate_random_seeds.sh` and then securely backup `.node.env` which holds the seed for generating the private keys
-- Put `pool_transactions_genesis` and `domain_transactions_genesis` for your network into the `lib_indy` folder. The sub folder name has to match the `INDY_NETWORK_NAME` set in `.env` in the next step.
-- Set the variables (network name, ips, ports) in the `.env` file. You can also choose the base image, see the github [Packages](/pkgs/container/indy-node-container%2Findy_node).
-  - You may want to change `IMAGE=ghcr.io/hyperledger/indy-node-container/indy_node:latest-ubuntu18` to use your favorite base image.
-  - **Caution**: The ubunut20 image is a test image to test the new release candidate of indy node. All other images are stable.
-- (Pull and) run the container in daemon mode via `docker-compose up -d`.
-  - This will start two containers. One for the indy node and one for the node controller service that takes care of pool restarts. See below for details.
-- Look at `docker logs indy_node` and `docker exec -it indy_node validator-info` to check the state of your node
-- You need to run e.g. indy_cli (not included here) to actually interact with the ledger
+This is a brief step by step guide for what to do if you want to add a containerized indy node to an existing network.
+
+### Node Setup
+
+Just clone the whole repository and generate a seed
+
+```
+git clone https://github.com/hyperledger/indy-node-container.git
+cd indy-node-container/run/
+./generate_random_seeds.sh 
+```
+
+and then securely backup `.node.env` which holds the seed for generating the private keys.
+
+Change the network name in `etc_indy/indy_config.py` to `NETWORK_NAME = 'YOUR_NETWQRK_NAME'` and in `.env` to `INDY_NETWORK_NAME=YOUR_NETWQRK_NAME`. In the latter, also set the `INDY_NODE_NAME` to your nodes alias.  
+
+You may choose [an image](https://github.com/hyperledger/indy-node-container/pkgs/container/indy-node-container%2Findy_node/versions) to use or stick with the default.
+- **Caution**: The ubunut20 image is a test image to test the new release candidate of indy node. All other images are stable.
+
+
+Prepare the folder accordingly
+```
+rm -rf lib_indy/ssi4de/
+mkdir lib_indy/YOUR_NETWQRK_NAME
+```
+
+Run `docker-compose up --scale indy-controller=0`. This will run some setup and you will get some information which needs to share with the other nodes from the output like:
+
+```
+...
+indy_node          | Public key is ...
+indy_node          | Verification key is ...
+indy_node          | BLS Public key is ...
+indy_node          | Proof of possession for BLS key is ...
+indy_node          | [OK]	 Init complete
+...
+```
+It is a good idea to node down al those key/proof values. This is public information.
+
+Since there are no genesis files in place yet, the startup will fail with an error, but you might now want to backup your keys and / or seed phrase ( `.node.env` ) if not done earlier. The latter is no longer required for further startups, so you might want to remove it for security reasons.
+
+Put `pool_transactions_genesis` and `domain_transactions_genesis` for your network into the `lib_indy/YOUR_NETWQRK_NAME` folder. **The sub folder name has to match the `INDY_NETWORK_NAME` set in `.env` file!**
+
+Now is a good time to [setup IP Tables rules](#firewall-ip-tables), although you can also do this later.
+
+
+### Create a DID
+
+You most likely want to create a did for the node operator, using the indy-cli. This is independent of your node and may happen on another machine, which is recommended for security reasons.
+
+```
+indy-cli
+indy> wallet create WALLET_NAME key=...
+indy> wallet open WALLET_NAME key=...
+WALLET_NAME:indy> did new 
+Did "..." has been created with "~..." verkey
+```
+
+Note down the created did and verkey and share it with your network peers for them to write it to the existing indy network.
+
+### Running the node
+
+```
+indy-node-container/run$ docker-compose up -d
+```
+
+you might want to check logs, ledger info (see  e.gg. https://github.com/IDunion/Internal-Information/tree/main/Tools/get-validator-info ), etc 😉
+
+
 
 
 ## Config
