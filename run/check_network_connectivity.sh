@@ -13,11 +13,23 @@ usage() {
     echo
 }
 
+check_setup() {
+    if ! which nmap >>/dev/null; then
+        echo
+        echo -e "[fail]\t this script uses nmap to scan for open ports. Please install nmap and re-run this script."
+        echo
+        exit 1
+    fi
+}
+
 check_connection() {
     nmap -Pn -n -p $INTERNAL_PORT $1
 }
 
 main() {
+
+    check_setup
+
     echo "INTERNAL_PORT=${INTERNAL_PORT:=9701}"
     echo "IP_FILE=${IP_FILE:=$1}"
 
@@ -35,7 +47,7 @@ main() {
                 echo "[OK]"
             else
                 echo -e "[FAIL]\t port $INTERNAL_PORT not reachable on $IP"
-                ERRORS=$ERRORS\n\n$RESULT
+                ERRORS="$ERRORS\n\n$RESULT"
             fi
         fi
     done <"$IP_FILE"
@@ -43,10 +55,12 @@ main() {
     if [[ "$ERRORS" != "" ]]; then
         echo -e "[FAIL]\t Not all reachable."
         echo "Errors:"
-        echo "$ERRORS"
+        echo -e "$ERRORS"
         echo
+        exit 1
     else
         echo "[DONE]\t All reachable"
+        echo
     fi
 }
 
