@@ -60,11 +60,11 @@ You most likely want to create a did for the node operator, using the indy-cli. 
 indy-cli
 indy> wallet create WALLET_NAME key=...
 indy> wallet open WALLET_NAME key=...
-WALLET_NAME:indy> did new 
+WALLET_NAME:indy> did new seed=...
 Did "..." has been created with "~..." verkey
 ```
 
-Note down the created did and verkey and share it with your network peers for them to write it to the existing indy network.
+Note down the created did and verkey and share it with your network peers for them to write it to the existing indy network. You do not have to specify a seed for the new did, but this might be helpful if you later need to recover the private key on another machine. The seed needs to be kept at least as safe as the wallet key.
 
 ### Running the node
 
@@ -103,6 +103,20 @@ Then run the script like
 sudo ./set_iptables.sh INTERFACE IP_FILE
 ```
 
+### Connectivity check
+
+There is [a simple connectivity check script](check_network_connectivity.sh) which you can run
+- on your node's machine
+- from outside
+ in order to verify
+- that your node is able to reach all other nodes
+- the internal port is not internet reachable for any Node
+
+```
+./check_network_connectivity.sh IP_FILE
+```
+
+If incoming and outgoing IPs are the same for all nodes, you can use the same ips file as for setting the ip tables rules. Otherwise make sure to allow incoming connections from outgoing IPs and check reachability of your outgoing to their incoming IPs. :wink:
 
 
 ## Logging

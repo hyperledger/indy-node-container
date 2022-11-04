@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Original author: Wade Barnes https://gist.github.com/WadeBarnes/
 # See https://github.com/hyperledger/indy-node/blob/main/scripts/setup_iptables
