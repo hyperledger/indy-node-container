@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # skip existing rules to avoid duplicates
 add_new_rule() {
