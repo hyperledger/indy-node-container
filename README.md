@@ -13,6 +13,23 @@ Primary artifact are the container images for
 We also provide a few [utility scripts, including a docker-compose file](run/) to help setting up a run time environment for the containers.
 See [here](run/) for instructions how to setup and run the indy node images from this repository.
 
+## Images
+
+Currently we are providing the following stable indy node images. All those images use the latest Indy Node 1.12 version. The images differ by base image and are tagged accordingly:
+
+- [Ubuntu 16](https://github.com/hyperledger/indy-node-container/pkgs/container/indy-node-container%2Findy_node/39147763?tag=latest-ubuntu16) :warning: 
+    - This image is **deprecated**. We will soon remove the image build from the CD pipeline. Please change to one of the other stable images.
+- [Ubuntu 18](https://github.com/hyperledger/indy-node-container/pkgs/container/indy-node-container%2Findy_node/39147763?tag=latest-ubuntu18)
+- [Debian Buster 10](https://github.com/hyperledger/indy-node-container/pkgs/container/indy-node-container%2Findy_node/37273284?tag=latest-buster) :warning: 
+    - :warning: This image is **deprecated.** We will soon remove the image build from the CD pipeline. Please change to one of the other stable images.
+- [Debian Bullseye 11](https://github.com/hyperledger/indy-node-container/pkgs/container/indy-node-container%2Findy_node/37273284?tag=latest-bullseye)
+
+Additionally, we build an experimental image for Indy node 1.13 RC testing:
+
+- [Ubuntu 20](https://github.com/hyperledger/indy-node-container/pkgs/container/indy-node-container%2Findy_node/39147691?tag=latest-ubuntu20)
+
+See [here](run/) for instructions how to setup and run the images.
+
 ## Building
 
 To build the node image you can use `docker` from the project root like
