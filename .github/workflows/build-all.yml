@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       repo_owner: ${{ steps.repo_owner.outputs.lowercase }}
-      os_matrix: "{\"os_version\":[\"bullseye\",\"buster\",\"ubuntu16\",\"ubuntu18\",\"ubuntu20\"]}"
+      os_matrix: "{\"os_version\":[\"debian10\",\"debian11\",\"ubuntu16\",\"ubuntu18\",\"ubuntu20\"]}"
     steps:
       - name: Lowercase repo owner
         id: repo_owner
