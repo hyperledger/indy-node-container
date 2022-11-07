@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: Lowercase repo owner
         id: repo_owner
-        run: echo "::set-output name=lowercase::$(echo ${{ github.repository_owner }} | tr \"[:upper:]\" \"[:lower:]\")"
+        run: echo "lowercase=$(echo ${{ github.repository_owner }} | tr \"[:upper:]\" \"[:lower:]\")" >> $GITHUB_OUTPUT
         shell: bash
 
   trivy_analysis:
@@ -28,7 +28,7 @@ jobs:
         os_version: [ debian10, debian11, ubuntu16, ubuntu18, ubuntu20 ]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Run Trivy on indy_node:${{ matrix.os_version }}
         uses: aquasecurity/trivy-action@master
@@ -45,14 +45,14 @@ jobs:
           sed -i 's/"name": "Trivy",/"name": "Trivy${{ matrix.os_version }}Latest",/g' trivy-indy-node-${{ matrix.os_version }}.sarif
 
       - name: 'Safe trivy-indy-node-${{ matrix.os_version }}.sarif'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: trivy-indy-node-${{ matrix.os_version }}.sarif
           path: trivy-indy-node-${{ matrix.os_version }}.sarif
           retention-days: 8
 
       - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v1
+        uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: 'trivy-indy-node-${{ matrix.os_version }}.sarif'
 
