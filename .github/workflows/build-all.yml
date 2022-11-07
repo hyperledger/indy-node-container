@@ -210,6 +210,16 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
+      - name: indy-node-version
+        id: indy-node-version
+        shell: bash
+        run: |
+          export nodeVersion=$(sed "s/~/-/" <<<$(grep -oP "indy-node=\"?\d+.\d+.\d+((~|.)?rc\d+)?\"?" build/Dockerfile.ubuntu20 | grep -oP "\d+.\d+.\d+((~|.|-)?rc\d+)?"))
+          echo "::debug::IndyNode Version is ${nodeVersion}"
+          echo "::group::DEBUG"
+          echo "IndyNode Version is ${nodeVersion}"
+          echo "::endgroup::"
+          echo "nodeVersion=${nodeVersion}">> $GITHUB_OUTPUT
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       - name: Cache Docker layers
@@ -232,7 +242,7 @@ jobs:
         with:
           images: ghcr.io/${{ needs.workflow_setup.outputs.repo_owner }}/indy-node-container/indy_node
           flavor: |
-            suffix=-${{ matrix.os_version }},onlatest=true
+            prefix=${{ steps.indy-node-version.outputs.nodeVersion }}-${{ matrix.os_version }}-
             latest=auto
           tags: |
             type=ref,event=branch
