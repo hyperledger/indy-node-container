@@ -216,7 +216,7 @@ jobs:
         id: indy-node-version
         shell: bash
         run: |
-          export nodeVersion=$(sed "s/~/-/" <<<$(grep -oP "indy-node=\"?\d+.\d+.\d+((~|.)?rc\d+)?\"?" build/Dockerfile.ubuntu20 | grep -oP "\d+.\d+.\d+((~|.|-)?rc\d+)?"))
+          export nodeVersion=$(sed "s/~/-/" <<<$(grep -oP "indy-node=\"?\d+.\d+.\d+((~|.)?rc\d+)?\"?" build/Dockerfile.${{ matrix.os_version }} | grep -oP "\d+.\d+.\d+((~|.|-)?rc\d+)?"))
           echo "::debug::IndyNode Version is ${nodeVersion}"
           echo "::group::DEBUG"
           echo "IndyNode Version is ${nodeVersion}"
