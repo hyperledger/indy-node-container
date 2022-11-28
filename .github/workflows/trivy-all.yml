@@ -29,30 +29,39 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Run Trivy on indy_node:${{ matrix.os_version }}
+      - name: indy-node-version
+        id: indy-node-version
+        shell: bash
+        run: |
+          export nodeVersion=$(sed "s/~/-/" <<<$(grep -oP "indy-node=\"?\d+.\d+.\d+((~|.)?rc\d+)?\"?" build/Dockerfile.${{ matrix.os_version }} | grep -oP "\d+.\d+.\d+((~|.|-)?rc\d+)?"))
+          echo "::debug::IndyNode Version is ${nodeVersion}"
+          echo "::group::DEBUG"  
+          echo "IndyNode Version is ${nodeVersion}"
+          echo "::endgroup::"
+          echo "nodeVersion=${nodeVersion}">> $GITHUB_OUTPUT
+      - name: Run Trivy on indy_node${{ steps.indy-node-version.outputs.nodeVersion }}:${{ matrix.os_version }}
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: 'ghcr.io/${{ needs.workflow_setup.outputs.repo_owner }}/indy-node-container/indy_node:latest-${{ matrix.os_version }}'
+          image-ref: 'ghcr.io/${{ needs.workflow_setup.outputs.repo_owner }}/indy-node-container/indy_node:${{ steps.indy-node-version.outputs.nodeVersion }}-${{ matrix.os_version }}-main'
           format: 'template'
           template: '@/contrib/sarif.tpl'
-          output: 'trivy-indy-node-${{ matrix.os_version }}.sarif'
+          output: 'trivy-indy-node-${{ steps.indy-node-version.outputs.nodeVersion }}-${{ matrix.os_version }}.sarif'
           ignore-unfixed: true
           severity: 'CRITICAL,HIGH'
       
       - name: Patch tool name for ${{ matrix.os_version }} scan
         run: |
-          sed -i 's/"name": "Trivy",/"name": "Trivy${{ matrix.os_version }}Latest",/g' trivy-indy-node-${{ matrix.os_version }}.sarif
+          sed -i 's/"name": "Trivy",/"name": "Trivy${{ matrix.os_version }}Latest",/g' trivy-indy-node-${{ steps.indy-node-version.outputs.nodeVersion }}-${{ matrix.os_version }}.sarif
 
       - name: 'Safe trivy-indy-node-${{ matrix.os_version }}.sarif'
         uses: actions/upload-artifact@v3
         with:
-          name: trivy-indy-node-${{ matrix.os_version }}.sarif
-          path: trivy-indy-node-${{ matrix.os_version }}.sarif
+          name: trivy-indy-node-${{ steps.indy-node-version.outputs.nodeVersion }}-${{ matrix.os_version }}.sarif
+          path: trivy-indy-node-${{ steps.indy-node-version.outputs.nodeVersion }}-${{ matrix.os_version }}.sarif
           retention-days: 8
 
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: 'trivy-indy-node-${{ matrix.os_version }}.sarif'
+          sarif_file: 'trivy-indy-node-${{ steps.indy-node-version.outputs.nodeVersion }}-${{ matrix.os_version }}.sarif'
 

@@ -218,7 +218,7 @@ jobs:
         run: |
           export nodeVersion=$(sed "s/~/-/" <<<$(grep -oP "indy-node=\"?\d+.\d+.\d+((~|.)?rc\d+)?\"?" build/Dockerfile.${{ matrix.os_version }} | grep -oP "\d+.\d+.\d+((~|.|-)?rc\d+)?"))
           echo "::debug::IndyNode Version is ${nodeVersion}"
-          echo "::group::DEBUG"
+          echo "::group::DEBUG"  
           echo "IndyNode Version is ${nodeVersion}"
           echo "::endgroup::"
           echo "nodeVersion=${nodeVersion}">> $GITHUB_OUTPUT
