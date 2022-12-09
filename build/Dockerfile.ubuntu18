@@ -67,3 +67,5 @@ WORKDIR /home/indy
 COPY init_and_run.sh ./
 
 CMD ["./init_and_run.sh"]
+
+VOLUME ["/var/log/indy"]

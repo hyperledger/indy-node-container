@@ -21,3 +21,5 @@ RUN apt-get update -y && apt-get install -y \
 COPY init_and_run.sh ./
 
 CMD ["./init_and_run.sh"]
+
+VOLUME ["/var/log/indy"]

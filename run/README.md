@@ -119,9 +119,52 @@ There is [a simple connectivity check script](check_network_connectivity.sh) whi
 If incoming and outgoing IPs are the same for all nodes, you can use the same ips file as for setting the ip tables rules. Otherwise make sure to allow incoming connections from outgoing IPs and check reachability of your outgoing to their incoming IPs. :wink:
 
 
-## Logging
+## Logging Configuration
 
-The log dir is mounted to `./log_indy` by default to ease access to the log files.
+Loggin can be configured through the variables in [indy_config.py](./etc_indy/indy_config.py):
+
+```conf
+## Logging
+# 0 means everything
+logLevel = 1
+
+# Enable/Disable stdout logging
+enableStdOutLogging = True
+
+# Directory to store logs. You might want to mount this in order to access the log files from outside the container.
+LOG_DIR = '/var/log/indy'
+```
+
+You might want to collect all logs via the Docker Daemon and the forward them to your Log Destination. To this end, enable the std out logging and set the options explained below:
+
+### Via Docker Daemon
+
+You can set logging options globally fot the Docker Daemon for all Containers in the `/etc/docker/daemon.json`. To apply the changes you need to restart the docker daemon. Example:
+
+```json
+{
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m",
+    "max-file": "5",
+  }
+}
+```
+
+### Via docker-compose
+
+See [docker-compose.yml](./docker-compose.yml):
+
+```yml
+services:
+    ...
+    logging:
+        driver: "json-file"
+        options:
+          max-file: "5"
+          max-size: "100m"
+```
+
 
 ## Node Controller
 
