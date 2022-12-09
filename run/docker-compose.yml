@@ -18,6 +18,11 @@ services:
       - INDY_CLIENT_PORT=${INDY_CLIENT_PORT}
       - INDY_NETWORK_NAME=${INDY_NETWORK_NAME}
       - INDY_NODE_NAME=${INDY_NODE_NAME}
+    logging:
+        driver: "json-file"
+        options:
+          max-file: "5"
+          max-size: "100m"      
     env_file:
       - .node.env
     restart: always
@@ -33,5 +38,10 @@ services:
     volumes:
       - ./etc_indy:/etc/indy
       - ${SOCK}:/var/run/docker.sock
+    logging:
+        driver: "json-file"
+        options:
+          max-file: "5"
+          max-size: "100m"      
     restart: always
     network_mode: "service:indy-node"
