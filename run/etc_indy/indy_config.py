@@ -25,5 +25,8 @@ PLUGINS_DIR = '/var/lib/indy/plugins'
 # Directory to store node info.
 NODE_INFO_DIR = '/var/lib/indy'
 
+# For running indy >= 1.13 in a legacy network (i.e. including revocation transactions written by indy nodes < 1.13)
+REV_STRATEGY_USE_COMPAT_ORDERING=True
+
 # 0 means everything
 logLevel = 0

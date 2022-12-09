@@ -10,10 +10,12 @@ The container engine must have an enabled user socket for the executing user to 
 * Podman: https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/building_running_and_managing_containers/assembly_using-the-container-tools-api_using-the-container-tools-cli#proc_enabling-the-podman-api-using-systemd-in-rootless-mode_assembly_using-the-container-tools-api
 
 ### Networking
-The controller uses a shared service network namespace to communicate with the node. For docker either the flag `--network=service:node-service-name` or the docker-compose setting `network_mode: "service:node-service-name"` has to be set for the controller container. For Podman running both the controller and node together in one pod is sufficient.
+By default the node will try to connect to the controller via the 127.0.0.1 loopback address. A different IP can be configured in `indy_config.py` using the setting `controlServiceHost=x.x.x.x`.
+Alternatively both docker and podman allow container to share the same network via either the docker flag `--network=service:node-service-name` or the docker-compose setting `network_mode: "service:node-service-name"`. For Podman runniggng both the controller and node together in one pod is sufficient.
 
 ### Environment variables
-* CONTAINER: name of the indy node container to be controlled
+* NODE_CONTAINER: name of the indy node container to be controlled
+* CONTROLLER_CONTAINER: name of the indy node controller itself
 * ENGINE: container engine to be used. Defaults to docker
 
 ### Mountpoints
