@@ -18,6 +18,7 @@ services:
       - INDY_CLIENT_PORT=${INDY_CLIENT_PORT}
       - INDY_NETWORK_NAME=${INDY_NETWORK_NAME}
       - INDY_NODE_NAME=${INDY_NODE_NAME}
+      - CONTROLLER_CONTAINER_NAME=${CONTROLLER_CONTAINER_NAME}
     logging:
         driver: "json-file"
         options:
@@ -30,11 +31,11 @@ services:
   indy-controller:
     image: ${IMAGE_NAME_CONTROLLER}
     init: true
-    container_name: ${CONTROLLER_CONTAINER}
+    container_name: ${CONTROLLER_CONTAINER_NAME}
     environment:
-     - NODE_CONTAINER=${NODE_CONTAINER_NAME}
-     - INDY_NETWORK_NAME=${INDY_NETWORK_NAME}
-     - CONTROLLER_CONTAINER=${CONTROLLER_CONTAINER}
+      - INDY_NETWORK_NAME=${INDY_NETWORK_NAME}
+      - NODE_CONTAINER=${NODE_CONTAINER_NAME}
+      - CONTROLLER_CONTAINER=${CONTROLLER_CONTAINER_NAME}
     volumes:
       - ./etc_indy:/etc/indy
       - ${SOCK}:/var/run/docker.sock
@@ -44,4 +45,5 @@ services:
           max-file: "5"
           max-size: "100m"      
     restart: always
-    network_mode: "service:indy-node"
+    depends_on:
+      - indy-node

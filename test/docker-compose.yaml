@@ -12,11 +12,12 @@ services:
       - ./etc_indy/node1:/etc/indy
       - ./lib_indy:/var/lib/indy
     environment:
-     - INDY_NODE_NAME=Node1
-     - INDY_NODE_IP=${INDY_NODE_IP_1}
-     - INDY_NODE_PORT=${INDY_NODE_PORT_1}
-     - INDY_CLIENT_IP=${INDY_CLIENT_IP_1}
-     - INDY_CLIENT_PORT=${INDY_CLIENT_PORT_1}
+      - INDY_NODE_NAME=Node1
+      - INDY_NODE_IP=${INDY_NODE_IP_1}
+      - INDY_NODE_PORT=${INDY_NODE_PORT_1}
+      - INDY_CLIENT_IP=${INDY_CLIENT_IP_1}
+      - INDY_CLIENT_PORT=${INDY_CLIENT_PORT_1}
+      - CONTROLLER_CONTAINER_NAME=controller1
     env_file:
       - .env
     restart: always
@@ -35,11 +36,12 @@ services:
       - ./etc_indy/node2:/etc/indy
       - ./lib_indy:/var/lib/indy
     environment:
-     - INDY_NODE_NAME=Node2
-     - INDY_NODE_IP=${INDY_NODE_IP_2}
-     - INDY_NODE_PORT=${INDY_NODE_PORT_2}
-     - INDY_CLIENT_IP=${INDY_CLIENT_IP_2}
-     - INDY_CLIENT_PORT=${INDY_CLIENT_PORT_2}
+      - INDY_NODE_NAME=Node2
+      - INDY_NODE_IP=${INDY_NODE_IP_2}
+      - INDY_NODE_PORT=${INDY_NODE_PORT_2}
+      - INDY_CLIENT_IP=${INDY_CLIENT_IP_2}
+      - INDY_CLIENT_PORT=${INDY_CLIENT_PORT_2}
+      - CONTROLLER_CONTAINER_NAME=controller2
     env_file:
       - .env
     restart: always
@@ -58,11 +60,12 @@ services:
       - ./etc_indy/node3:/etc/indy
       - ./lib_indy:/var/lib/indy
     environment:
-     - INDY_NODE_NAME=Node3
-     - INDY_NODE_IP=${INDY_NODE_IP_3}
-     - INDY_NODE_PORT=${INDY_NODE_PORT_3}
-     - INDY_CLIENT_IP=${INDY_CLIENT_IP_3}
-     - INDY_CLIENT_PORT=${INDY_CLIENT_PORT_3}
+      - INDY_NODE_NAME=Node3
+      - INDY_NODE_IP=${INDY_NODE_IP_3}
+      - INDY_NODE_PORT=${INDY_NODE_PORT_3}
+      - INDY_CLIENT_IP=${INDY_CLIENT_IP_3}
+      - INDY_CLIENT_PORT=${INDY_CLIENT_PORT_3}
+      - CONTROLLER_CONTAINER_NAME=controller3
     env_file:
       - .env
     restart: always
@@ -81,11 +84,12 @@ services:
       - ./etc_indy/node4:/etc/indy
       - ./lib_indy:/var/lib/indy
     environment:
-     - INDY_NODE_NAME=Node4
-     - INDY_NODE_IP=${INDY_NODE_IP_4}
-     - INDY_NODE_PORT=${INDY_NODE_PORT_4}
-     - INDY_CLIENT_IP=${INDY_CLIENT_IP_4}
-     - INDY_CLIENT_PORT=${INDY_CLIENT_PORT_4}
+      - INDY_NODE_NAME=Node4
+      - INDY_NODE_IP=${INDY_NODE_IP_4}
+      - INDY_NODE_PORT=${INDY_NODE_PORT_4}
+      - INDY_CLIENT_IP=${INDY_CLIENT_IP_4}
+      - INDY_CLIENT_PORT=${INDY_CLIENT_PORT_4}
+      - CONTROLLER_CONTAINER_NAME=controller4
     env_file:
       - .env
     restart: always
@@ -129,7 +133,6 @@ services:
     restart: "no"
     networks:
       indy_node_container_test_network:
-        ipv4_address: 10.133.133.6
 
   indy-controller_1:
     image: ${IMAGE_NAME_CONTROLLER}
@@ -142,10 +145,10 @@ services:
       - ./etc_indy:/etc/indy
       - $SOCK:/var/run/docker.sock
     restart: always
+    depends_on:
+      - indy-node_1
     networks:
       indy_node_container_test_network:
-        ipv4_address: 10.133.133.11
-
 
   indy-controller_2:
     image: ${IMAGE_NAME_CONTROLLER}
@@ -158,9 +161,10 @@ services:
       - ./etc_indy:/etc/indy
       - $SOCK:/var/run/docker.sock
     restart: always
+    depends_on:
+      - indy-node_2
     networks:
       indy_node_container_test_network:
-        ipv4_address: 10.133.133.12
 
   indy-controller_3:
     image: ${IMAGE_NAME_CONTROLLER}
@@ -173,9 +177,10 @@ services:
       - ./etc_indy:/etc/indy
       - $SOCK:/var/run/docker.sock
     restart: always
+    depends_on:
+      - indy-node_3
     networks:
       indy_node_container_test_network:
-        ipv4_address: 10.133.133.13
 
   indy-controller_4:
     image: ${IMAGE_NAME_CONTROLLER}
@@ -188,9 +193,10 @@ services:
       - ./etc_indy:/etc/indy
       - $SOCK:/var/run/docker.sock
     restart: always
+    depends_on:
+      - indy-node_4
     networks:
       indy_node_container_test_network:
-        ipv4_address: 10.133.133.14
 
 networks:
   indy_node_container_test_network:
