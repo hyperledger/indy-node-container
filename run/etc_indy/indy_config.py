@@ -31,6 +31,3 @@ enableStdOutLogging = True
 
 # Directory to store logs. You might want to mount this in order to access the log files from outside the container.
 LOG_DIR = '/var/log/indy'
-
-# Hostname of the controller 
-controlServiceHost='indy_node_controller'
