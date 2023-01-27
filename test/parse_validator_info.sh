@@ -23,15 +23,15 @@ echo "Node 1 (synced=$SYNC_STATE_N1, write-consensus=$FRESHNESS_N1, unreachable-
 echo "Node 2 (synced=$SYNC_STATE_N2, write-consensus=$FRESHNESS_N2, unreachable-nodes=$UNREACHABLE_N2): $(jq '.validators[1].Node_info.Catchup_status.Ledger_statuses' ledger_state.json)"
 echo "Node 3 (synced=$SYNC_STATE_N3, write-consensus=$FRESHNESS_N3, unreachable-nodes=$UNREACHABLE_N3): $(jq '.validators[2].Node_info.Catchup_status.Ledger_statuses' ledger_state.json)"
 echo "Node 4 (synced=$SYNC_STATE_N4, write-consensus=$FRESHNESS_N4, unreachable-nodes=$UNREACHABLE_N4): $(jq '.validators[3].Node_info.Catchup_status.Ledger_statuses' ledger_state.json)"
-echo "::set-output name=n1_synced::$SYNC_STATE_N1"
-echo "::set-output name=n2_synced::$SYNC_STATE_N2"
-echo "::set-output name=n3_synced::$SYNC_STATE_N3"
-echo "::set-output name=n4_synced::$SYNC_STATE_N4"
-echo "::set-output name=n1_freshness::$FRESHNESS_N1"
-echo "::set-output name=n2_freshness::$FRESHNESS_N2"
-echo "::set-output name=n3_freshness::$FRESHNESS_N3"
-echo "::set-output name=n4_freshness::$FRESHNESS_N4"
-echo "::set-output name=n1_unreachable::$UNREACHABLE_N1"
-echo "::set-output name=n2_unreachable::$UNREACHABLE_N2"
-echo "::set-output name=n3_unreachable::$UNREACHABLE_N3"
-echo "::set-output name=n4_unreachable::$UNREACHABLE_N4"
+echo "n1_synced=$SYNC_STATE_N1" >> $GITHUB_OUTPUT
+echo "n2_synced=$SYNC_STATE_N2" >> $GITHUB_OUTPUT
+echo "n3_synced=$SYNC_STATE_N3" >> $GITHUB_OUTPUT
+echo "n4_synced=$SYNC_STATE_N4" >> $GITHUB_OUTPUT
+echo "n1_freshness=$FRESHNESS_N1" >> $GITHUB_OUTPUT
+echo "n2_freshness=$FRESHNESS_N2" >> $GITHUB_OUTPUT
+echo "n3_freshness=$FRESHNESS_N3" >> $GITHUB_OUTPUT
+echo "n4_freshness=$FRESHNESS_N4" >> $GITHUB_OUTPUT
+echo "n1_unreachable=$UNREACHABLE_N1" >> $GITHUB_OUTPUT
+echo "n2_unreachable=$UNREACHABLE_N2" >> $GITHUB_OUTPUT
+echo "n3_unreachable=$UNREACHABLE_N3" >> $GITHUB_OUTPUT
+echo "n4_unreachable=$UNREACHABLE_N4" >> $GITHUB_OUTPUT
