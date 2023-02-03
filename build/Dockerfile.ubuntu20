@@ -41,6 +41,7 @@ RUN pip3 install -U \
 
 RUN apt-get update -y && apt-get install -y \
     indy-node="1.13.2~rc5" \
+    indy-plenum="1.13.1~rc3" \
     ursa="0.3.2-1" \
     python3-pyzmq="22.3.0" \
     rocksdb="5.8.8" \
