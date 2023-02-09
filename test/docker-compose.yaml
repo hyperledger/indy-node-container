@@ -205,3 +205,10 @@ services:
 
 networks:
   indy_node_container_test_network:
+    driver: bridge
+    name: indy
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.133.133.0/24
+          gateway: 10.133.133.254
