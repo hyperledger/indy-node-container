@@ -23,7 +23,6 @@ services:
     restart: always
     networks:
       indy_node_container_test_network:
-        ipv4_address: 10.133.133.1
 
   indy-node_2:
     image: ${REFERENCE_IMAGE_NAME_NODE}
@@ -47,7 +46,6 @@ services:
     restart: always
     networks:
       indy_node_container_test_network:
-        ipv4_address: 10.133.133.2
 
   indy-node_3:
     image: ${REFERENCE_IMAGE_NAME_NODE}
@@ -71,7 +69,6 @@ services:
     restart: always
     networks:
       indy_node_container_test_network:
-        ipv4_address: 10.133.133.3
 
   indy-node_4:
     image: ${IMAGE_NAME_NODE}
@@ -95,7 +92,6 @@ services:
     restart: always
     networks:
       indy_node_container_test_network:
-        ipv4_address: 10.133.133.4
 
   #
   # VON-Network Ledger Browser
@@ -117,7 +113,6 @@ services:
       - INFO_SITE_URL=https://github.com/hyperledger/indy-node-container
     networks:
       indy_node_container_test_network:
-        ipv4_address: 10.133.133.5
     ports:
       - ${WEB_SERVER_HOST_PORT:-9000}:8000
     volumes:
