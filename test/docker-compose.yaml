@@ -111,6 +111,7 @@ services:
       - WEB_ANALYTICS_SCRIPT=
       - INFO_SITE_TEXT=Node Container @ GitHub
       - INFO_SITE_URL=https://github.com/hyperledger/indy-node-container
+      - LEDGER_SEED=000000000000000000000000Steward1
     networks:
       indy_node_container_test_network:
         ipv4_address: 10.133.133.5
