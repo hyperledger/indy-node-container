@@ -19,5 +19,4 @@ docker run -v "${PWD}"/etc_indy:/etc/indy -v "${PWD}"/lib_indy:/var/lib/indy "$I
 for i in $(seq 1 $NODES); do
     mkdir -p "${PWD}"/etc_indy/node$i
     cp "${PWD}"/etc_indy/{indy.env,indy_config.py} "${PWD}"/etc_indy/node$i/
-    echo -e "\n# node controller container IP\ncontrolServiceHost = '10.133.133.1$i'" >> "${PWD}"/etc_indy/node$i/indy_config.py
 done
