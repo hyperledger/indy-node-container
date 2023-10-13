@@ -24,4 +24,4 @@ PLUGINS_DIR = '/var/lib/indy/plugins'
 NODE_INFO_DIR = '/var/lib/indy'
 
 logLevel = 0
-NETWORK_NAME = "local_test"
+NETWORK_NAME = 'local_test'

@@ -182,13 +182,16 @@ jobs:
         with:
           script: core.setFailed('${{ matrix.os_version }} - Not all nodes are in sync!')
       - name: Send node restart command
-        run: cd test && echo -e "indy-cli\npool create test gen_txn_file=/pool_transactions_genesis\npool connect test\nwallet create wallet key=1234\nwallet open wallet key=1234\ndid new seed=000000000000000000000000Trustee1\ndid use V4SGRU86Z58d6TV7PBUe6f\nledger pool-restart action=start" | docker-compose run indy-cli
+        id: node-restart
+        run: |
+          echo "::set-output name=restart-time::$(date +%s)"
+          cd test && echo -e "indy-cli\npool create test gen_txn_file=/pool_transactions_genesis\npool connect test\nwallet create wallet key=1234\nwallet open wallet key=1234\ndid new seed=000000000000000000000000Trustee1\ndid use V4SGRU86Z58d6TV7PBUe6f\nledger pool-restart action=start" | docker-compose run indy-cli
       - name: Get node restart status
         id: nodes_restarted
         run: |
-          sleep 20
-          OUTPUT="$(docker ps --filter "name=node" --format "{{.Status}}" | grep -o 'Up [0-9]\+ seconds' | cut -d' ' -f2 | awk -v ORS='\\n' '1' | head -c -2)"
-          echo "count=$({ echo -e $OUTPUT | wc -l ; echo -e $OUTPUT | awk -F= '$1<30' | wc -l; } | sort -n | head -1)" >> $GITHUB_OUTPUT
+          sleep 60
+          OUTPUT="$(docker container ls --filter "name=node" --format="{{.Names}}" | xargs -n1 docker container inspect --format="{{.State.StartedAt}}" | xargs -I {} date -d {} +%s)"
+          echo "::set-output name=count::$(echo "$OUTPUT" | awk -F= '$1>${{ steps.node-restart.outputs.restart-time }}' | wc -l)"
       - name: Fail if not all nodes restarted      
         if: steps.nodes_restarted.outputs.count != 4
         uses: actions/github-script@v3
