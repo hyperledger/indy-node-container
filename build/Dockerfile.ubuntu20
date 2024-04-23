@@ -40,7 +40,7 @@ RUN pip3 install -U \
 
 
 RUN apt-get update -y && apt-get install -y \
-    indy-node="1.13.2~rc6" \
+    indy-node="1.13.2" \
     && rm -rf /var/lib/apt/lists/* \
     # fix path to libursa
     && ln -s /usr/lib/ursa/libursa.so /usr/lib/libursa.so
