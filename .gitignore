@@ -10,3 +10,4 @@ keys
 trivy-reports
 test/etc_indy/node*
 .vscode
+.idea
