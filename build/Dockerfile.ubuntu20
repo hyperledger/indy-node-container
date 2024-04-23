@@ -30,7 +30,7 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CE7709D068
 
 # Hyperledger Artifactory
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 9692C00E657DDE61 \
-    && echo "deb https://hyperledger.jfrog.io/artifactory/indy focal rc" >> /etc/apt/sources.list \
+    && echo "deb https://hyperledger.jfrog.io/artifactory/indy focal stable" >> /etc/apt/sources.list \
     # Prioritize packages from hyperledger.jfrog.io
     && printf '%s\n%s\n%s\n' 'Package: *' 'Pin: origin hyperledger.jfrog.io' 'Pin-Priority: 1001' >> /etc/apt/preferences
 
