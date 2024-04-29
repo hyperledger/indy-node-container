@@ -28,7 +28,7 @@ jobs:
         os_version: [ debian10, debian11, ubuntu16, ubuntu18, ubuntu20 ]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: indy-node-version
         id: indy-node-version
         shell: bash
@@ -54,14 +54,14 @@ jobs:
           sed -i 's/"name": "Trivy",/"name": "Trivy${{ matrix.os_version }}Latest",/g' trivy-indy-node-${{ steps.indy-node-version.outputs.nodeVersion }}-${{ matrix.os_version }}.sarif
 
       - name: 'Safe trivy-indy-node-${{ matrix.os_version }}.sarif'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: trivy-indy-node-${{ steps.indy-node-version.outputs.nodeVersion }}-${{ matrix.os_version }}.sarif
           path: trivy-indy-node-${{ steps.indy-node-version.outputs.nodeVersion }}-${{ matrix.os_version }}.sarif
           retention-days: 8
 
       - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: 'trivy-indy-node-${{ steps.indy-node-version.outputs.nodeVersion }}-${{ matrix.os_version }}.sarif'
 
