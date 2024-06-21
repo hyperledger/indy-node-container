@@ -163,35 +163,35 @@ else
 fi
 
 # Make sure the previous default logging rule is removed.  It causes too much CPU overhead under load.
-RULE="${LOG_CHAIN} -j LOG --log-level ${CONN_LOGGING_LEVEL} --log-prefix 'connlimit:'"
-delete_rule ${RULE}
+RULE=("${LOG_CHAIN}" -j LOG --log-level "${CONN_LOGGING_LEVEL}" --log-prefix "connlimit: ")
+delete_rule "${RULE[@]}"
 
 # Append a rule that sets log level and log prefix
 # Default to no logging unless a logging level is explicitly supplied.
 if [ -n "${CONN_LOGGING_LEVEL}" ]; then
-    RULE="${LOG_CHAIN} -j LOG --log-level ${CONN_LOGGING_LEVEL} --log-prefix 'connlimit:'"
-    ${OPERATION} ${RULE}
+    RULE=("${LOG_CHAIN}" -j LOG --log-level "${CONN_LOGGING_LEVEL}" --log-prefix "connlimit: ")
+    ${OPERATION} "${RULE[@]}"
 fi
 
 # Append a rule that finally rejects connection
-RULE="${LOG_CHAIN} -p tcp -j REJECT --reject-with tcp-reset"
-make_last_rule ${RULE}
+RULE=("${LOG_CHAIN}" -p tcp -j REJECT --reject-with tcp-reset)
+make_last_rule "${RULE[@]}"
 
 # Append a rule to limit the total number of simultaneous client connections
-RULE="${IP_TABLES_CHAIN} -p tcp --syn --dport ${DPORT} -m connlimit --connlimit-above ${OVER_ALL_CONN_LIMIT} --connlimit-mask 0 -j ${LOG_CHAIN}"
-${OPERATION} ${RULE}
+RULE=("${IP_TABLES_CHAIN}" -p tcp --syn --dport "${DPORT}" -m connlimit --connlimit-above "${OVER_ALL_CONN_LIMIT}" --connlimit-mask 0 -j "${LOG_CHAIN}")
+${OPERATION} "${RULE[@]}"
 
 # Append a rule to limit the number connections per IP address
-RULE="${IP_TABLES_CHAIN} -p tcp -m tcp --dport ${DPORT} --tcp-flags FIN,SYN,RST,ACK SYN -m connlimit --connlimit-above ${CONN_LIMIT_PER_IP} --connlimit-mask 32 --connlimit-saddr -j ${LOG_CHAIN}"
-${OPERATION} ${RULE}
+RULE=("${IP_TABLES_CHAIN}" -p tcp -m tcp --dport "${DPORT}" --tcp-flags "FIN,SYN,RST,ACK" SYN -m connlimit --connlimit-above "${CONN_LIMIT_PER_IP}" --connlimit-mask 32 --connlimit-saddr -j "${LOG_CHAIN}")
+${OPERATION} "${RULE[@]}"
 
 # Append rules to rate limit connections
 if [ "${CONN_RATE_LIMIT_LIMIT}" -gt "0" ] && [ "${CONN_RATE_LIMIT_PERIOD}" -gt "0" ]; then
     echo "Including settings for rate limiting ..."
-    RULE="${IP_TABLES_CHAIN} -p tcp -m tcp --dport ${DPORT} -m conntrack --ctstate NEW -m recent --set --name DEFAULT --mask 255.255.255.255 --rsource"
-    ${OPERATION} ${RULE}
-    RULE="${IP_TABLES_CHAIN} -p tcp -m tcp --dport ${DPORT} -m conntrack --ctstate NEW -m recent --update --seconds ${CONN_RATE_LIMIT_PERIOD} --hitcount ${CONN_RATE_LIMIT_LIMIT} --name DEFAULT --mask 255.255.255.255 --rsource -j ${LOG_CHAIN}"
-    ${OPERATION} ${RULE}
+    RULE=("${IP_TABLES_CHAIN}" -p tcp -m tcp --dport "${DPORT}" -m conntrack --ctstate NEW -m recent --set --name DEFAULT --mask 255.255.255.255 --rsource)
+    ${OPERATION} "${RULE[@]}"
+    RULE=("${IP_TABLES_CHAIN}" -p tcp -m tcp --dport "${DPORT}" -m conntrack --ctstate NEW -m recent --update --seconds "${CONN_RATE_LIMIT_PERIOD}" --hitcount "${CONN_RATE_LIMIT_LIMIT}" --name DEFAULT --mask 255.255.255.255 --rsource -j "${LOG_CHAIN}")
+    ${OPERATION} "${RULE[@]}"
 else
     echo "Rate limiting is disabled, skipping settings for rate limiting ..."
 fi
