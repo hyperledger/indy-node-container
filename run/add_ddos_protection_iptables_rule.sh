@@ -142,7 +142,7 @@ if [ $# -lt 2 ]; then
     usage
 fi
 
-if [ -n ${TEST_MODE} ]; then
+if [ -n "${TEST_MODE}" ]; then
     print_settings
     exit 0
 fi
@@ -163,13 +163,14 @@ else
 fi
 
 # Make sure the previous default logging rule is removed.  It causes too much CPU overhead under load.
-RULE="${LOG_CHAIN} -j LOG --log-level warning --log-prefix \"connlimit: \""
+RULE="${LOG_CHAIN} -j LOG --log-level ${CONN_LOGGING_LEVEL} --log-prefix connlimit:"
 delete_rule ${RULE}
 
 # Append a rule that sets log level and log prefix
 # Default to no logging unless a logging level is explicitly supplied.
 if [ -n ${CONN_LOGGING_LEVEL} ]; then
-    RULE="${LOG_CHAIN} -j LOG --log-level ${CONN_LOGGING_LEVEL} --log-prefix \"connlimit: \""
+    #    RULE="${LOG_CHAIN} -j LOG --log-level ${CONN_LOGGING_LEVEL} --log-prefix \"connlimit: \""
+    RULE="${LOG_CHAIN} -j LOG --log-level ${CONN_LOGGING_LEVEL} --log-prefix connlimit:"
     ${OPERATION} ${RULE}
 fi
 
@@ -186,7 +187,7 @@ RULE="${IP_TABLES_CHAIN} -p tcp -m tcp --dport ${DPORT} --tcp-flags FIN,SYN,RST,
 ${OPERATION} ${RULE}
 
 # Append rules to rate limit connections
-if ((CONN_RATE_LIMIT_LIMIT} > 0)) && ((CONN_RATE_LIMIT_PERIOD > 0)); then
+if [ "${CONN_RATE_LIMIT_LIMIT}" -gt "0" ] && [ "${CONN_RATE_LIMIT_PERIOD}" -gt "0" ]; then
     echo "Including settings for rate limiting ..."
     RULE="${IP_TABLES_CHAIN} -p tcp -m tcp --dport ${DPORT} -m conntrack --ctstate NEW -m recent --set --name DEFAULT --mask 255.255.255.255 --rsource"
     ${OPERATION} ${RULE}
