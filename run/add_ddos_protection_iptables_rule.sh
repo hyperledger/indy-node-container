@@ -97,7 +97,7 @@ CONN_LOGGING_LEVEL=${6}
 source ./ip_tables_utils.sh
 
 add() {
-    if [ -z ${DELETE} ]; then
+    if [ -z "${DELETE}" ]; then
         return 0
     else
         return 1
@@ -105,7 +105,7 @@ add() {
 }
 
 delete() {
-    if [ -n ${DELETE} ]; then
+    if [ -n "${DELETE}" ]; then
         return 0
     else
         return 1
@@ -163,14 +163,13 @@ else
 fi
 
 # Make sure the previous default logging rule is removed.  It causes too much CPU overhead under load.
-RULE="${LOG_CHAIN} -j LOG --log-level ${CONN_LOGGING_LEVEL} --log-prefix connlimit:"
+RULE="${LOG_CHAIN} -j LOG --log-level ${CONN_LOGGING_LEVEL} --log-prefix 'connlimit:'"
 delete_rule ${RULE}
 
 # Append a rule that sets log level and log prefix
 # Default to no logging unless a logging level is explicitly supplied.
-if [ -n ${CONN_LOGGING_LEVEL} ]; then
-    #    RULE="${LOG_CHAIN} -j LOG --log-level ${CONN_LOGGING_LEVEL} --log-prefix \"connlimit: \""
-    RULE="${LOG_CHAIN} -j LOG --log-level ${CONN_LOGGING_LEVEL} --log-prefix connlimit:"
+if [ -n "${CONN_LOGGING_LEVEL}" ]; then
+    RULE="${LOG_CHAIN} -j LOG --log-level ${CONN_LOGGING_LEVEL} --log-prefix 'connlimit:'"
     ${OPERATION} ${RULE}
 fi
 
