@@ -2,39 +2,39 @@
 
 # skip existing rules to avoid duplicates
 add_new_rule() {
-    RULE="$@"
+    RULE=("$@")
 
-    if rule_exists ${RULE}; then
-        echo "[skip] $RULE already exists"
-    elif [[ "$RULE" == *"DROP"* ]] || [[ "$RULE" == *"RETURN"* ]] || [[ "$RULE" == *"REJECT"* ]]; then
-        iptables -A $RULE
-        echo "[OK] $RULE added to the end of the chain"
+    if rule_exists "${RULE[@]}"; then
+        echo "[skip] ${RULE[*]} already exists"
+    elif [[ "${RULE[*]}" =~ "DROP" ]] || [[ "${RULE[*]}" =~ "RETURN" ]] || [[ "${RULE[*]}" =~ "REJECT" ]]; then
+        iptables -A "${RULE[@]}"
+        echo "[OK] ${RULE[*]} added to the end of the chain"
     else
-        iptables -I $RULE
-        echo "[OK] $RULE added to the beginning of the chain"
+        iptables -I "${RULE[@]}"
+        echo "[OK] ${RULE[*]} added to the beginning of the chain"
     fi
 }
 
 make_last_rule() {
-    RULE="$@"
-    delete_rule ${RULE}
-    iptables -A $RULE
-    echo "[OK] $RULE added to the end of the chain"
+    RULE=("$@")
+    delete_rule "${RULE[@]}"
+    iptables -A "${RULE[@]}"
+    echo "[OK] ${RULE[*]} added to the end of the chain"
 }
 
 rule_exists() {
-    RULE="$@"
-    if iptables -C ${RULE} 2>/dev/null 1>&2; then
+    RULE=("$@")
+    if iptables -C "${RULE[@]}" 2>/dev/null 1>&2; then
         return 0
     fi
     return 1
 }
 
 delete_rule() {
-    RULE="$@"
-    while rule_exists ${RULE}; do
-        iptables -D $RULE
-        echo "[OK] $RULE deleted"
+    RULE=("$@")
+    while rule_exists "${RULE[@]}"; do
+        iptables -D "${RULE[@]}"
+        echo "[OK] ${RULE[*]} deleted"
     done
 }
 
@@ -46,7 +46,7 @@ ip_tables_installed() {
 }
 
 ip_tables_persistent_installed() {
-    if which iptables-save 2>/dev/null 1>&2; then
+    if dpkg-query -W --showformat='${Status}' iptables-persistent | grep "install ok installed" 2>/dev/null 1>&2; then
         return 0
     fi
     return 1
