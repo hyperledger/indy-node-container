@@ -46,7 +46,7 @@ ip_tables_installed() {
 }
 
 ip_tables_persistent_installed() {
-    if which iptables-save 2>/dev/null 1>&2; then
+    if dpkg-query -W --showformat='${Status}' iptables-persistent | grep "install ok installed" 2>/dev/null 1>&2; then
         return 0
     fi
     return 1
