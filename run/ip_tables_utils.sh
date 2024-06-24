@@ -4,7 +4,7 @@
 add_new_rule() {
     RULE=("$@")
 
-    if rule_exists "${RULE[@}]}"; then
+    if rule_exists "${RULE[@]}"; then
         echo "[skip] ${RULE[*]} already exists"
     elif [[ "${RULE[*]}" =~ "DROP" ]] || [[ "${RULE[*]}" =~ "RETURN" ]] || [[ "${RULE[*]}" =~ "REJECT" ]]; then
         iptables -A "${RULE[@]}"
