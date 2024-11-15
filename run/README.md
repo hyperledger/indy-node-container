@@ -20,7 +20,7 @@ cd indy-node-container/run/
 
 and then securely backup `.node.env` which holds the seed for generating the private keys.
 
-Change the network name in `etc_indy/indy_config.py` to `NETWORK_NAME = 'YOUR_NETWQRK_NAME'` and in `.env` to `INDY_NETWORK_NAME=YOUR_NETWQRK_NAME`. In the latter, also set the `INDY_NODE_NAME` to your nodes alias.  
+Change the network name in `etc_indy/indy_config.py` to `NETWORK_NAME = 'YOUR_NETWORK_NAME'` and in `.env` to `INDY_NETWORK_NAME=YOUR_NETWORK_NAME`. In the latter, also set the `INDY_NODE_NAME` to your nodes alias.  
 
 You may choose [an image](https://github.com/hyperledger/indy-node-container/pkgs/container/indy-node-container%2Findy_node/versions) to use or stick with the default.
 - **Caution**: The ubunut20 image is a test image to test the new release candidate of indy node. All other images are stable.
@@ -29,7 +29,7 @@ You may choose [an image](https://github.com/hyperledger/indy-node-container/pkg
 Prepare the folder accordingly
 ```
 rm -rf lib_indy/ssi4de/
-mkdir lib_indy/YOUR_NETWQRK_NAME
+mkdir lib_indy/YOUR_NETWORK_NAME
 ```
 
 Run `docker-compose up --scale indy-controller=0`. This will run some setup and you will get some information which needs to share with the other nodes from the output like:
@@ -47,7 +47,7 @@ It is a good idea to node down al those key/proof values. This is public informa
 
 Since there are no genesis files in place yet, the startup will fail with an error, but you might now want to backup your keys and / or seed phrase ( `.node.env` ) if not done earlier. The latter is no longer required for further startups, so you might want to remove it for security reasons.
 
-Put `pool_transactions_genesis` and `domain_transactions_genesis` for your network into the `lib_indy/YOUR_NETWQRK_NAME` folder. **The sub folder name has to match the `INDY_NETWORK_NAME` set in `.env` file!**
+Put `pool_transactions_genesis` and `domain_transactions_genesis` for your network into the `lib_indy/YOUR_NETWORK_NAME` folder. **The sub folder name has to match the `INDY_NETWORK_NAME` set in `.env` file!**
 
 Now is a good time to [setup IP Tables rules](#firewall-ip-tables), although you can also do this later.
 
