@@ -32,7 +32,7 @@ rm -rf lib_indy/ssi4de/
 mkdir lib_indy/YOUR_NETWORK_NAME
 ```
 
-Run `docker-compose up --scale indy-controller=0`. This will run some setup and you will get some information which needs to share with the other nodes from the output like:
+Run `docker compose up --scale indy-controller=0`. This will run some setup and you will get some information which needs to share with the other nodes from the output like:
 
 ```
 ...
@@ -69,7 +69,7 @@ Note down the created did and verkey and share it with your network peers for th
 ### Running the node
 
 ```
-indy-node-container/run$ docker-compose up -d
+indy-node-container/run$ docker compose up -d
 ```
 
 you might want to check logs, ledger info (see  e.gg. https://github.com/IDunion/Internal-Information/tree/main/Tools/get-validator-info ), etc 😉
@@ -151,7 +151,7 @@ You can set logging options globally fot the Docker Daemon for all Containers in
 }
 ```
 
-### Via docker-compose
+### Via docker compose
 
 See [docker-compose.yml](./docker-compose.yml):
 
@@ -168,7 +168,7 @@ services:
 
 ## Node Controller
 
-Our current approach to handle pool restarts is to have the node controller running in a separate service container which has access to the docker socket. You can run the node without the node controller with e.g. `docker-compose up --scale indy-controller=0`. Note however that such nodes will not participate in pool restarts.
+Our current approach to handle pool restarts is to have the node controller running in a separate service container which has access to the docker socket. You can run the node without the node controller with e.g. `docker compose up --scale indy-controller=0`. Note however that such nodes will not participate in pool restarts.
 
 If wou want to use the node controller, the variables `SOCK`, `NODE_CONTAINER_NAME`, `CONTROLLER_CONTAINER`, and `IMAGE_NAME_CONTROLLER` need to be set in the `.env` file. Appropriate default values are set in [the default file](/.env).
 
