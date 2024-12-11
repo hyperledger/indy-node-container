@@ -22,6 +22,8 @@ NODE_INFO_DIR = '/var/lib/indy'
 # For running indy >= 1.13 in a legacy network (i.e. including revocation transactions written by indy nodes < 1.13)
 REV_STRATEGY_USE_COMPAT_ORDERING=True
 
+MAX_CONNECTED_CLIENTS_NUM=1600
+
 ## Logging
 # 0 means everything
 logLevel = 20
