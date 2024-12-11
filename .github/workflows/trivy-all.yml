@@ -25,7 +25,7 @@ jobs:
     needs: workflow_setup
     strategy:
       matrix:
-        os_version: [ debian10, debian11, ubuntu16, ubuntu18, ubuntu20 ]
+        os_version: [ debian11, ubuntu20 ]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
