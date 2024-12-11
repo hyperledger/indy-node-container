@@ -172,6 +172,6 @@ Our current approach to handle pool restarts is to have the node controller runn
 
 If wou want to use the node controller, the variables `SOCK`, `NODE_CONTAINER_NAME`, `CONTROLLER_CONTAINER`, and `IMAGE_NAME_CONTROLLER` need to be set in the `.env` file. Appropriate default values are set in [the default file](/.env).
 
-If the node controller container is running and has access to the docker socket of the host, the node will be restarted upon pool restart commands and will participate in a network upgrade. The decision mechanism for whether to accept or reject an upgrade based on available deb package versions is part of indy node server and hence unchanged. However, if an upgrade is accepted, the container will be stopped, pulled, and restarted. Use a tag like `latest-ubuntu18` and make sure that a new `latest` image is available before the network upgrade commences.
+If the node controller container is running and has access to the docker socket of the host, the node will be restarted upon pool restart commands and will participate in a network upgrade. The decision mechanism for whether to accept or reject an upgrade based on available deb package versions is part of indy node server and hence unchanged. However, if an upgrade is accepted, the container will be stopped, pulled, and restarted. Use a tag like `latest-ubuntu20` and make sure that a new `latest` image is available before the network upgrade commences.
 
 

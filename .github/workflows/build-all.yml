@@ -17,7 +17,7 @@ jobs:
       pull-requests: read
     outputs:
       repo_owner: ${{ steps.repo_owner.outputs.lowercase }}
-      os_matrix: "{\"os_version\":[\"debian10\",\"debian11\",\"ubuntu16\",\"ubuntu18\",\"ubuntu20\"]}"
+      os_matrix: "{\"os_version\":[\"debian11\",\"ubuntu20\"]}"
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4

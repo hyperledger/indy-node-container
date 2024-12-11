@@ -17,11 +17,6 @@ See [here](run/) for instructions how to setup and run the indy node images from
 
 Currently we are providing the following stable indy node images. All those images use the latest Indy Node 1.12 version. The images differ by base image and are tagged accordingly:
 
-- [Ubuntu 16](https://github.com/hyperledger/indy-node-container/pkgs/container/indy-node-container%2Findy_node/39147763?tag=latest-ubuntu16) :warning: 
-    - This image is **deprecated**. We will soon remove the image build from the CD pipeline. Please change to one of the other stable images.
-- [Ubuntu 18](https://github.com/hyperledger/indy-node-container/pkgs/container/indy-node-container%2Findy_node/39147763?tag=latest-ubuntu18)
-- [Debian Buster 10](https://github.com/hyperledger/indy-node-container/pkgs/container/indy-node-container%2Findy_node/37273284?tag=latest-buster) :warning: 
-    - :warning: This image is **deprecated.** We will soon remove the image build from the CD pipeline. Please change to one of the other stable images.
 - [Debian Bullseye 11](https://github.com/hyperledger/indy-node-container/pkgs/container/indy-node-container%2Findy_node/37273284?tag=latest-bullseye)
 
 Additionally, we build an experimental image for Indy node 1.13 RC testing:
@@ -35,17 +30,17 @@ See [here](run/) for instructions how to setup and run the images.
 To build the node image you can use `docker` from the project root like
 
 ```bash
-docker build -f "build/Dockerfile.ubuntu18" -t indy-node-container/indy_node:ubuntu18 ./build
+docker build -f "build/Dockerfile.ubuntu20" -t indy-node-container/indy_node:ubuntu20 ./build
 ```
 
 or you can use `make` which provides some shortcuts
 
 ```bash
-# make [bullseye|buster|ubuntu16|ubuntu18|ubuntu20|all|controller] (default is ubuntu18), e.g.
-make ubuntu18
+# make [bullseye|ubuntu20|all|controller] (default is ubuntu20), e.g.
+make ubuntu20
 
 # make clean removes images
-# make [clean|clean_bullseye|clean_buster|clean_ubuntu16|clean_ubuntu18|clean_ubuntu20|clean_controller], e.g. this removes all images
+# make [clean|clean_bullseye|clean_ubuntu20|clean_controller], e.g. this removes all images
 make clean
 ```
 
@@ -54,8 +49,8 @@ Please note that `make` generates different tags than the Github action (see [pa
 If you have [trivy](https://aquasecurity.github.io/trivy) installed, you can use the make check_* targets to run a trivy check against the local images:
 
 ```bash
-#make [check_bullseye|check_buster|check_ubuntu16|check_ubuntu18|check_ubuntu20|check_controller], e.g.
-make check_ubuntu18
+#make [check_bullseye|check_ubuntu20|check_controller], e.g.
+make check_ubuntu20
 ```
 
 Trivy HTML reports are created in `./trivy-reports`.
