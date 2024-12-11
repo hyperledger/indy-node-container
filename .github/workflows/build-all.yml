@@ -137,7 +137,7 @@ jobs:
       - name: Setup test network configs
         run: cd test && ./init-test-network.sh indy_node:${{ matrix.os_version }}
       - name: Start test network
-        run: cd test && env SOCK=/var/run/docker.sock IMAGE_NAME_NODE=indy_node:${{ matrix.os_version }} IMAGE_NAME_CONTROLLER=indy_node_controller docker-compose up -d
+        run: cd test && env SOCK=/var/run/docker.sock IMAGE_NAME_NODE=indy_node:${{ matrix.os_version }} IMAGE_NAME_CONTROLLER=indy_node_controller docker compose up -d
       - name: Get Ledger State
         id: ledger
         run: |
@@ -174,7 +174,7 @@ jobs:
         id: node-restart
         run: |
           echo "::set-output name=restart-time::$(date +%s)"
-          cd test && echo -e "indy-cli\npool create test gen_txn_file=/pool_transactions_genesis\npool connect test\nwallet create wallet key=1234\nwallet open wallet key=1234\ndid new seed=000000000000000000000000Trustee1\ndid use V4SGRU86Z58d6TV7PBUe6f\nledger pool-restart action=start" | docker-compose run indy-cli
+          cd test && echo -e "indy-cli\npool create test gen_txn_file=/pool_transactions_genesis\npool connect test\nwallet create wallet key=1234\nwallet open wallet key=1234\ndid new seed=000000000000000000000000Trustee1\ndid use V4SGRU86Z58d6TV7PBUe6f\nledger pool-restart action=start" | docker compose run indy-cli
       - name: Get node restart status
         id: nodes_restarted
         run: |
