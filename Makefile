@@ -19,10 +19,10 @@
 all: bullseye buster ubuntu16 ubuntu18 ubuntu20 controller
 
 bullseye:
-	docker build -f "build/Dockerfile.bullseye" -t indy-node-container/indy_node:bullseye ./build
+	docker build -f "build/Dockerfile.debian11" -t indy-node-container/indy_node:bullseye ./build
 
 buster:
-	docker build -f "build/Dockerfile.buster" -t indy-node-container/indy_node:buster ./build
+	docker build -f "build/Dockerfile.debian10" -t indy-node-container/indy_node:buster ./build
 
 ubuntu16:
 	docker build -f "build/Dockerfile.ubuntu16" -t indy-node-container/indy_node:ubuntu16 ./build
