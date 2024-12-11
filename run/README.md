@@ -20,7 +20,7 @@ cd indy-node-container/run/
 
 and then securely backup `.node.env` which holds the seed for generating the private keys.
 
-Change the network name in `etc_indy/indy_config.py` to `NETWORK_NAME = 'YOUR_NETWQRK_NAME'` and in `.env` to `INDY_NETWORK_NAME=YOUR_NETWQRK_NAME`. In the latter, also set the `INDY_NODE_NAME` to your nodes alias.  
+Change the network name in `etc_indy/indy_config.py` to `NETWORK_NAME = 'YOUR_NETWORK_NAME'` and in `.env` to `INDY_NETWORK_NAME=YOUR_NETWORK_NAME`. In the latter, also set the `INDY_NODE_NAME` to your nodes alias.  
 
 You may choose [an image](https://github.com/hyperledger/indy-node-container/pkgs/container/indy-node-container%2Findy_node/versions) to use or stick with the default.
 - **Caution**: The ubunut20 image is a test image to test the new release candidate of indy node. All other images are stable.
@@ -29,10 +29,10 @@ You may choose [an image](https://github.com/hyperledger/indy-node-container/pkg
 Prepare the folder accordingly
 ```
 rm -rf lib_indy/ssi4de/
-mkdir lib_indy/YOUR_NETWQRK_NAME
+mkdir lib_indy/YOUR_NETWORK_NAME
 ```
 
-Run `docker-compose up --scale indy-controller=0`. This will run some setup and you will get some information which needs to share with the other nodes from the output like:
+Run `docker compose up --scale indy-controller=0`. This will run some setup and you will get some information which needs to share with the other nodes from the output like:
 
 ```
 ...
@@ -47,7 +47,7 @@ It is a good idea to node down al those key/proof values. This is public informa
 
 Since there are no genesis files in place yet, the startup will fail with an error, but you might now want to backup your keys and / or seed phrase ( `.node.env` ) if not done earlier. The latter is no longer required for further startups, so you might want to remove it for security reasons.
 
-Put `pool_transactions_genesis` and `domain_transactions_genesis` for your network into the `lib_indy/YOUR_NETWQRK_NAME` folder. **The sub folder name has to match the `INDY_NETWORK_NAME` set in `.env` file!**
+Put `pool_transactions_genesis` and `domain_transactions_genesis` for your network into the `lib_indy/YOUR_NETWORK_NAME` folder. **The sub folder name has to match the `INDY_NETWORK_NAME` set in `.env` file!**
 
 Now is a good time to [setup IP Tables rules](#firewall-ip-tables), although you can also do this later.
 
@@ -69,7 +69,7 @@ Note down the created did and verkey and share it with your network peers for th
 ### Running the node
 
 ```
-indy-node-container/run$ docker-compose up -d
+indy-node-container/run$ docker compose up -d
 ```
 
 you might want to check logs, ledger info (see  e.gg. https://github.com/IDunion/Internal-Information/tree/main/Tools/get-validator-info ), etc 😉
@@ -151,7 +151,7 @@ You can set logging options globally fot the Docker Daemon for all Containers in
 }
 ```
 
-### Via docker-compose
+### Via docker compose
 
 See [docker-compose.yml](./docker-compose.yml):
 
@@ -168,7 +168,7 @@ services:
 
 ## Node Controller
 
-Our current approach to handle pool restarts is to have the node controller running in a separate service container which has access to the docker socket. You can run the node without the node controller with e.g. `docker-compose up --scale indy-controller=0`. Note however that such nodes will not participate in pool restarts.
+Our current approach to handle pool restarts is to have the node controller running in a separate service container which has access to the docker socket. You can run the node without the node controller with e.g. `docker compose up --scale indy-controller=0`. Note however that such nodes will not participate in pool restarts.
 
 If wou want to use the node controller, the variables `SOCK`, `NODE_CONTAINER_NAME`, `CONTROLLER_CONTAINER`, and `IMAGE_NAME_CONTROLLER` need to be set in the `.env` file. Appropriate default values are set in [the default file](/.env).
 

@@ -34,8 +34,8 @@ INTERFACE=$1
 echo "INTERFACE=${INTERFACE:=ens18}"
 
 # check if INTERFACE is set to an inet facing interface
-if ! ip a | grep inet | grep "$INTERFACE" >/dev/null; then
-    echo "[ERROR] interface '$INTERFACE' does not seem to be an internet facing interface"
+if ! ip a | grep inet | grep "${INTERFACE}" >/dev/null; then
+    echo "[ERROR] interface '${INTERFACE}' does not seem to be an internet facing interface"
     usage
     exit 1
 fi
@@ -61,17 +61,17 @@ echo
 echo "[...] Setting up iptables white list for ips that may access port ${INTERNAL_PORT} from file ${IP_FILE}"
 
 # 9701 whitelist approach: drop all others INCOMING (-i) connections
-add_new_rule $CHAIN -p tcp -i $INTERFACE --dport $INTERNAL_PORT -j DROP
+add_new_rule "${CHAIN}" -p tcp -i "${INTERFACE}" --dport "${INTERNAL_PORT}" -j DROP
 
 # 9701 create IP whitelist from file
 while read -r IP; do
     if [[ "$IP" != "#"* ]] && [[ "$IP" != "" ]]; then
-        add_new_rule $CHAIN -p tcp --dport $INTERNAL_PORT -s "$IP" -j ACCEPT
+        add_new_rule "${CHAIN}" -p tcp --dport "${INTERNAL_PORT}" -s "$IP" -j ACCEPT
     fi
 done <"$IP_FILE"
 
 # make sure, RETURN ist the last rule
-make_last_rule $CHAIN -j RETURN
+make_last_rule "${CHAIN}" -j RETURN
 
 echo "[OK] Connections to ${INTERNAL_PORT} only allowed from white listed ips."
 echo
@@ -80,7 +80,7 @@ echo "[...] Setting DOS protection on port ${CLI_PORT} via ${CLI_PORT_PROTECTION
 $CLI_PORT_PROTECTION_SCRIPT "${CLI_PORT}" "${OVER_ALL_CONN_LIMIT}" "${CONN_LIMIT_PER_IP}" "${CONN_RATE_LIMIT_LIMIT}" "${CONN_RATE_LIMIT_PERIOD}" debug
 
 # make sure, RETURN ist the last rule
-make_last_rule $CHAIN -j RETURN
+make_last_rule "${CHAIN}" -j RETURN
 
 echo "[OK] Rules for connections on port ${CLI_PORT} set."
 

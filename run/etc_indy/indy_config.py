@@ -24,7 +24,7 @@ REV_STRATEGY_USE_COMPAT_ORDERING=True
 
 ## Logging
 # 0 means everything
-logLevel = 1
+logLevel = 20
 
 # Enable/Disable stdout logging
 enableStdOutLogging = True
