@@ -6,7 +6,7 @@ The docker network will use the subnet 10.133.133.0/24. You may change that acco
 
 1. Check/Update `.env`, `docker-compose.yaml` and `init-test-network.sh` files - if you need to update the IP subnet, then the change must be made everywhere.
 2. Run `init-test-network.sh` to create genesis and key files.
-3. Run `docker-compose up` to start the network.
+3. Run `docker compose up` to start the network.
 4. Check the ledger browser at http://localhost:9000 .
-5. Use `docker-compose down` to shutdown the network.
+5. Use `docker compose down` to shutdown the network.
 
