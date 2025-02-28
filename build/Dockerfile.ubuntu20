@@ -5,7 +5,7 @@
 #
 # author: Robin Klemens <klemens@intnernet-sicherheit.de>
 
-FROM ubuntu:20.04
+FROM ubuntu:24.04
 
 RUN apt-get update -y && apt-get install -y \
     apt-transport-https \
