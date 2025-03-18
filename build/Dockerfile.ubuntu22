@@ -1,6 +1,6 @@
 # This container is to run indy-node.
 # This file is part of https://github.com/hyperledger/indy-node-container .
-# Copyright 2021-2022 by all people listed in https://github.com/hyperledger/indy-node-container/blob/main/NOTICE , see
+# Copyright 2021-2025 by all people listed in https://github.com/hyperledger/indy-node-container/blob/main/NOTICE , see
 # https://github.com/hyperledger/indy-node-container/blob/main/LICENSE for the license information.
 #
 
@@ -26,71 +26,44 @@ RUN truncate -s0 /tmp/preseed.cfg; \
         apt-transport-https \
         ca-certificates \
         gnupg2 \
-        software-properties-common 
-    ## ToDo remove unused packages
-#    libgflags-dev \
-    #libsnappy-dev \
-    #zlib1g-dev \
-    #libbz2-dev \
-    #liblz4-dev \
-    #libgflags-dev 
-#    python3-pip
+        software-properties-common \
+        wget \
+        zip
+        
     
+# build + install rocks db
+#RUN apt-get install -y --no-install-recommends apt-utils \
+#    && apt-get install -y \
+#        git gcc make g++ libgflags-dev libsnappy-dev zlib1g-dev libbz2-dev liblz4-dev libzstd-dev 
+#RUN git clone https://github.com/facebook/rocksdb.git /tmp/rocksdb \
+#    && cd /tmp/rocksdb \
+#    && make install-shared INSTALL_PATH=/usr \
+#    && rm -rf /tmp/rocksdb
 
-# RUN . .venv/bin/activate \
-#     && wget https://github.com/hyperledger/indy-plenum/releases/download/v1.13.1/plenum-python.zip \
-#     && unzip plenum-python.zip \
-#     && pip install -U 'setuptools==50.3.2' wheel\
-#     && pip install artifacts/plenum-python/indy_plenum-1.13.1-py3-none-any.whl
+RUN apt-get -y install \
+    python3-pip \
+    python3-rocksdb \
+    python3-dev \
+    python3-wheel   
 
 
+# install indy-node=1.13.2
+RUN cd /tmp/ \
+    && wget https://github.com/hyperledger/indy-plenum/releases/download/v1.13.1/plenum-python.zip \
+    && unzip plenum-python.zip \
+    && pip install artifacts/plenum-python/indy_plenum-1.13.1-py3-none-any.whl \
+    && rm -rf /tmp/*
 
-# RUN wget https://github.com/hyperledger/indy-plenum/releases/download/v1.13.1/plenum-deb.zip && \
-#     unzip plenum-deb.zip && \
-#     dpkg --install artifacts/plenum-deb/indy-plenum_1.13.1_amd64.deb
+RUN cd /tmp/ \
+    && wegt https://github.com/hyperledger/indy-node/releases/download/v1.13.2/indy_node-python.zip \
+    && unzip indy_node-python.zip \
+    && rm -rf /tmp/*
 
 
-
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3B4FE6ACC0B21F32 \
-    && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CE7709D068DB5E88 \
-    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 9692C00E657DDE61 
-
-COPY ./ubuntu20.sources.list /etc/apt/sources.list
-
-RUN apt-get update -y \
-     && apt-get install -y --allow-downgrades \
-     indy-node="1.13.2" \
-     indy-plenum=1.13.1 \
-     python3="3.8.2-0ubuntu2" \
-     python3.8="3.8.10-0ubuntu1~20.04.17" \
-     python3-minimal="3.8.2-0ubuntu2" \
-    #  python3-lib2to3="3.10.8-1~22.04" \
-    #  python3-pip="20.0.2-5ubuntu1.11" \
-     python3-importlib-metadata=3.10.1 \
-     python3-libnacl=1.6.1 \
-     python3-pympler=0.8 \
-     python3-sortedcontainers=1.5.7 \
-     python3-ujson=1.33 \
-     python3-distro=1.7.0 \
-     python3-libnacl=1.6.1 \
-     python3-rocksdb \
-     python3-sha3 \
-     python3-pkg-resources=45.2.0-1ubuntu0.2 \
-     rocksdb=5.8.8 \
-     libpython3-stdlib="3.8.2-0ubuntu2" \
-     libip4tc2=1.8.4-3ubuntu2.1 \
-     libbz2-1.0=1.0.8-2 \
-     liblz4-1=1.9.2-2ubuntu0.20.04.1 \
-     libcrypt-dev \
-     libc-dev-bin \
-     zlib1g=1:1.2.11.dfsg-2ubuntu1.5 \
-     libcrypt1=1:4.4.10-10ubuntu4 \
-     libc6=2.31-0ubuntu9.17 \
-     && apt-get clean -y \
-     && rm -rf /var/lib/apt/lists/* \
-     # fix path to libursa
-     && ln -s /usr/lib/ursa/libursa.so /usr/lib/libursa.so
-
+RUN apt-get clean -y \
+    && rm -rf /var/lib/apt/lists/* \
+    # fix path to libursa
+    && ln -s /usr/lib/ursa/libursa.so /usr/lib/libursa.so
 
 WORKDIR /home/indy
 
