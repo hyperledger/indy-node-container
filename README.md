@@ -15,13 +15,16 @@ See [here](run/) for instructions how to setup and run the indy node images from
 
 ## Images
 
-Currently we are providing the following stable indy node images. All those images use the latest Indy Node 1.12 version. The images differ by base image and are tagged accordingly:
+Currently we are providing the following stable indy node images. The images are tagged like `indy-version`-`os`-`container-version`, so e.g. `1.12.6-debian11-1.2.7` is a debian 11 based image with indy-node version `1.12.6`.
+
 
 - [Debian Bullseye 11](https://github.com/hyperledger/indy-node-container/pkgs/container/indy-node-container%2Findy_node/37273284?tag=latest-bullseye)
-
-Additionally, we build an experimental image for Indy node 1.13 RC testing:
-
+  - With indy-node 1.12.6
 - [Ubuntu 20](https://github.com/hyperledger/indy-node-container/pkgs/container/indy-node-container%2Findy_node/39147691?tag=latest-ubuntu20)
+  - With indy-node 1.13.2
+- [Ubuntu 22](https://github.com/hyperledger/indy-node-container/pkgs/container/indy-node-container%2Findy_node/39147691?tag=latest-ubuntu22)
+  - With indy-node 1.13.2
+  - :warning: Key generation is currently not working with this image, i.e. it may be used to upgrade a running node but not to initialize fresh keys for a new one
 
 See [here](run/) for instructions how to setup and run the images.
 
@@ -69,7 +72,7 @@ Be excellent to each other!
 
 ## License
 
-Copyright 2020-2022 by all parties listed in the [NOTICE](NOTICE) file
+Copyright 2020-2025 by all parties listed in the [NOTICE](NOTICE) file
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
