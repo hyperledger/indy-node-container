@@ -40,24 +40,63 @@ RUN truncate -s0 /tmp/preseed.cfg; \
 #    && make install-shared INSTALL_PATH=/usr \
 #    && rm -rf /tmp/rocksdb
 
-RUN apt-get -y install \
-    python3-pip \
-    python3-rocksdb \
-    python3-dev \
-    python3-wheel   
+# RUN apt-get -y install \
+#     python3-pip \
+#     python3-rocksdb \
+#     python3-dev \
+#     python3-wheel   
+
+# # install indy-node=1.13.2
+# RUN cd /tmp/ \
+#     && wget https://github.com/hyperledger/indy-plenum/releases/download/v1.13.1/plenum-python.zip \
+#     && unzip plenum-python.zip \
+#     && pip install artifacts/plenum-python/indy_plenum-1.13.1-py3-none-any.whl \
+#     && rm -rf /tmp/*
+
+# RUN cd /tmp/ \
+#     && wegt https://github.com/hyperledger/indy-node/releases/download/v1.13.2/indy_node-python.zip \
+#     && unzip indy_node-python.zip \
+#     && rm -rf /tmp/*
 
 
-# install indy-node=1.13.2
-RUN cd /tmp/ \
-    && wget https://github.com/hyperledger/indy-plenum/releases/download/v1.13.1/plenum-python.zip \
-    && unzip plenum-python.zip \
-    && pip install artifacts/plenum-python/indy_plenum-1.13.1-py3-none-any.whl \
-    && rm -rf /tmp/*
+# Dependencies for the (meta) dependency debs of indy-node
+RUN apt-get install -y \
+    python3-wcwidth \
+    python3-setuptools \
+    python3-pytest \
+    libgflags-dev \
+    libsnappy-dev \
+    zlib1g-dev \
+    libbz2-dev \
+    liblz4-dev
 
-RUN cd /tmp/ \
-    && wegt https://github.com/hyperledger/indy-node/releases/download/v1.13.2/indy_node-python.zip \
-    && unzip indy_node-python.zip \
-    && rm -rf /tmp/*
+
+# Bionic-security for libssl1.0.0 (ursa dependency)
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3B4FE6ACC0B21F32 \
+    && echo "deb http://security.ubuntu.com/ubuntu bionic-security main"  >> /etc/apt/sources.list
+
+# Sovrin for Ursa (plenum dependency)
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CE7709D068DB5E88 \
+    && bash -c 'echo "deb https://repo.sovrin.org/deb bionic master" >> /etc/apt/sources.list' \
+    && apt-get update \
+    && apt-get install -y \
+        ursa \
+        libsodium23 \
+        iptables \
+        at
+
+RUN cd /tmp/\
+    && for URL in https://github.com/hyperledger/indy-plenum/releases/download/v1.13.1/third-party-dependencies.zip \
+    https://github.com/hyperledger/indy-plenum/releases/download/v1.13.1/plenum-deb.zip \
+    https://github.com/hyperledger/indy-node/releases/download/v1.13.2/third-party-dependencies.zip \
+    https://github.com/hyperledger/indy-node/releases/download/v1.13.2/indy_node-deb.zip \
+    ; do \
+     echo "downloading $URL" \
+     && wget -nv $URL \
+     && unzip *.zip \
+     && dpkg -i artifacts/*/*.deb \
+     && rm -rf /tmp/* \
+     ; done
 
 
 RUN apt-get clean -y \
