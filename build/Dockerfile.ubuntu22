@@ -50,22 +50,27 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CE7709D068
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 9692C00E657DDE61 && \
     add-apt-repository "deb https://hyperledger.jfrog.io/artifactory/indy focal stable"
 
-# python3.8
-#RUN add-apt-repository ppa:deadsnakes/ppa -y \
-#    && apt-get install -y \
-#    python3.8 \
-#    python3.8-distutils \
-#    python3.8-venv
+
+# RUN add-apt-repository ppa:deadsnakes/ppa -y \
+#     && apt-get install -y \
+#     python3.7 \
+#     python3.7-venv \
+#     python3.7-dev \
+#     && python3.7 -m venv .venv
+
+# RUN . .venv/bin/activate \
+#     && wget https://github.com/hyperledger/indy-plenum/releases/download/v1.13.1/plenum-python.zip \
+#     && unzip plenum-python.zip \
+#     && pip install -U 'setuptools==50.3.2' wheel\
+#     && pip install artifacts/plenum-python/indy_plenum-1.13.1-py3-none-any.whl
+
 
 
 # RUN wget https://github.com/hyperledger/indy-plenum/releases/download/v1.13.1/plenum-deb.zip && \
 #     unzip plenum-deb.zip && \
 #     dpkg --install artifacts/plenum-deb/indy-plenum_1.13.1_amd64.deb
 
-# RUN wget https://github.com/hyperledger/indy-plenum/releases/download/v1.13.1/plenum-python.zip && \
-#     unzip plenum-python.zip && \
-#     pip install artifacts/plenum-python/indy_plenum-1.13.1-py3-none-any.whl
-
+ 
  RUN apt-get update -y \
      && apt-get install -y --allow-downgrades \
      indy-node="1.13.2" \
@@ -81,8 +86,6 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 9692C00E657DDE61 &&
      && rm -rf /var/lib/apt/lists/* \
      # fix path to libursa
      && ln -s /usr/lib/ursa/libursa.so /usr/lib/libursa.so
-
-
 
 
 WORKDIR /home/indy
