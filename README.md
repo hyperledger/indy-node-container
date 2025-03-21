@@ -15,11 +15,10 @@ See [here](run/) for instructions how to setup and run the indy node images from
 
 ## Images
 
-Currently we are providing the following stable indy node images. All those images use the latest Indy Node 1.12 version. The images differ by base image and are tagged accordingly:
+Currently we are providing the following stable indy node images. The images are tagged like `indy-version`-`os`-`container-version`, so e.g. `1.13.2-debian11-1.2.7` is a debian 11 based image with indy-node version `1.13.2`.
+
 
 - [Debian Bullseye 11](https://github.com/hyperledger/indy-node-container/pkgs/container/indy-node-container%2Findy_node/37273284?tag=latest-bullseye)
-
-Additionally, we build an experimental image for Indy node 1.13 RC testing:
 
 - [Ubuntu 20](https://github.com/hyperledger/indy-node-container/pkgs/container/indy-node-container%2Findy_node/39147691?tag=latest-ubuntu20)
 
