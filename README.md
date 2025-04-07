@@ -15,12 +15,12 @@ See [here](run/) for instructions how to setup and run the indy node images from
 
 ## Images
 
-Currently we are providing the following stable indy node images. The images are tagged like `indy-version`-`os`-`container-version`, so e.g. `1.13.2-debian11-1.2.7` is a debian 11 based image with indy-node version `1.13.2`.
 
+Currently we are providing the following stable indy node images. The images are tagged like`${INDY_NODE_VERSION}-${OS}-${CONTAINER_RELEASE_VERSION}`. E.g. `1.13.2-debian11-1.2.7` is a Debian 11 based image with indy-node version `1.13.2`.
 
-- [Debian Bullseye 11](https://github.com/hyperledger/indy-node-container/pkgs/container/indy-node-container%2Findy_node/37273284?tag=latest-bullseye)
-
-- [Ubuntu 20](https://github.com/hyperledger/indy-node-container/pkgs/container/indy-node-container%2Findy_node/39147691?tag=latest-ubuntu20)
+- [Debian 11 - Bullseye](https://github.com/hyperledger/indy-node-container/pkgs/container/indy-node-container%2Findy_node/320834582?tag=1.13.2-debian11-1.2)
+- [Debian 12 - Bookworm](https://github.com/hyperledger/indy-node-container/pkgs/container/indy-node-container%2Findy_node/320834582?tag=1.13.2-debian12-1.2)
+- [Ubuntu 20 - Focal](https://github.com/hyperledger/indy-node-container/pkgs/container/indy-node-container%2Findy_node/320834582?tag=1.13.2-ubuntu20-1.2)
 
 See [here](run/) for instructions how to setup and run the images.
 
