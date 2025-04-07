@@ -1,12 +1,13 @@
 # This container is to run indy-node.
 # This file is part of https://github.com/hyperledger/indy-node-container .
-# Copyright 2021-2022 by all people listed in https://github.com/hyperledger/indy-node-container/blob/main/NOTICE , see
+# Copyright 2021-2025 by all people listed in https://github.com/hyperledger/indy-node-container/blob/main/NOTICE , see
 # https://github.com/hyperledger/indy-node-container/blob/main/LICENSE for the license information.
-#
-# version: 1.2+2022-02-24
 
 
-FROM python:3.6-slim-bullseye as base
+FROM python:3.8-slim-bullseye
+
+
+ENV DEBIAN_FRONTEND=noninteractive
 
 # Install environment
 RUN apt-get update -y && apt-get upgrade -y && apt-get install -y \
@@ -17,57 +18,45 @@ RUN apt-get update -y && apt-get upgrade -y && apt-get install -y \
     gnupg2 \
     && apt-get autoremove -y
 
-# get node 1.12.4 dependencies from Ubtuntu 16 + sovrin repos
 RUN \
-    add-apt-repository "deb http://archive.ubuntu.com/ubuntu xenial universe" && \
-    add-apt-repository "deb http://archive.ubuntu.com/ubuntu xenial main" && \
-    add-apt-repository "deb http://archive.ubuntu.com/ubuntu xenial-security main" && \
-    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CE7709D068DB5E88 40976EAF437D05B5 3B4FE6ACC0B21F32 && \
-    add-apt-repository "deb https://repo.sovrin.org/deb xenial stable" 
-    
+    # Ubtuntu 16 + sovrin repos are needed for old plenum dependencies going back to libssl1.0.0
+    add-apt-repository "deb http://archive.ubuntu.com/ubuntu xenial universe" \
+    && add-apt-repository "deb http://archive.ubuntu.com/ubuntu xenial main" \
+    && add-apt-repository "deb http://archive.ubuntu.com/ubuntu xenial-security main" \
+    && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CE7709D068DB5E88 40976EAF437D05B5 3B4FE6ACC0B21F32 \
+    && add-apt-repository "deb https://repo.sovrin.org/deb xenial stable" \
+    # Hyperledger Artifactory for latest indy-node
+    && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 9692C00E657DDE61 \
+    && add-apt-repository "deb https://hyperledger.jfrog.io/artifactory/indy focal stable" \
+    # Prioritize packages from hyperledger.jfrog.io
+#    && printf '%s\n%s\n%s\n' 'Package: *' 'Pin: origin hyperledger.jfrog.io' 'Pin-Priority: 1001' >> /etc/apt/preferences \
+    && apt-get update -y
 
-RUN apt-get update -y && \
-    apt-get install -y --allow-downgrades \
-#    libssl1.0.0 \
-#    libsodium18 \
-#    libindy-crypto=0.4.5 \
-#    python3-indy-crypto=0.4.5 \
-    indy-node=1.12.6 \
-    # node depends on plenum
-    indy-plenum=1.12.6 \
-    #plenum dependencies
-    python3-ujson=1.33-1build1 \
-    python3-prompt-toolkit=0.57-1 \
-    python3-pygments=2.2.0 \
-    python3-rlp=0.5.1 \
-    python3-sha3=0.2.1 \
-    python3-leveldb=0~svn68-2build4 \
-    python3-sortedcontainers=1.5.7 \
-    python3-pip=8.1.1-2 \
-    python3-portalocker=0.5.7 \
+
+RUN apt-get install -y --allow-downgrades \
+    indy-node=1.13.2 \
+    indy-plenum=1.13.1 \
+    ursa=0.3.2-1 \
     python3-libnacl=1.6.1 \
-    python3-six=1.11.0 \
-    python3-intervaltree=2.1.0 \
-    python3-msgpack=0.4.6-1build1 \
-    python3-rocksdb=0.6.9 \
-    python3-dateutil=2.6.1 \
-    # meta dependencies of those python packages
-    python3-setuptools=38.5.2 \
-    python-pip-whl=8.1.1-2 \
-    # plenum in particular depends on python 3.5
-    python3=3.5.1-3 \
-    python3-minimal=3.5.1-3 \
-    libpython3-stdlib=3.5.1-3 \
-    dh-python=2.20151103ubuntu1.2 \
-    python3-distro=1.3.0 \
-    python3-base58=1.0.0 \
-    python3-psutil=5.4.3 \
-    python3-packaging=19.0 \
-    python3-jsonpickle=0.9.6 \
-    python3-semver=2.7.9 \
-    python3-pympler=0.5 \
-    #
-    && apt-get autoremove -y
+    python3-pympler=0.8 \
+    python3-sortedcontainers=1.5.7 \
+    python3-ujson=1.33 \
+    && apt-get autoremove -y \
+    && apt-get clean
+
+RUN rm -rf /var/lib/apt/lists/*
+
+ENV PYTHONPATH="/usr/local/lib/python3.8:/usr/local/lib/python3.8/dist-packages/:/usr/local/lib/python3.5/dist-packages/:/usr/local/lib/python3.9/dist-packages/"
+
+
+# use python 3.8
+RUN rm /usr/bin/python3 && ln -s /usr/local/bin/python3 /usr/bin/python3
+
+# find lib ursa
+RUN ln -s /usr/lib/ursa/libursa.so /usr/lib/libursa.so
+
+# missing python packages
+RUN pip install zipp six rocksdb
 
 
 WORKDIR /home/indy
