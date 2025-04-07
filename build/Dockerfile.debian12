@@ -18,11 +18,12 @@ RUN apt-get update -y && apt-get upgrade -y && apt-get install -y \
     gnupg2 \
     && apt-get autoremove -y
 
-# get node dependencies from Ubtuntu 16 + sovrin repos
+
 RUN \
-    add-apt-repository "deb http://archive.ubuntu.com/ubuntu xenial universe" \
-    && add-apt-repository "deb http://archive.ubuntu.com/ubuntu xenial main" \
-    && add-apt-repository "deb http://archive.ubuntu.com/ubuntu xenial-security main" \
+    # Ubtuntu 16 + sovrin repos are needed for old plenum dependencies going back to libssl1.0.0
+    add-apt-repository "deb http://archive.ubuntu.com/ubuntu focal universe" \
+    && add-apt-repository "deb http://archive.ubuntu.com/ubuntu focal main" \
+    && add-apt-repository "deb http://archive.ubuntu.com/ubuntu focal-security main" \
     && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CE7709D068DB5E88 40976EAF437D05B5 3B4FE6ACC0B21F32 \
     && add-apt-repository "deb https://repo.sovrin.org/deb xenial stable" \
     # Hyperledger Artifactory for latest indy-node
