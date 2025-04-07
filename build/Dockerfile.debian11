@@ -18,8 +18,8 @@ RUN apt-get update -y && apt-get upgrade -y && apt-get install -y \
     gnupg2 \
     && apt-get autoremove -y
 
-# get node dependencies from Ubtuntu 16 + sovrin repos
 RUN \
+    # Ubtuntu 16 + sovrin repos are needed for old plenum dependencies going back to libssl1.0.0
     add-apt-repository "deb http://archive.ubuntu.com/ubuntu xenial universe" \
     && add-apt-repository "deb http://archive.ubuntu.com/ubuntu xenial main" \
     && add-apt-repository "deb http://archive.ubuntu.com/ubuntu xenial-security main" \
