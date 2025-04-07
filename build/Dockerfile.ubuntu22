@@ -2,7 +2,7 @@
 # This file is part of https://github.com/hyperledger/indy-node-container .
 # Copyright 2021-2025 by all people listed in https://github.com/hyperledger/indy-node-container/blob/main/NOTICE , see
 # https://github.com/hyperledger/indy-node-container/blob/main/LICENSE for the license information.
-#
+
 
 FROM ubuntu:22.04
 
@@ -32,34 +32,6 @@ RUN  apt-get update \
         wget \
         zip
         
-    
-# build + install rocks db
-#RUN apt-get install -y --no-install-recommends apt-utils \
-#    && apt-get install -y \
-#        git gcc make g++ libgflags-dev libsnappy-dev zlib1g-dev libbz2-dev liblz4-dev libzstd-dev 
-#RUN git clone https://github.com/facebook/rocksdb.git /tmp/rocksdb \
-#    && cd /tmp/rocksdb \
-#    && make install-shared INSTALL_PATH=/usr \
-#    && rm -rf /tmp/rocksdb
-
-# RUN apt-get -y install \
-#     python3-pip \
-#     python3-rocksdb \
-#     python3-dev \
-#     python3-wheel   
-
-# # install indy-node=1.13.2
-# RUN cd /tmp/ \
-#     && wget https://github.com/hyperledger/indy-plenum/releases/download/v1.13.1/plenum-python.zip \
-#     && unzip plenum-python.zip \
-#     && pip install artifacts/plenum-python/indy_plenum-1.13.1-py3-none-any.whl \
-#     && rm -rf /tmp/*
-
-# RUN cd /tmp/ \
-#     && wegt https://github.com/hyperledger/indy-node/releases/download/v1.13.2/indy_node-python.zip \
-#     && unzip indy_node-python.zip \
-#     && rm -rf /tmp/*
-
 
 # Dependencies for the (meta) dependency debs of indy-node
 RUN apt-get update && \
