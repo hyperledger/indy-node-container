@@ -52,6 +52,9 @@ ENV PYTHONPATH="/usr/local/lib/python3.8:/usr/local/lib/python3.8/dist-packages/
 # use python 3.8
 RUN rm /usr/bin/python3 && ln -s /usr/local/bin/python3 /usr/bin/python3
 
+# find lib ursa
+RUN ln -s /usr/lib/ursa/libursa.so /usr/lib/libursa.so
+
 # missing python packages
 RUN pip install zipp six rocksdb
 
