@@ -19,8 +19,10 @@ RUN truncate -s0 /tmp/preseed.cfg; \
     echo "${PRESEED_TIMEZONE_AREA}" >> /tmp/preseed.cfg; \
     echo "${PRESEED_TIMEZONE}" >> /tmp/preseed.cfg; \
     debconf-set-selections /tmp/preseed.cfg \
-    && rm -f /etc/timezone /etc/localtime \
-    && apt-get update \
+    && rm -f /etc/timezone /etc/localtime
+
+RUN  apt-get update \
+    && apt-get upgrade -y \
     && apt-get install -y \
         tzdata \
         apt-transport-https \
@@ -60,10 +62,12 @@ RUN truncate -s0 /tmp/preseed.cfg; \
 
 
 # Dependencies for the (meta) dependency debs of indy-node
-RUN apt-get install -y \
+RUN apt-get update && \
+    apt-get install -y \
     python3-wcwidth \
     python3-setuptools \
     python3-pytest \
+    python3-pip \
     libgflags-dev \
     libsnappy-dev \
     zlib1g-dev \
@@ -85,6 +89,8 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CE7709D068
         iptables \
         at
 
+
+# official indy node + plenum release packages from github
 RUN cd /tmp/\
     && for URL in https://github.com/hyperledger/indy-plenum/releases/download/v1.13.1/third-party-dependencies.zip \
     https://github.com/hyperledger/indy-plenum/releases/download/v1.13.1/plenum-deb.zip \
@@ -99,10 +105,17 @@ RUN cd /tmp/\
      ; done
 
 
-RUN apt-get clean -y \
-    && rm -rf /var/lib/apt/lists/* \
-    # fix path to libursa
-    && ln -s /usr/lib/ursa/libursa.so /usr/lib/libursa.so
+# install and use python 3.8 (plenum does not run on python 3.10)
+RUN pip install six \
+    && add-apt-repository ppa:deadsnakes/ppa \
+    && apt-get install -y python3.8 \
+    && rm /usr/bin/python3 \
+    && ln -s /usr/bin/python3.8 /usr/bin/python3
+
+ENV PYTHONPATH="/usr/local/lib/python3.8:/usr/local/lib/python3.8/dist-packages/:/usr/local/lib/python3.8/site-packages/:/usr/local/lib/python3.10/dist-packages/"
+
+# fix path to libursa
+RUN ln -s /usr/lib/ursa/libursa.so /usr/lib/libursa.so
 
 WORKDIR /home/indy
 
@@ -111,3 +124,5 @@ COPY init_and_run.sh ./
 CMD ["./init_and_run.sh"]
 
 VOLUME ["/var/log/indy"]
+
+RUN apt-get clean -y && rm -rf /var/lib/apt/lists/*

@@ -7,7 +7,9 @@
 
 FROM ubuntu:20.04
 
-RUN apt-get update -y && apt-get install -y \
+RUN apt-get update -y \
+    && apt-get upgrade -y \
+    && apt-get install -y \
     apt-transport-https \
     ca-certificates \
     gnupg2 \
