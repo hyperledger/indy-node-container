@@ -1,0 +1,79 @@
+# This container is to run indy-node.
+# This file is part of https://github.com/hyperledger/indy-node-container .
+# Copyright 2021-2025 by all people listed in https://github.com/hyperledger/indy-node-container/blob/main/NOTICE , see
+# https://github.com/hyperledger/indy-node-container/blob/main/LICENSE for the license information.
+
+
+FROM python:3.8-slim-bookworm
+
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install environment
+RUN apt-get update -y && apt-get upgrade -y && apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
+    software-properties-common \
+    iproute2 \
+    gnupg2 \
+    && apt-get autoremove -y
+
+
+RUN \
+    # Ubtuntu 16 + sovrin repos are needed for old plenum dependencies going back to libssl1.0.0
+    add-apt-repository "deb http://archive.ubuntu.com/ubuntu xenial universe" \
+    && add-apt-repository "deb http://archive.ubuntu.com/ubuntu xenial main" \
+    && add-apt-repository "deb http://archive.ubuntu.com/ubuntu xenial-security main" \
+    && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CE7709D068DB5E88 40976EAF437D05B5 3B4FE6ACC0B21F32 \
+    && add-apt-repository "deb https://repo.sovrin.org/deb xenial stable" \
+    # Hyperledger Artifactory for latest indy-node
+    && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 9692C00E657DDE61 \
+    && add-apt-repository "deb https://hyperledger.jfrog.io/artifactory/indy focal stable" \
+    # Prioritize packages from hyperledger.jfrog.io
+#    && printf '%s\n%s\n%s\n' 'Package: *' 'Pin: origin hyperledger.jfrog.io' 'Pin-Priority: 1001' >> /etc/apt/preferences \
+    && apt-get update -y
+
+
+RUN apt-get install -y --allow-downgrades \
+    indy-node=1.13.2 \
+    indy-plenum=1.13.1 \
+    ursa=0.3.2-1 \
+    python3-libnacl=1.6.1 \
+    python3-pympler=0.8 \
+    python3-sortedcontainers=1.5.7 \
+    python3-ujson=1.33 \
+    python3-importlib-metadata=3.10.1 \
+    python3-distro=1.7.0 \
+    && apt-get autoremove -y \
+    && apt-get clean
+
+
+ENV PYTHONPATH="/usr/local/lib/python3.8:/usr/local/lib/python3.8/dist-packages/:/usr/local/lib/python3.8/site-packages/:/usr/local/lib/python3.11/dist-packages/"
+
+
+# use python 3.8
+RUN rm /usr/bin/python3 && ln -s /usr/local/bin/python3 /usr/bin/python3
+
+# find lib ursa
+RUN ln -s /usr/lib/ursa/libursa.so /usr/lib/libursa.so
+
+# `sha3` is broken -> use `pysha3` instead
+RUN rm -rf /usr/local/lib/python3.8/dist-packages/*sha3*
+
+# needed for pip install pysha3
+RUN apt-get install -y gcc
+
+# missing python packages
+RUN pip install tz python-dateutil pysha3 zipp six rocksdb orderedset packaging prompt_toolkit
+
+
+WORKDIR /home/indy
+
+COPY init_and_run.sh ./
+
+
+CMD ["./init_and_run.sh"]
+
+VOLUME ["/var/log/indy"]
+
+RUN rm -rf /var/lib/apt/lists/*
