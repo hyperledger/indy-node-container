@@ -6,7 +6,7 @@
 
 FROM python:3.8-slim-bullseye
 
-LABEL org.opencontainers.image.description "Debian 11 based image to run indy-node. See https://github.com/hyperledger/indy-node-container"
+LABEL org.opencontainers.image.description="Debian 11 based image to run indy-node. See https://github.com/hyperledger/indy-node-container"
 
 ENV DEBIAN_FRONTEND=noninteractive
 
