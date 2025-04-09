@@ -6,7 +6,7 @@
 
 FROM ubuntu:20.04
 
-LABEL org.opencontainers.image.description "Ubuntu 20.04 based image to run indy-node. See https://github.com/hyperledger/indy-node-container"
+LABEL org.opencontainers.image.description="Ubuntu 20.04 based image to run indy-node. See https://github.com/hyperledger/indy-node-container"
 
 RUN apt-get update -y \
     && apt-get upgrade -y \
