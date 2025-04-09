@@ -209,6 +209,8 @@ jobs:
         shell: bash
         run: |
           export nodeVersion=$(sed "s/~/-/" <<<$(grep -oP "indy-node=\"?\d+.\d+.\d+((~|.)?rc\d+)?\"?" build/Dockerfile.${{ matrix.os_version }} | grep -oP "\d+.\d+.\d+((~|.|-)?rc\d+)?"))
+          if [[ "${nodeVersion}" == "" ]]; then export nodeVersion=$(sed "s/~/-/" <<<$(grep -oP "indy-node/releases/download/v\"?\d+.\d+.\d+((~|.)?rc\d+)?\"?" build/Dockerfile.${{ matrix.os_version }} | grep -oP "\d+.\d+.\d+((~|.|-)?rc\d+)?")); fi
+          if [[ "${nodeVersion}" == "" ]]; then echo "::error::could determine node version for tagging."; exit 1; fi
           echo "::debug::IndyNode Version is ${nodeVersion}"
           echo "::group::DEBUG"  
           echo "IndyNode Version is ${nodeVersion}"
