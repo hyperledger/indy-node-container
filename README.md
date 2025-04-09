@@ -15,12 +15,16 @@ See [here](run/) for instructions how to setup and run the indy node images from
 
 ## Images
 
+We are providing indy node images tagged like`${INDY_NODE_VERSION}-${OS}-${CONTAINER_RELEASE_VERSION}`. E.g. `1.13.2-debian11-1.2.7` is a Debian 11 based image with indy-node version `1.13.2`.
 
-Currently we are providing the following stable indy node images. The images are tagged like`${INDY_NODE_VERSION}-${OS}-${CONTAINER_RELEASE_VERSION}`. E.g. `1.13.2-debian11-1.2.7` is a Debian 11 based image with indy-node version `1.13.2`.
+- [See here](https://github.com/hyperledger/indy-node-container/pkgs/container/indy-node-container%2Findy_node/versions?filters%5Bversion_type%5D=tagged) for all tagged versions
 
-- [Debian 11 - Bullseye](https://github.com/hyperledger/indy-node-container/pkgs/container/indy-node-container%2Findy_node/320834582?tag=1.13.2-debian11-1.2)
-- [Debian 12 - Bookworm](https://github.com/hyperledger/indy-node-container/pkgs/container/indy-node-container%2Findy_node/320834582?tag=1.13.2-debian12-1.2)
-- [Ubuntu 20 - Focal](https://github.com/hyperledger/indy-node-container/pkgs/container/indy-node-container%2Findy_node/320834582?tag=1.13.2-ubuntu20-1.2)
+We have stopped providing older indy-node versions, new releases are only build for indy 1.13.2. We currently build from the base images
+
+- [Debian 11 - Bullseye](./build/Dockerfile.debian11)
+- [Debian 12 - Bookworm](./build/Dockerfile.debian12)
+- [Ubuntu 20 - Focal](./build/Dockerfile.ubuntu20)
+- [Ubuntu 22 - jammy](./build/Dockerfile.ubuntu22)
 
 See [here](run/) for instructions how to setup and run the images.
 
@@ -68,7 +72,7 @@ Be excellent to each other!
 
 ## License
 
-Copyright 2020-2022 by all parties listed in the [NOTICE](NOTICE) file
+Copyright 2020-2025 by all parties listed in the [NOTICE](NOTICE) file
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

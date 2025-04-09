@@ -1,13 +1,16 @@
 # This container is to run indy-node.
 # This file is part of https://github.com/hyperledger/indy-node-container .
-# Copyright 2021-2022 by all people listed in https://github.com/hyperledger/indy-node-container/blob/main/NOTICE , see
+# Copyright 2021-2025 by all people listed in https://github.com/hyperledger/indy-node-container/blob/main/NOTICE , see
 # https://github.com/hyperledger/indy-node-container/blob/main/LICENSE for the license information.
-#
-# author: Robin Klemens <klemens@intnernet-sicherheit.de>
+
 
 FROM ubuntu:20.04
 
-RUN apt-get update -y && apt-get install -y \
+LABEL org.opencontainers.image.description="Ubuntu 20.04 based image to run indy-node. See https://github.com/hyperledger/indy-node-container"
+
+RUN apt-get update -y \
+    && apt-get upgrade -y \
+    && apt-get install -y \
     apt-transport-https \
     ca-certificates \
     gnupg2 \

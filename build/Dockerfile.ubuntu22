@@ -1,0 +1,102 @@
+# This container is to run indy-node.
+# This file is part of https://github.com/hyperledger/indy-node-container .
+# Copyright 2021-2025 by all people listed in https://github.com/hyperledger/indy-node-container/blob/main/NOTICE , see
+# https://github.com/hyperledger/indy-node-container/blob/main/LICENSE for the license information.
+
+
+FROM ubuntu:22.04
+
+LABEL org.opencontainers.image.description="Ubuntu 22.04 based image to run indy-node. See https://github.com/hyperledger/indy-node-container"
+
+ARG PRESEED_TIMEZONE_AREA "tzdata tzdata/Areas select Europe"
+ARG PRESEED_TIMEZONE "tzdata tzdata/Zones/Europe select Berlin"
+
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV DEBCONF_NONINTERACTIVE_SEEN=true
+ENV PRESEED_TIMEZONE_AREA=${PRESEED_TIMEZONE_AREA}
+ENV PRESEED_TIMEZONE=${PRESEED_TIMEZONE}
+
+RUN truncate -s0 /tmp/preseed.cfg; \
+    echo "${PRESEED_TIMEZONE_AREA}" >> /tmp/preseed.cfg; \
+    echo "${PRESEED_TIMEZONE}" >> /tmp/preseed.cfg; \
+    debconf-set-selections /tmp/preseed.cfg \
+    && rm -f /etc/timezone /etc/localtime
+
+RUN  apt-get update \
+    && apt-get upgrade -y \
+    && apt-get install -y \
+        tzdata \
+        apt-transport-https \
+        ca-certificates \
+        gnupg2 \
+        software-properties-common \
+        wget \
+        zip
+        
+
+# Dependencies for the (meta) dependency debs of indy-node
+RUN apt-get update && \
+    apt-get install -y \
+    python3-wcwidth \
+    python3-setuptools \
+    python3-pytest \
+    python3-pip \
+    libgflags-dev \
+    libsnappy-dev \
+    zlib1g-dev \
+    libbz2-dev \
+    liblz4-dev
+
+
+# Bionic-security for libssl1.0.0 (ursa dependency)
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3B4FE6ACC0B21F32 \
+    && echo "deb http://security.ubuntu.com/ubuntu bionic-security main"  >> /etc/apt/sources.list
+
+# Sovrin for Ursa (plenum dependency)
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CE7709D068DB5E88 \
+    && bash -c 'echo "deb https://repo.sovrin.org/deb bionic master" >> /etc/apt/sources.list' \
+    && apt-get update \
+    && apt-get install -y \
+        ursa \
+        libsodium23 \
+        iptables \
+        at
+
+
+# official indy node + plenum release packages from github
+RUN cd /tmp/\
+    && for URL in https://github.com/hyperledger/indy-plenum/releases/download/v1.13.1/third-party-dependencies.zip \
+    https://github.com/hyperledger/indy-plenum/releases/download/v1.13.1/plenum-deb.zip \
+    https://github.com/hyperledger/indy-node/releases/download/v1.13.2/third-party-dependencies.zip \
+    https://github.com/hyperledger/indy-node/releases/download/v1.13.2/indy_node-deb.zip \
+    ; do \
+     echo "downloading $URL" \
+     && wget -nv $URL \
+     && unzip *.zip \
+     && dpkg -i artifacts/*/*.deb \
+     && rm -rf /tmp/* \
+     ; done
+
+
+# install and use python 3.8 (plenum does not run on python 3.10)
+RUN pip install six \
+    && add-apt-repository ppa:deadsnakes/ppa \
+    && apt-get install -y python3.8 \
+    && rm /usr/bin/python3 \
+    && ln -s /usr/bin/python3.8 /usr/bin/python3
+
+ENV PYTHONPATH="/usr/local/lib/python3.8:/usr/local/lib/python3.8/dist-packages/:/usr/local/lib/python3.8/site-packages/:/usr/local/lib/python3.10/dist-packages/"
+
+# fix path to libursa
+RUN ln -s /usr/lib/ursa/libursa.so /usr/lib/libursa.so
+
+WORKDIR /home/indy
+
+COPY init_and_run.sh ./
+
+CMD ["./init_and_run.sh"]
+
+VOLUME ["/var/log/indy"]
+
+RUN apt-get clean -y && rm -rf /var/lib/apt/lists/*
