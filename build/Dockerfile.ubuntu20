@@ -27,9 +27,9 @@ RUN apt-get update -y \
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3B4FE6ACC0B21F32 \
     && echo "deb http://security.ubuntu.com/ubuntu bionic-security main"  >> /etc/apt/sources.list
 
-# Sovrin
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CE7709D068DB5E88 \
-    && bash -c 'echo "deb https://repo.sovrin.org/deb bionic master" >> /etc/apt/sources.list'
+# Hyperledger Indy Artifactory for Ursa (plenum dependency)
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 9692C00E657DDE61 \
+    && bash -c 'echo "deb https://hyperledger.jfrog.io/artifactory/indy bionic master" >> /etc/apt/sources.list'
 
 # Hyperledger Artifactory
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 9692C00E657DDE61 \
